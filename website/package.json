@@ -1,5 +1,5 @@
 {
-  "name": "z-engine-website",
+  "name": "hyperform-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
+    "estree-walker": "^2.0.2",
     "mermaid": "^11.17.2",
     "vite": "^5.4.21",
     "vitepress": "^1.6.4",

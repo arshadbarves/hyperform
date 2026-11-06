@@ -2,9 +2,9 @@ name: ci
 
 on:
   push:
-    branches: [v2, release]
+    branches: [main, release]
   pull_request:
-
+    branches: [main, release]
 # Hosted runners OOM / lose heartbeat when cargo builds and runs the full
 # suite at default parallelism (debuginfo + many engine integration tests).
 env:
