@@ -132,7 +132,7 @@ fn repository_excludes(c: &mut Collector) -> Vec<Arc<Rules>> {
 }
 
 /// Never scanned, ignored or not: VCS data, dependencies, build output,
-/// caches, and z-engine state (worktrees hold copies of the project).
+/// caches, and hyperform state (worktrees hold copies of the project).
 fn skipped_dir(name: &str) -> bool {
     matches!(
         name,
@@ -140,7 +140,7 @@ fn skipped_dir(name: &str) -> bool {
             | ".hg"
             | ".svn"
             | ".jj"
-            | ".z-engine"
+            | ".hyperform"
             | "node_modules"
             | "bower_components"
             | "target"

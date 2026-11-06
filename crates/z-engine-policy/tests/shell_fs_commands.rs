@@ -82,7 +82,7 @@ fn destructive_or_unknown_targets_never_qualify() {
         "mkdir $DIR",
         "rm -rf .git",
         "touch .git/hooks/pre-commit",
-        "cp evil .z-engine/settings.json",
+        "cp evil .hyperform/settings.json",
         "mv x .claude/settings.local.json",
         "sed -i 's/a/b/w /etc/cron.d/x' f",
         "sed -i s/a/b/ /etc/hosts",

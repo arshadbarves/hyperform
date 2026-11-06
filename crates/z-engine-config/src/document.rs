@@ -14,7 +14,7 @@ use crate::settings::Settings;
 /// The settings schema this crate reads and writes.
 pub const SCHEMA_VERSION: i64 = 2;
 
-const HEADER: &str = "# Z Engine settings. The app rewrites this file when settings change,\n# so comments added here are not kept.\n";
+const HEADER: &str = "# HyperForm AI settings. The app rewrites this file when settings change,\n# so comments added here are not kept.\n";
 
 static FILE_LOCK: Mutex<()> = Mutex::new(());
 
@@ -114,7 +114,7 @@ mod tests {
             )])),
         );
         let text = render(&table).unwrap();
-        assert!(text.starts_with("# Z Engine settings"));
+        assert!(text.starts_with("# HyperForm AI settings"));
         let back: Table = toml::from_str(&text).unwrap();
         assert_eq!(back, table);
     }

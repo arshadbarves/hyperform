@@ -59,7 +59,7 @@ runs. That is usually the quickest clue.
   **Active**, not **Active · needs a key**.
 - Keys are stored per API host. A custom endpoint or a changed base URL
   needs its own key.
-- An environment variable wins over a stored key: `ZENGINE_API_KEY` first,
+- An environment variable wins over a stored key: `HYPERFORM_API_KEY` first,
   then `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or
   `OPENCODE_API_KEY`. A stale variable can hide the key you stored.
 - "stored API keys are unreadable" means `auth.json` is damaged; HyperForm
@@ -92,7 +92,7 @@ shaped session id, and `shell`/`read` tools). HyperForm sends that for
   (Settings > Providers)", followed by "provider returned HTTP 401" or
   "403" – the token was revoked, has no Copilot access, or came from
   another app. Click **Sign in again** in the GitHub Copilot dialog. A
-  `ZENGINE_API_KEY` in your environment is sent instead of the stored
+  `HYPERFORM_API_KEY` in your environment is sent instead of the stored
   token, so unset it.
 - "GitHub Copilot model *X* is disabled for this account: enable it in
   your GitHub Copilot settings" – turn the model on in your Copilot

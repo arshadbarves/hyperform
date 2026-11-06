@@ -146,7 +146,8 @@ impl ScratchIndex {
     async fn create(repo_root: &Path) -> Result<ScratchIndex, HostError> {
         let real = git(repo_root, &["rev-parse", "--git-path", "index"]).await?;
         let real = repo_root.join(real.trim());
-        let path = std::env::temp_dir().join(format!("zengine-apply-{}.index", ulid::Ulid::new()));
+        let path =
+            std::env::temp_dir().join(format!("hyperform-apply-{}.index", ulid::Ulid::new()));
         match std::fs::copy(&real, &path) {
             Ok(_) => Ok(ScratchIndex { path }),
             // No index yet: git starts the scratch index empty.

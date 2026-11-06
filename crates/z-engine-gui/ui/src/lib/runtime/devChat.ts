@@ -7,14 +7,14 @@ type DevHooks = { longChat?: (turns?: number) => string };
 
 /**
  * Dev builds only (main.ts loads this behind `import.meta.env.DEV`): run
- * `__zengine.longChat(1000)` in the webview console to open a finished,
+ * `__hyperform.longChat(1000)` in the webview console to open a finished,
  * local-only chat of that many turns for performance checks. It never
  * reaches the engine; the chat is gone on reload.
  */
 export function installDevChat(): void {
-  const target = globalThis as typeof globalThis & { __zengine?: DevHooks };
-  target.__zengine = {
-    ...target.__zengine,
+  const target = globalThis as typeof globalThis & { __hyperform?: DevHooks; __zengine?: DevHooks };
+  target.__hyperform = {
+    ...target.__hyperform,
     longChat(turns = 1000) {
       const id = `dev-long-chat-${turns}-${Date.now()}`;
       const workspaces = workspaceStore.getSnapshot();
@@ -26,4 +26,5 @@ export function installDevChat(): void {
       return id;
     },
   };
+  target.__zengine = target.__hyperform;
 }

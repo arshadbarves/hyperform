@@ -133,12 +133,12 @@ mod tests {
         assert!(protected("/p/vendor/lib/.git/hooks/pre-commit"));
         assert!(protected("/p/.GIT/config"));
         assert!(protected("/p/.hyperform/settings.json"));
-        assert!(protected("/p/.z-engine/settings.json"));
+        assert!(protected("/p/.hyperform/settings.json"));
         assert!(protected("/p/.claude/settings.json"));
         assert!(protected("/p/.claude/settings.local.json"));
         assert!(protected("/p/.mcp.json"));
         assert!(!protected("/p/.claude/agents/reviewer.md"));
-        assert!(!protected("/p/docs/.z-engine/notes.md"));
+        assert!(!protected("/p/docs/.hyperform/notes.md"));
         assert!(!protected("/p/src/git/mod.rs"));
         assert!(!protected("/elsewhere/.git/config"));
     }

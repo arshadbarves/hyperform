@@ -1,7 +1,6 @@
 # HyperForm AI settings (v2). Every key is optional: commented lines show the
 # default or an example. Project settings live in <project>/.hyperform/settings.toml
 # and personal project overrides in <project>/.hyperform/settings.local.toml.
-# A legacy config.toml or .z-engine folder is supported for seamless import.
 # API keys are stored in auth.json next to this file, never here.
 schema = 2
 

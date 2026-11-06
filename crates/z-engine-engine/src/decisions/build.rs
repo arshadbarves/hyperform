@@ -163,11 +163,11 @@ mod tests {
     #[test]
     fn a_missing_key_variable_is_reported() {
         let decisions = DecisionSettings {
-            api_key_env: Some("ZENGINE_TEST_SURELY_UNSET_KEY".into()),
+            api_key_env: Some("HYPERFORM_TEST_SURELY_UNSET_KEY".into()),
             ..DecisionSettings::default()
         };
         let error = api_key(&decisions).unwrap_err();
-        assert!(error.contains("ZENGINE_TEST_SURELY_UNSET_KEY"));
+        assert!(error.contains("HYPERFORM_TEST_SURELY_UNSET_KEY"));
         assert_eq!(api_key(&DecisionSettings::default()), Ok(None));
     }
 }

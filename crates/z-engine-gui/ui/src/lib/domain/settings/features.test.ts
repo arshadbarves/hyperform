@@ -14,7 +14,7 @@ const spec = (overrides: Partial<FeatureSpec>): FeatureSpec => ({
   supportsShadow: true,
   available: true,
   requires: null,
-  owner: "z-engine core",
+  owner: "hyperform core",
   graduationCriteria: "fewer tokens",
   ...overrides,
 });

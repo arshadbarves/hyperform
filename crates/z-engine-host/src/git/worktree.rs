@@ -11,8 +11,8 @@ use crate::fs::{atomic_write_sync, is_within};
 
 /// Hooks may run test suites.
 const COMMIT_TIMEOUT: Duration = Duration::from_secs(300);
-const FALLBACK_NAME: &str = "user.name=Z Engine";
-const FALLBACK_EMAIL: &str = "user.email=zengine@localhost";
+const FALLBACK_NAME: &str = "user.name=HyperForm AI";
+const FALLBACK_EMAIL: &str = "user.email=hyperform@localhost";
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct WorktreeHandle {
@@ -93,7 +93,7 @@ pub async fn create_worktree(
 }
 
 /// Stages everything and commits (hooks run as usual). `None` when there
-/// was nothing to commit. A missing identity falls back to "Z Engine" for
+/// was nothing to commit. A missing identity falls back to "HyperForm AI" for
 /// this one command only.
 pub async fn commit_all(worktree_path: &Path, message: &str) -> Result<Option<String>, HostError> {
     git(worktree_path, &["add", "-A"]).await?;

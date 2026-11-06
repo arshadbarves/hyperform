@@ -63,7 +63,7 @@ mod tests {
         let out = render_instructions(&[
             doc(
                 "User instructions",
-                "/home/u/.z-engine/AGENTS.md",
+                "/home/u/.hyperform/AGENTS.md",
                 "Be terse.\n",
             ),
             doc("Empty", "/x", ""),
@@ -76,7 +76,7 @@ mod tests {
         .unwrap();
         assert!(out.starts_with(INSTRUCTIONS_PREAMBLE.trim()));
         let user = out
-            .find("# User instructions — /home/u/.z-engine/AGENTS.md\n\nBe terse.")
+            .find("# User instructions — /home/u/.hyperform/AGENTS.md\n\nBe terse.")
             .unwrap();
         let project = out
             .find("# Project instructions (AGENTS.md) — /work/app/AGENTS.md\n\nRun clippy.")

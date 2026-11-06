@@ -15,11 +15,11 @@ use super::{AgentDef, CommandDef, OutputStyleDef, RuleDef, SkillDef};
 pub enum ExtensionScope {
     /// `~/.claude/`
     ClaudeUser,
-    /// The z-engine config directory.
+    /// The hyperform config directory.
     User,
     /// `<project>/.claude/`
     ClaudeProject,
-    /// `<project>/.z-engine/`
+    /// `<project>/.hyperform/`
     Project,
 }
 

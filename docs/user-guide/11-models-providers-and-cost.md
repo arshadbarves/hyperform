@@ -59,7 +59,7 @@ A key is only sent to its own host.
 
 HyperForm looks for a key in this order:
 
-1. `ZENGINE_API_KEY` – used for whichever provider is configured;
+1. `HYPERFORM_API_KEY` – used for whichever provider is configured;
 2. the provider's own variable: `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`,
    `OPENAI_API_KEY` or `OPENCODE_API_KEY`;
 3. the key stored in `auth.json`.
@@ -106,7 +106,7 @@ What to know:
   only to the Copilot address.
 - **Where the token goes.** It is stored in `auth.json` under
   `github-copilot` (Enterprise: `custom:copilot-api.<your domain>`).
-  There is no Copilot environment variable, but `ZENGINE_API_KEY`, when
+  There is no Copilot environment variable, but `HYPERFORM_API_KEY`, when
   set, is used instead.
 - **Signing out.** **Sign out** on the provider's row removes the token.
   Without one, the row says **Active · needs sign-in**.
@@ -164,7 +164,7 @@ Which models the list shows:
   (GitHub Copilot models come with your plan).
 - **OpenCode Zen without a key lists only its free models**, since its paid
   models fail without one. Once a Zen key is stored in **Settings →
-  Providers** or set in `OPENCODE_API_KEY` or `ZENGINE_API_KEY`, the list
+  Providers** or set in `OPENCODE_API_KEY` or `HYPERFORM_API_KEY`, the list
   shows every Zen model, free ones first.
 
 The list is empty when the active provider needs a key and has none, or

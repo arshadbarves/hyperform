@@ -19,7 +19,7 @@ async fn added_directories_are_allowed_and_saved() {
     let answer = h.command_output("add-dir").await;
     assert!(answer.contains(&data.display().to_string()), "{answer}");
     assert!(answer.contains("settings.local.toml"), "{answer}");
-    let local = h.repo.read(".z-engine/settings.local.toml");
+    let local = h.repo.read(".hyperform/settings.local.toml");
     assert!(local.contains("additional_directories"), "{local}");
     assert!(local.contains(&data.display().to_string()), "{local}");
 

@@ -11,11 +11,11 @@ use z_engine_testkit::{FixtureRepo, Script};
 fn repo_with_commands() -> FixtureRepo {
     let repo = FixtureRepo::empty();
     repo.write(
-        ".z-engine/commands/allowed.md",
+        ".hyperform/commands/allowed.md",
         "---\nallowed-tools: Bash(touch:*)\n---\nMade: !`touch made.txt && echo created`",
     );
     repo.write(
-        ".z-engine/commands/blocked.md",
+        ".hyperform/commands/blocked.md",
         "Made: !`touch blocked.txt`",
     );
     repo

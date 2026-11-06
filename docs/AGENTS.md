@@ -129,7 +129,7 @@ page under about 380 lines and split by topic rather than growing it.
 ## 6. The website
 
 The docs are also a website,
-[arshadbarves.github.io/z-engine](https://arshadbarves.github.io/z-engine/).
+[arshadbarves.github.io/hyperform](https://arshadbarves.github.io/hyperform/).
 It publishes the pages in place: everything under `docs/`, plus the root
 `README.md`, `AGENTS.md` and `CHANGELOG.md`. [website/](../website/) holds
 only the VitePress site around them (config, theme, sidebar and the home

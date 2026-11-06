@@ -160,7 +160,7 @@ whole folder.
    tree into a *shadow* git repository in the data folder, one per
    project. It uses git but never touches your repository, index or git
    configuration, and it captures changes made by shell commands too.
-2. Left out: `.git` folders, `.z-engine/worktrees/`, everything your
+2. Left out: `.git` folders, `.hyperform/worktrees/`, everything your
    repository ignores, and files over 8 MiB (each snapshot notes which
    files it could not store). Projects with more than 50,000 files have
    checkpoints turned off, with a notice.
@@ -248,7 +248,7 @@ when the line is busy and tries another number if it must.
    Messages, OpenAI's Responses API or chat completions (by name if it
    fails). Tool rounds are sent as `x-initiator: agent`.
 3. **Keys.** The [API key](glossary.md#api-key) comes from
-   `ZENGINE_API_KEY`, then the provider's own variable (such as
+   `HYPERFORM_API_KEY`, then the provider's own variable (such as
    `ANTHROPIC_API_KEY`), then `auth.json`, stored per host and sent only
    there.
 4. **Retries.** A temporary failure (rate limit, overload, server error,
@@ -297,9 +297,9 @@ itself the keys to your machine.
 **How it works.**
 
 1. **Layers**, lowest first: defaults, your user `settings.toml`, the
-   project's `.z-engine/settings.toml`, the personal `settings.local.toml`
-   beside it, then `ZENGINE_MODEL`, `ZENGINE_PROVIDER`, `ZENGINE_BASE_URL`
-   and `ZENGINE_SHELL`. Higher layers win for single values; rule lists
+   project's `.hyperform/settings.toml`, the personal `settings.local.toml`
+   beside it, then `HYPERFORM_MODEL`, `HYPERFORM_PROVIDER`, `HYPERFORM_BASE_URL`
+   and `HYPERFORM_SHELL`. Higher layers win for single values; rule lists
    combine, hook lists add up, checks merge by `id`, and a server replaces
    one of the same name. A layer that does not fit is skipped and reported;
    a missing v2 file imports that level's v1 `config.toml`.
@@ -367,7 +367,7 @@ the internet.
    `~/Library/Caches` on macOS) and `extra_writable` entries. Everything
    else stays readable but not writable.
 3. **Protected paths** stay read-only even inside the project:
-   `.git/hooks`, `.git/config`, the `.z-engine/` and `.claude/` settings
+   `.git/hooks`, `.git/config`, the `.hyperform/` and `.claude/` settings
    files and `.mcp.json`, so a command cannot plant code that runs outside.
 4. **Network:** `allow_network = false` blocks every connection except to
    localhost; on Linux the command gets its own network, so even servers

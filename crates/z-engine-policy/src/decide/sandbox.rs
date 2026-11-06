@@ -105,7 +105,7 @@ mod tests {
             "echo x > ~/.bashrc",
             "cp a ../elsewhere/",
             "touch .git/hooks/pre-commit",
-            "echo x > .z-engine/settings.toml",
+            "echo x > .hyperform/settings.toml",
             "echo $(curl x) > a",
             "eval \"$CMD\"",
             "rm \"$TARGET\"",

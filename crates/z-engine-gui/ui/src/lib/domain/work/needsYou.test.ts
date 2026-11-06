@@ -31,13 +31,13 @@ describe("needs you", () => {
         task("x", {
           status: { type: "active" },
           run: run({
-            integration: { type: "pendingApply", worktree: "/repo/.z-engine/worktrees/a2" },
+            integration: { type: "pendingApply", worktree: "/repo/.hyperform/worktrees/a2" },
             dispatch: { sessionId: "S1", agentId: "a2", worktree: "/w", attempt: 1, at: 1 },
           }),
         }),
         task("c", {
           status: blocked({ type: "mergeConflict", detail: "src/a.rs" }),
-          run: run({ integration: { type: "conflict", paths: ["src/a.rs"], worktree: "/repo/.z-engine/worktrees/a1" } }),
+          run: run({ integration: { type: "conflict", paths: ["src/a.rs"], worktree: "/repo/.hyperform/worktrees/a1" } }),
         }),
         task("d", { status: blocked({ type: "dependency", taskId: "c" }) }),
       ],
@@ -53,7 +53,7 @@ describe("needs you", () => {
     );
     const items = needsYouItems(view);
     expect(items.map((i) => i.key)).toEqual(["conflict:c", "apply:x", "retry:u", "item:r1", "task:p", "finding:high"]);
-    expect(items[0]).toMatchObject({ paths: ["src/a.rs"], worktree: "/repo/.z-engine/worktrees/a1" });
+    expect(items[0]).toMatchObject({ paths: ["src/a.rs"], worktree: "/repo/.hyperform/worktrees/a1" });
     expect(items[1]).toMatchObject({ agentId: "a2" });
   });
 

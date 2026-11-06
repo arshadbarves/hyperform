@@ -2,15 +2,15 @@
 //! Ignored: they need the model files (and laya-serve for the second test).
 //!
 //! ```text
-//! ZENGINE_LAYA_MODEL_DIR=<data dir>/models/laya/<revision> \
+//! HYPERFORM_LAYA_MODEL_DIR=<data dir>/models/laya/<revision> \
 //!   cargo test -p z-engine-decisions --features onnx --test onnx_parity -- --ignored
 //! ```
 //!
-//! `ZENGINE_LAYA_CHECKPOINT` names the downloaded checkpoint (default
+//! `HYPERFORM_LAYA_CHECKPOINT` names the downloaded checkpoint (default
 //! `multilingual`). The first test compares with `answers_<checkpoint>.json`,
 //! Laya's own ONNXAgent on the same files (`generate_answers.py`); the second
-//! asks the same questions of laya-serve at `ZENGINE_DECISIONS_URL` (optional
-//! bearer `ZENGINE_DECISIONS_KEY`) through the SystemOne provider, so the wire
+//! asks the same questions of laya-serve at `HYPERFORM_DECISIONS_URL` (optional
+//! bearer `HYPERFORM_DECISIONS_KEY`) through the SystemOne provider, so the wire
 //! (`model`/`max_len`, option order, score scale) is checked against native.
 #![cfg(feature = "onnx")]
 
@@ -78,7 +78,7 @@ impl FixtureQuestion {
 }
 
 fn checkpoint() -> String {
-    std::env::var("ZENGINE_LAYA_CHECKPOINT").unwrap_or_else(|_| "multilingual".into())
+    std::env::var("HYPERFORM_LAYA_CHECKPOINT").unwrap_or_else(|_| "multilingual".into())
 }
 
 fn fixture() -> Fixture {
@@ -90,8 +90,8 @@ fn fixture() -> Fixture {
 }
 
 async fn native(fixture: &Fixture) -> Option<OnnxProvider> {
-    let Ok(dir) = std::env::var("ZENGINE_LAYA_MODEL_DIR") else {
-        eprintln!("ZENGINE_LAYA_MODEL_DIR is not set; skipped");
+    let Ok(dir) = std::env::var("HYPERFORM_LAYA_MODEL_DIR") else {
+        eprintln!("HYPERFORM_LAYA_MODEL_DIR is not set; skipped");
         return None;
     };
     let model = native_model(&fixture.checkpoint).expect("a pinned checkpoint");
@@ -170,7 +170,7 @@ fn top_margin(probabilities: &Map<String, Value>) -> f64 {
 }
 
 #[tokio::test(flavor = "multi_thread")]
-#[ignore = "needs a downloaded model (ZENGINE_LAYA_MODEL_DIR)"]
+#[ignore = "needs a downloaded model (HYPERFORM_LAYA_MODEL_DIR)"]
 async fn native_matches_laya_onnx_agent() {
     let fixture = fixture();
     let Some(provider) = native(&fixture).await else {
@@ -184,11 +184,11 @@ async fn native_matches_laya_onnx_agent() {
 }
 
 #[tokio::test(flavor = "multi_thread")]
-#[ignore = "needs a downloaded model and a running laya-serve (ZENGINE_DECISIONS_URL)"]
+#[ignore = "needs a downloaded model and a running laya-serve (HYPERFORM_DECISIONS_URL)"]
 async fn native_matches_laya_serve() {
     let fixture = fixture();
-    let Ok(endpoint) = std::env::var("ZENGINE_DECISIONS_URL") else {
-        eprintln!("ZENGINE_DECISIONS_URL is not set; skipped");
+    let Ok(endpoint) = std::env::var("HYPERFORM_DECISIONS_URL") else {
+        eprintln!("HYPERFORM_DECISIONS_URL is not set; skipped");
         return;
     };
     let Some(native) = native(&fixture).await else {
@@ -196,7 +196,7 @@ async fn native_matches_laya_serve() {
     };
     let sidecar = SystemOneProvider::new(SystemOneConfig {
         endpoint,
-        api_key: std::env::var("ZENGINE_DECISIONS_KEY").ok(),
+        api_key: std::env::var("HYPERFORM_DECISIONS_KEY").ok(),
         checkpoint: fixture.checkpoint.clone(),
         max_len: fixture.max_len,
         timeout: Duration::from_secs(60),

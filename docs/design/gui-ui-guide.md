@@ -323,7 +323,7 @@ Settings is the one full-window page (`chrome/FullPage.svelte`,
 - Do not mount Svelte in unit tests unless the logic cannot be extracted.
 - `npm test`, `npm run check` and `npm run lint` must stay green.
   `npm run build` is the Tauri frontend compile.
-- Performance: in a dev build, `__zengine.longChat(1000)` in the webview
+- Performance: in a dev build, `__hyperform.longChat(1000)` in the webview
   console opens a local-only chat of 1,000 finished turns to profile
   (`lib/runtime/devChat.ts`; it never reaches the engine).
 - Browser QA without the engine: `npm run dev --prefix crates/z-engine-gui/ui`

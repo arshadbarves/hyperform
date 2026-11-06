@@ -61,7 +61,7 @@ impl InteractionPort for Interaction {
             .ask(ctx.agent_id.clone(), questions)
             .map_err(|error| error.to_string())?;
         let item = AttentionItem::request(AttentionKind::Question, request_id.as_str(), text);
-        let message = "Z Engine has a question for you";
+        let message = "HyperForm has a question for you";
         notify(&self.core, message, vec![item], &ctx.cancel).await;
         match Broker::wait(reply, &ctx.cancel).await {
             Some(answers) => Ok(answers),
@@ -83,7 +83,7 @@ impl InteractionPort for Interaction {
             .propose_plan(ctx.agent_id.clone(), plan)
             .map_err(|error| error.to_string())?;
         let item = AttentionItem::request(AttentionKind::Plan, request_id.as_str(), text);
-        let message = "Z Engine has a plan for you to review";
+        let message = "HyperForm has a plan for you to review";
         notify(&self.core, message, vec![item], &ctx.cancel).await;
         match Broker::wait(reply, &ctx.cancel).await {
             Some(decision) => Ok(decision),

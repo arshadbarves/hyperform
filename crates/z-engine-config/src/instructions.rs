@@ -28,7 +28,7 @@ const CLAUDE: &str = "CLAUDE.md";
 #[serde(rename_all = "camelCase")]
 #[ts(export, export_to = "config/")]
 pub enum InstructionScope {
-    /// The z-engine config directory (and `~/.claude` in compat mode).
+    /// The hyperform config directory (and `~/.claude` in compat mode).
     User,
     /// The project root and its ancestors up to the repository root.
     Project,

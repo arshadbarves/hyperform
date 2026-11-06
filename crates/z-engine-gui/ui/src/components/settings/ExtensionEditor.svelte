@@ -52,7 +52,7 @@
   const nameError = $derived(extensionNameError(initial.kind, name));
   const locations = $derived([
     { value: "user" as const, label: "User", description: "Available in every project." },
-    ...(projectRoot ? [{ value: "project" as const, label: "This project", description: "Shared with the project in .hyperform/ (or .z-engine/)." }] : []),
+    ...(projectRoot ? [{ value: "project" as const, label: "This project", description: "Shared with the project in .hyperform/." }] : []),
   ]);
 
   async function save(event: SubmitEvent) {

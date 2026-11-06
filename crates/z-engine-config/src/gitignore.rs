@@ -1,4 +1,4 @@
-//! Keeps personal files in `<project>/.z-engine/` out of version control.
+//! Keeps personal files in `<project>/.hyperform/` out of version control.
 
 use std::path::Path;
 

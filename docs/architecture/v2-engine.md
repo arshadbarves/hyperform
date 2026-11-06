@@ -91,7 +91,7 @@ For each call, in order:
    `Allow` runs; `Deny` returns the reason; `Ask` becomes an approval
    request. All asks in a batch are requested together; the GUI may answer
    them in any order. `AllowSession` adds a session rule; `AllowProject`
-   also persists the rule to `.z-engine/settings.local.toml`; `Deny` returns
+   also persists the rule to `.hyperform/settings.local.toml`; `Deny` returns
    the user's feedback to the model. Between the decision (policy plus any
    hook override) and the approval, the tool-gate decision seam
    (`review_call`) may only turn an `Allow` into an `Ask` with no rule to
@@ -204,7 +204,7 @@ the engine:
 - Definitions: built-ins (`general`, `explore`, `plan`, `review`, `verify`,
   and `audit` only while `work_plans` is On)
   shipped as markdown in `z-engine-prompts`, plus custom definitions from
-  `.z-engine/agents` and `.claude/agents`. Tools are filtered by the
+  `.hyperform/agents` and `.claude/agents`. Tools are filtered by the
   definition; `AskUserQuestion` and `ExitPlanMode` are never given to
   subagents; `Agent` is removed at the depth limit.
 - A subagent's permission mode is its definition's mode, else the parent's,
@@ -217,7 +217,7 @@ the engine:
   files) as the `Agent` tool result. Background agents return a job id at
   once; completion queues a reminder for the parent. `resume` continues a
   finished agent from its stored transcript.
-- `isolation: worktree` runs the agent in `.z-engine/worktrees/<agent>` on a
+- `isolation: worktree` runs the agent in `.hyperform/worktrees/<agent>` on a
   new branch. At the end its changes are committed and summarized; the
   parent (`ApplyAgentChanges`) or the user (GUI) applies them with a
   three-way merge or discards them. A task-bound helper's apply or
@@ -249,8 +249,8 @@ restores code, conversation, or both to the state before any user message.
 
 v2 reads `settings.toml` files and never modifies v1 `config.toml` files,
 so a v1 build keeps working side by side. Layers, lowest first: defaults,
-`~/.config/z-engine/settings.toml`, `<project>/.z-engine/settings.toml`,
-`<project>/.z-engine/settings.local.toml` (gitignored), then environment
+`~/.config/hyperform/settings.toml`, `<project>/.hyperform/settings.toml`,
+`<project>/.hyperform/settings.local.toml` (gitignored), then environment
 overrides. When a v2 file is missing, the v1 `config.toml` at that level is
 imported: the user file is converted once into `settings.toml`; project
 files are converted in memory and written to `settings.toml` only on the
@@ -315,11 +315,11 @@ are listed by `Engine::slash_commands` with kind `ui` and never resolved.
 
 ## Context and memory
 
-- **Instructions:** `~/.config/z-engine/AGENTS.md`, `AGENTS.md`/`CLAUDE.md`
+- **Instructions:** `~/.config/hyperform/AGENTS.md`, `AGENTS.md`/`CLAUDE.md`
   from the repository root down to the project, and `AGENTS.local.md` form
   the instructions section of the system prompt (later files take
   precedence). `AGENTS.md` files in subdirectories and glob-scoped rules
-  (`.z-engine/rules/*.md` with `globs`) are injected as reminders the first
+  (`.hyperform/rules/*.md` with `globs`) are injected as reminders the first
   time the agent touches a matching path; `alwaysApply` rules stay in the
   system prompt.
 - **Prompt caching:** system sections are ordered for a stable prefix (base

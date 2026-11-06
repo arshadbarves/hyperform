@@ -91,7 +91,7 @@ otherwise `default`, `acceptEdits` or `bypass`). Extra fields per event:
 | `Notification` | `message`, for example "HyperForm needs your permission to use Bash" |
 | `SessionEnd` | `reason`, for example `shutdown`, `delete` or `close` |
 
-The environment also contains `ZENGINE_PROJECT_DIR` and
+The environment also contains `HYPERFORM_PROJECT_DIR` and
 `CLAUDE_PROJECT_DIR` (both the project folder), plus the same variables the
 agent's shell commands get (see [Settings reference](12-settings-reference.md#shell)).
 

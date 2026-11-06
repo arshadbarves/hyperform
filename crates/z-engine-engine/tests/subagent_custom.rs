@@ -1,4 +1,4 @@
-//! Custom agents from `.z-engine/agents`: the tool allowlist decides what
+//! Custom agents from `.hyperform/agents`: the tool allowlist decides what
 //! the agent is offered (anything else is an unknown tool),
 //! `permissionMode: plan` denies writes even when the session bypasses, a
 //! planning session plans for every agent, and a reload picks up new types.

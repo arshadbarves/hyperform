@@ -55,7 +55,7 @@ async fn sandboxed_checks_cannot_write_outside_the_project() {
     assert!(project.path().join("out.txt").is_file());
 
     let home = PathBuf::from(std::env::var("HOME").unwrap());
-    let target = home.join(format!("zengine-check-denied-{}", ulid::Ulid::new()));
+    let target = home.join(format!("hyperform-check-denied-{}", ulid::Ulid::new()));
     let command = format!("touch '{}'", target.display());
     let outside = run_check(&spec(command), &env, CancellationToken::new(), None)
         .await

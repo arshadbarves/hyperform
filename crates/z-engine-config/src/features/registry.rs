@@ -6,7 +6,7 @@ use ts_rs::TS;
 
 use super::FeatureId;
 
-const OWNER: &str = "z-engine core";
+const OWNER: &str = "hyperform core";
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, TS)]
 #[serde(rename_all = "snake_case")]

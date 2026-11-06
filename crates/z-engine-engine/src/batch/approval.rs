@@ -30,7 +30,10 @@ pub(super) async fn resolve(ctx: &RunContext, gated: &mut [Gated]) {
         .iter()
         .map(|(_, request)| request.tool.as_str())
         .collect();
-    let message = format!("Z Engine needs your permission to use {}", tools.join(", "));
+    let message = format!(
+        "HyperForm needs your permission to use {}",
+        tools.join(", ")
+    );
     let items = asks
         .iter()
         .map(|(_, request)| AttentionItem::approval(request))

@@ -14,7 +14,7 @@ async fn project_files_are_inlined_and_outside_files_are_not() {
     repo.write("src/lib.rs", "pub fn answer() -> u32 { 42 }\n");
     let secret = outside.path().join("secret.txt");
     repo.write(
-        ".z-engine/commands/explain.md",
+        ".hyperform/commands/explain.md",
         &format!(
             "Explain @src/lib.rs and @{} and @nobody please.",
             secret.display()

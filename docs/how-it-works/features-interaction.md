@@ -219,7 +219,7 @@ and takes out only when a task needs one.
    `/effort`, `/mcp`, `/todos`, `/doctor`, `/add-dir`. While
    [work plans](features-work-plans.md#reconciliation-and-replan) are on,
    also `/replan`, which starts a turn when there is something to replan.
-2. **Your custom commands**: markdown files in `.z-engine/commands/` or
+2. **Your custom commands**: markdown files in `.hyperform/commands/` or
    `.claude/commands/`, project first, then your user folder. They may
    replace a prompt built-in, never an engine built-in.
 3. **Prompt built-ins**: `/init`, `/review`, `/security-review`, `/commit`.
@@ -238,7 +238,7 @@ open and otherwise goes to the engine built-in.
 - Frontmatter `allowed-tools` become rules for that turn only; `model`
   picks that turn's model. `@agent-<name>` in a message reminds the model
   to use that subagent.
-- **Skills** live in `skills/<name>/SKILL.md` under `.z-engine/` or
+- **Skills** live in `skills/<name>/SKILL.md` under `.hyperform/` or
   `.claude/`, in the project or your user folder. Only names and
   descriptions are in the system prompt; when a request matches, the model
   calls `Skill`, which returns the full instructions and the skill's

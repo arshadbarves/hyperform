@@ -15,8 +15,8 @@ fn read(path: &Path) -> String {
 }
 
 async fn worktree(repo: &Path, name: &str) -> WorktreeHandle {
-    let path = repo.join(".z-engine/worktrees").join(name);
-    create_worktree(repo, &path, &format!("zengine/{name}"), None)
+    let path = repo.join(".hyperform/worktrees").join(name);
+    create_worktree(repo, &path, &format!("hyperform/{name}"), None)
         .await
         .unwrap()
 }
@@ -41,7 +41,7 @@ async fn worktree_lifecycle_from_create_to_remove() {
     let repo = repo_with(&[("a.txt", "line1\nline2\n")]);
     let handle = worktree(repo.path(), "agent1").await;
     assert!(handle.path.join("a.txt").is_file());
-    assert_eq!(handle.branch, "zengine/agent1");
+    assert_eq!(handle.branch, "hyperform/agent1");
     assert_eq!(
         Some(handle.base_sha.clone()),
         head_sha(repo.path()).await.unwrap()
@@ -51,8 +51,8 @@ async fn worktree_lifecycle_from_create_to_remove() {
         "nested worktree is excluded"
     );
 
-    let other = repo.path().join(".z-engine/worktrees/other");
-    let duplicate = create_worktree(repo.path(), &other, "zengine/agent1", None).await;
+    let other = repo.path().join(".hyperform/worktrees/other");
+    let duplicate = create_worktree(repo.path(), &other, "hyperform/agent1", None).await;
     assert!(matches!(duplicate, Err(HostError::Invalid(_))));
     let invalid = create_worktree(repo.path(), &other, "bad..name", None).await;
     assert!(matches!(invalid, Err(HostError::Invalid(_))));
@@ -85,7 +85,7 @@ async fn worktree_lifecycle_from_create_to_remove() {
         .await
         .unwrap();
     assert!(!handle.path.exists());
-    let branches = run_git(repo.path(), &["branch", "--list", "zengine/*"]);
+    let branches = run_git(repo.path(), &["branch", "--list", "hyperform/*"]);
     assert!(branches.trim().is_empty(), "{branches}");
     prune_worktrees(repo.path()).await.unwrap();
 }

@@ -76,7 +76,7 @@ async fn worktree_changes_apply_cleanly() {
         "{}",
         pending.diffstat
     );
-    assert_eq!(pending.branch, format!("zengine/{agent}"));
+    assert_eq!(pending.branch, format!("hyperform/{agent}"));
     assert!(Path::new(&pending.path).join("feature.txt").is_file());
     assert!(!h.repo.exists("feature.txt"));
     assert!(!h.repo.exists("escape.txt"));
@@ -106,7 +106,7 @@ async fn worktree_changes_apply_cleanly() {
     assert!(!Path::new(&pending.path).exists());
     assert!(
         h.repo
-            .run_git(&["branch", "--list", "zengine/*"])
+            .run_git(&["branch", "--list", "hyperform/*"])
             .trim()
             .is_empty()
     );
@@ -183,7 +183,7 @@ async fn conflicts_leave_the_tree_and_discard_cleans_up() {
     assert!(!Path::new(&pending.path).exists());
     assert!(
         h.repo
-            .run_git(&["branch", "--list", "zengine/*"])
+            .run_git(&["branch", "--list", "hyperform/*"])
             .trim()
             .is_empty()
     );

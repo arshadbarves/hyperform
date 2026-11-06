@@ -88,7 +88,7 @@ mod tests {
             body: format!("{name} body"),
             source: ExtensionSource::new(
                 ExtensionScope::Project,
-                Path::new(&format!("/p/.z-engine/rules/{name}.md")),
+                Path::new(&format!("/p/.hyperform/rules/{name}.md")),
             ),
         }
     }

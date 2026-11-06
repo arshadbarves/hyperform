@@ -114,7 +114,7 @@ fn commands_parse_claude_code_frontmatter() {
 #[test]
 fn discovery_namespaces_commands_and_reads_every_kind() {
     let f = fixture();
-    let dir = f.project.join(".z-engine");
+    let dir = f.project.join(".hyperform");
     write(
         &dir.join("commands/frontend/component.md"),
         "---\ndescription: New component\n---\nMake $1",
@@ -181,7 +181,7 @@ fn higher_scopes_replace_same_named_definitions() {
         (home.join(".claude/agents/helper.md"), "claude-user"),
         (f.paths.config_dir.join("agents/helper.md"), "user"),
         (f.project.join(".claude/agents/helper.md"), "claude-project"),
-        (f.project.join(".z-engine/agents/helper.md"), "project"),
+        (f.project.join(".hyperform/agents/helper.md"), "project"),
     ];
     for (path, who) in &locations {
         write(path, &agent(who));
@@ -227,7 +227,7 @@ fn claude_folders_are_ignored_without_compat() {
 #[test]
 fn bad_files_are_reported_and_skipped() {
     let f = fixture();
-    let dir = f.project.join(".z-engine");
+    let dir = f.project.join(".hyperform");
     write(&dir.join("agents/good.md"), "---\ndescription: fine\n---\n");
     write(&dir.join("agents/no-description.md"), "---\nname: x\n---\n");
     write(
@@ -278,7 +278,7 @@ fn project_files_linking_outside_the_project_are_skipped() {
     let f = fixture();
     let secret = f.tmp.path().join("secret.md");
     write(&secret, "---\ndescription: leaked\n---\n");
-    let dir = f.project.join(".z-engine/agents");
+    let dir = f.project.join(".hyperform/agents");
     std::fs::create_dir_all(&dir).unwrap();
     std::os::unix::fs::symlink(&secret, dir.join("leak.md")).unwrap();
     let found = discover(&f);

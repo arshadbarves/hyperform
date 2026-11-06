@@ -19,7 +19,7 @@ const SKIP_DIRS: &[&str] = &[
     "dist",
     "build",
     ".harness",
-    ".z-engine",
+    ".hyperform",
     ".venv",
     "__pycache__",
 ];

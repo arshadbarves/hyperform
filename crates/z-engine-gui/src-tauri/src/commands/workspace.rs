@@ -85,7 +85,7 @@ pub(crate) async fn diff_for_file(
     state.engine.git_file_diff(&root, &path).await.map_err(fail)
 }
 
-/// Creates `.z-engine/worktrees/<name>` in the given (else the active)
+/// Creates `.hyperform/worktrees/<name>` in the given (else the active)
 /// project on its own branch and registers it as a workspace.
 #[tauri::command]
 pub(crate) async fn create_worktree(

@@ -4,14 +4,14 @@
 //! how many tasks each arm solved (results go in docs/status.md).
 //!
 //! ```text
-//! ZENGINE_MODEL=<model> ZENGINE_API_KEY=<key> \
-//! ZENGINE_DECISIONS_URL=http://127.0.0.1:8000 \
+//! HYPERFORM_MODEL=<model> HYPERFORM_API_KEY=<key> \
+//! HYPERFORM_DECISIONS_URL=http://127.0.0.1:8000 \
 //! cargo test -p z-engine-engine --test decisions_ab_live -- --ignored --nocapture
 //! ```
 //!
-//! Optional: `ZENGINE_PROVIDER` and `ZENGINE_BASE_URL` for the model;
-//! `ZENGINE_DECISIONS_KEY` (bearer key), `ZENGINE_DECISIONS_ALLOW_REMOTE=1`
-//! and `ZENGINE_AB_FEATURES` (comma-separated ids, default every available
+//! Optional: `HYPERFORM_PROVIDER` and `HYPERFORM_BASE_URL` for the model;
+//! `HYPERFORM_DECISIONS_KEY` (bearer key), `HYPERFORM_DECISIONS_ALLOW_REMOTE=1`
+//! and `HYPERFORM_AB_FEATURES` (comma-separated ids, default every available
 //! feature). Without a model or a decision model it says so and passes.
 
 use std::sync::Arc;
@@ -84,7 +84,7 @@ fn env(name: &str) -> Option<String> {
 }
 
 fn on_settings(endpoint: &str) -> String {
-    let chosen = env("ZENGINE_AB_FEATURES");
+    let chosen = env("HYPERFORM_AB_FEATURES");
     let mut toml = "schema = 2\n\n[experimental]\n".to_string();
     let features = FEATURES.iter().filter(|spec| spec.available);
     for spec in features.map(|spec| spec.id.to_string()) {
@@ -98,11 +98,11 @@ fn on_settings(endpoint: &str) -> String {
     toml.push_str(&format!(
         "\n[decisions]\nendpoint = \"{endpoint}\"\ntimeout_ms = 1000\n"
     ));
-    if env("ZENGINE_DECISIONS_ALLOW_REMOTE").is_some() {
+    if env("HYPERFORM_DECISIONS_ALLOW_REMOTE").is_some() {
         toml.push_str("allow_remote = true\n");
     }
-    if env("ZENGINE_DECISIONS_KEY").is_some() {
-        toml.push_str("api_key_env = \"ZENGINE_DECISIONS_KEY\"\n");
+    if env("HYPERFORM_DECISIONS_KEY").is_some() {
+        toml.push_str("api_key_env = \"HYPERFORM_DECISIONS_KEY\"\n");
     }
     toml
 }
@@ -191,10 +191,10 @@ async fn arm(name: &str, settings: &str) -> Tally {
 }
 
 #[tokio::test]
-#[ignore = "needs a real model (ZENGINE_MODEL) and a decision model (ZENGINE_DECISIONS_URL)"]
+#[ignore = "needs a real model (HYPERFORM_MODEL) and a decision model (HYPERFORM_DECISIONS_URL)"]
 async fn decisions_off_vs_on_with_a_real_model() {
-    let (Some(_), Some(endpoint)) = (env("ZENGINE_MODEL"), env("ZENGINE_DECISIONS_URL")) else {
-        eprintln!("ZENGINE_MODEL or ZENGINE_DECISIONS_URL is not set; skipping");
+    let (Some(_), Some(endpoint)) = (env("HYPERFORM_MODEL"), env("HYPERFORM_DECISIONS_URL")) else {
+        eprintln!("HYPERFORM_MODEL or HYPERFORM_DECISIONS_URL is not set; skipping");
         return;
     };
     let off = arm("off", "schema = 2\n").await;

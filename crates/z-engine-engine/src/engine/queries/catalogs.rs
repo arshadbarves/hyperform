@@ -137,7 +137,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let engine = engine(dir.path());
         let root = dir.path().join("project");
-        let agents = root.join(".z-engine").join("agents");
+        let agents = root.join(".hyperform").join("agents");
         std::fs::create_dir_all(&agents).unwrap();
         std::fs::write(
             agents.join("explore.md"),
@@ -160,7 +160,7 @@ mod tests {
     fn slash_commands_list_every_source() {
         let dir = tempfile::tempdir().unwrap();
         let root = dir.path().join("project");
-        let commands_dir = root.join(".z-engine").join("commands");
+        let commands_dir = root.join(".hyperform").join("commands");
         std::fs::create_dir_all(&commands_dir).unwrap();
         std::fs::write(
             commands_dir.join("ship.md"),

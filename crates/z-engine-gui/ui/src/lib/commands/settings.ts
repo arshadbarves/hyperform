@@ -9,10 +9,10 @@ import type { McpServerConfig } from "../protocol/config/McpServerConfig";
 import type { RuleKind } from "../protocol/config/RuleKind";
 import type { SearchBackend } from "../protocol/config/SearchBackend";
 
-/** A settings file the app writes: user, `.z-engine/settings.toml`, or `settings.local.toml`. */
+/** A settings file the app writes: user, `.hyperform/settings.toml`, or `settings.local.toml`. */
 export type SettingsScope = "user" | "project" | "local";
 
-/** Folder of an extension kind under the user config dir or `.z-engine/`. */
+/** Folder of an extension kind under the user config dir or `.hyperform/`. */
 export type ExtensionKind = "agents" | "commands" | "skills" | "rules" | "output-styles";
 
 export interface AppInfo {

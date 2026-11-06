@@ -1,4 +1,4 @@
-//! Local model overrides in the v1 `~/.config/z-engine/models.json` shape:
+//! Local model overrides in the `~/.config/hyperform/models.json` shape:
 //! `{"<provider>": {"name": "...", "models": {"<id>": {"name", "reasoning",
 //! "attachment", "context", "output"}}}}`. models.dev field names such as
 //! `tool_call`, `limit` and `cost` are accepted too, and so is the

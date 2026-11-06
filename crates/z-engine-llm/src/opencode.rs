@@ -1,4 +1,4 @@
-//! The OpenCode client identity Z Engine presents where only OpenCode is
+//! The OpenCode client identity HyperForm presents where only OpenCode is
 //! served: OpenCode Zen's free tier and GitHub Copilot through OpenCode's
 //! OAuth app.
 

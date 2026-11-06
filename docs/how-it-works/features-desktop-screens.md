@@ -108,7 +108,7 @@ who knocks before taking down a wall.
    asks a question ("Allow Bash to run cargo test?") with the reason and a
    preview folded after six lines: **Allow once**, **Always allow…** (**In
    this chat**, a session rule, or **In this project**, also saved to
-   `.z-engine/settings.local.toml`), or **Deny…** with feedback for the
+   `.hyperform/settings.local.toml`), or **Deny…** with feedback for the
    model; y, s, p and n answer a focused card (`resolveApproval`).
 3. `AskUserQuestion` shows a question card there too (`answerQuestion`);
    the oldest approval comes first, then the oldest question, and "N more
@@ -299,8 +299,8 @@ comes from.
   whether the pinned files are downloaded, with **Download**, **Cancel**,
   **Resume** and **Remove**, polling progress twice a second.
 - A layered page names the file it saves to (**Saving to**): **User** (every
-  project), **This project** (`.z-engine/settings.toml`, shared) or
-  **Personal (local)** (`.z-engine/settings.local.toml`, kept out of git).
+  project), **This project** (`.hyperform/settings.toml`, shared) or
+  **Personal (local)** (`.hyperform/settings.local.toml`, kept out of git).
   A badge names where a value came from; defaults have none. Saving writes
   that one file and reloads every open session for a user change, else
   that project's sessions.

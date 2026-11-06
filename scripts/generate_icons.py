@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Icon generator for Z-Engine.
+"""Icon generator for HyperForm AI.
 
 Renders the desktop app icons (.icns, .ico, PNGs) and the favicon from one
 master SVG: the pearl pet glowing on a midnight squircle. The pet uses the

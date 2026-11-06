@@ -70,8 +70,8 @@ async fn writes_are_confined_to_the_profile() {
     assert!(root.path().join("ok").is_file());
 
     let home = dirs::home_dir().unwrap();
-    let denied: PathBuf = home.join(unique("zengine-sandbox-denied"));
-    let sibling = PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join(unique("zengine-sibling"));
+    let denied: PathBuf = home.join(unique("hyperform-sandbox-denied"));
+    let sibling = PathBuf::from(env!("CARGO_TARGET_TMPDIR")).join(unique("hyperform-sibling"));
     for target in [&denied, &sibling] {
         let command = format!("touch '{}'", target.display());
         let out = run_in(&shell, &command, root.path()).await;
@@ -100,10 +100,10 @@ async fn protected_files_inside_the_root_stay_read_only() {
     assert_ne!(hook.exit_code, Some(0), "{}", hook.combined);
     assert!(!root.path().join(".git/hooks/pre-commit").exists());
     if cfg!(target_os = "macos") {
-        let settings = "mkdir -p .z-engine && echo x > .z-engine/settings.toml";
+        let settings = "mkdir -p .hyperform && echo x > .hyperform/settings.toml";
         let out = run_in(&shell, settings, root.path()).await;
         assert_ne!(out.exit_code, Some(0), "{}", out.combined);
-        assert!(!root.path().join(".z-engine/settings.toml").exists());
+        assert!(!root.path().join(".hyperform/settings.toml").exists());
     }
     let index = run_in(&shell, "echo ok > .git/index", root.path()).await;
     assert_eq!(index.exit_code, Some(0), "{}", index.combined);
@@ -161,7 +161,7 @@ async fn background_shells_accept_a_wrapped_shell() {
     let shells = BackgroundShells::new(None);
     let outside = dirs::home_dir()
         .unwrap()
-        .join(unique("zengine-sandbox-bg-denied"));
+        .join(unique("hyperform-sandbox-bg-denied"));
     let spec = BackgroundSpec {
         command: format!("touch inside; touch '{}'", outside.display()),
         cwd: root.path().to_path_buf(),

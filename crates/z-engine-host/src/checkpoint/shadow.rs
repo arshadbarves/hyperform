@@ -16,16 +16,16 @@ use crate::blocking::run_blocking;
 use crate::digest::short_sha256;
 use crate::git::GitCmd;
 
-const REF: &str = "refs/zengine/checkpoints";
-const EXCLUDED_TRAILER: &str = "Zengine-Excluded: ";
+const REF: &str = "refs/hyperform/checkpoints";
+const EXCLUDED_TRAILER: &str = "Hyperform-Excluded: ";
 /// Hashing a large tree for the first snapshot can take a while.
 const ADD_TIMEOUT: Duration = Duration::from_secs(300);
 const MAX_USER_IGNORED: usize = 20_000;
 const IDENTITY: &[(&str, &str)] = &[
-    ("GIT_AUTHOR_NAME", "Z Engine"),
-    ("GIT_AUTHOR_EMAIL", "zengine@localhost"),
-    ("GIT_COMMITTER_NAME", "Z Engine"),
-    ("GIT_COMMITTER_EMAIL", "zengine@localhost"),
+    ("GIT_AUTHOR_NAME", "HyperForm AI"),
+    ("GIT_AUTHOR_EMAIL", "hyperform@localhost"),
+    ("GIT_COMMITTER_NAME", "HyperForm AI"),
+    ("GIT_COMMITTER_EMAIL", "hyperform@localhost"),
 ];
 /// Byte-exact storage with no signing and no filesystem monitor.
 const CONFIG: &[(&str, &str)] = &[

@@ -142,7 +142,7 @@ repository instead of your project folder, so its edits don't touch your
 files until you decide.
 
 - The worktree is created at `.hyperform/worktrees/<agent-id>` on a new
-  branch `zengine/<agent-id>`, starting from your current commit.
+  branch `hyperform/<agent-id>`, starting from your current commit.
 - The agent may read your main project but may change files only inside
   its worktree.
 - When it finishes, its changes are committed on that branch and
@@ -179,7 +179,7 @@ worktree is kept until its change is applied, discarded or
 > **Note:** **New chat in a worktree…** (in the command palette, or
 > right-click a project in the sidebar) is different. A dialog asks **What
 > is it for?** (and which project, when you have several); a short name
-> such as `fix auth redirect` becomes the branch `zengine/fix-auth-redirect`
+> such as `fix auth redirect` becomes the branch `hyperform/fix-auth-redirect`
 > in `.hyperform/worktrees/fix-auth-redirect`. **Create and start** adds that
 > folder as its own project and starts a new chat in it.
 

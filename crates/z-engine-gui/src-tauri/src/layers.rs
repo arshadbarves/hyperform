@@ -126,11 +126,11 @@ mod tests {
         assert_eq!(file(Scope::User, None), Path::new("/c/settings.toml"));
         assert_eq!(
             file(Scope::Project, Some(root)),
-            Path::new("/p/.z-engine/settings.toml")
+            Path::new("/p/.hyperform/settings.toml")
         );
         assert_eq!(
             file(Scope::Local, Some(root)),
-            Path::new("/p/.z-engine/settings.local.toml")
+            Path::new("/p/.hyperform/settings.local.toml")
         );
         assert!(layer_file(&paths, Scope::Local, None).is_err());
         let scope: Scope = serde_json::from_str("\"local\"").unwrap();
@@ -142,7 +142,7 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         let paths = paths(dir.path());
         let root = dir.path().join("project");
-        std::fs::create_dir_all(root.join(".z-engine")).unwrap();
+        std::fs::create_dir_all(root.join(".hyperform")).unwrap();
         let missing = read_layer(&paths, Scope::Local, Some(&root)).unwrap();
         assert!(!missing.exists);
         assert_eq!(missing.raw, serde_json::json!({}));

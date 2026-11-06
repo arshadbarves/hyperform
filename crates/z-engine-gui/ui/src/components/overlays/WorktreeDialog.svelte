@@ -67,7 +67,7 @@
       </label>
       <p class="worktree-preview" aria-live="polite">
         {#if slug}
-          Branch <code>zengine/{slug}</code> in <code>.hyperform/worktrees/{slug}</code>
+          Branch <code>hyperform/{slug}</code> in <code>.hyperform/worktrees/{slug}</code>
         {:else}
           A short name becomes the branch and folder name.
         {/if}

@@ -18,7 +18,7 @@ import type { WorkSnapshot } from "../../protocol/WorkSnapshot";
 
 export const PROJECT = "/Users/you/notes-app";
 export const SITE = "/Users/you/website";
-const WT = `${PROJECT}/.z-engine/worktrees`;
+const WT = `${PROJECT}/.hyperform/worktrees`;
 
 export interface MockPlan {
   work: WorkSnapshot;

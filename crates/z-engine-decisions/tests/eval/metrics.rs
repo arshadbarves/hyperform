@@ -174,7 +174,7 @@ pub fn calibration_toml(question: &str, temperature: f64, threshold: Option<f64>
     block
 }
 
-/// `question=temperature[:threshold],...` from `ZENGINE_DECISIONS_CALIBRATION`.
+/// `question=temperature[:threshold],...` from `HYPERFORM_DECISIONS_CALIBRATION`.
 pub fn parse_calibration(text: &str) -> Vec<(String, f64, Option<f64>)> {
     text.split(',')
         .filter_map(|entry| {

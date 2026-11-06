@@ -1,4 +1,4 @@
-# Z Engine GUI frontend
+# HyperForm AI GUI frontend
 
 Svelte 5 + Bits UI + Vite, hosted by Tauri 2.
 

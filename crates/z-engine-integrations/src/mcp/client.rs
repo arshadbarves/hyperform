@@ -101,7 +101,7 @@ impl McpClient {
         let params = json!({
             "protocolVersion": PROTOCOL_VERSION,
             "capabilities": {},
-            "clientInfo": {"name": "z-engine", "version": env!("CARGO_PKG_VERSION")},
+            "clientInfo": {"name": "hyperform", "version": env!("CARGO_PKG_VERSION")},
         });
         let result = self
             .request("initialize", Some(params), &CancellationToken::new())

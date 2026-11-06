@@ -59,7 +59,7 @@ fn every_level_with_and_without_planning_and_every_action() {
         ),
         (
             "Write",
-            write(&["/work/proj/.z-engine/settings.json"]),
+            write(&["/work/proj/.hyperform/settings.json"]),
             [Ask, Ask, Allow, Deny, Deny, Deny],
         ),
         (

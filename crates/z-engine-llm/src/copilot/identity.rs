@@ -1,4 +1,4 @@
-//! Who Z Engine is to GitHub Copilot, and which hosts are Copilot's.
+//! Who HyperForm is to GitHub Copilot, and which hosts are Copilot's.
 //!
 //! Copilot only serves tokens issued to an app it trusts, so sign-in uses
 //! OpenCode's OAuth app and requests present OpenCode's user agent.

@@ -19,7 +19,7 @@ describe("sameWorkspacePath", () => {
 
 describe("wsBasename", () => {
   it("uses the last path segment", () => {
-    expect(wsBasename("/Users/me/z-engine")).toBe("z-engine");
-    expect(wsBasename("/Users/me/z-engine/")).toBe("z-engine");
+    expect(wsBasename("/Users/me/hyperform")).toBe("hyperform");
+    expect(wsBasename("/Users/me/hyperform/")).toBe("hyperform");
   });
 });

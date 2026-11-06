@@ -74,15 +74,15 @@ describe("provider presets to settings writes", () => {
 
 describe("instruction files", () => {
   const files = [
-    { scope: "user" as const, path: "/home/me/.config/z-engine/AGENTS.md", content: "u" },
+    { scope: "user" as const, path: "/home/me/.config/hyperform/AGENTS.md", content: "u" },
     { scope: "project" as const, path: "/work/app/AGENTS.md", content: "p" },
     { scope: "project" as const, path: "/work/app/CLAUDE.md", content: "c" },
   ];
 
   it("maps the three editable files and finds their current content", () => {
-    const slots = instructionSlots("/home/me/.config/z-engine", "/work/app", files);
+    const slots = instructionSlots("/home/me/.config/hyperform", "/work/app", files);
     expect(slots.map((s) => [s.scope, s.path, s.file?.content ?? null])).toEqual([
-      ["user", "/home/me/.config/z-engine/AGENTS.md", "u"],
+      ["user", "/home/me/.config/hyperform/AGENTS.md", "u"],
       ["project", "/work/app/AGENTS.md", "p"],
       ["local", "/work/app/AGENTS.local.md", null],
     ]);
@@ -96,7 +96,7 @@ describe("instruction files", () => {
   });
 
   it("joins and compares paths across separators", () => {
-    expect(joinPath("C:\\Users\\me\\z-engine\\", "AGENTS.md")).toBe("C:\\Users\\me\\z-engine\\AGENTS.md");
+    expect(joinPath("C:\\Users\\me\\hyperform\\", "AGENTS.md")).toBe("C:\\Users\\me\\hyperform\\AGENTS.md");
     expect(joinPath("/work/app/", "AGENTS.md")).toBe("/work/app/AGENTS.md");
     expect(samePath("C:\\Work\\App\\AGENTS.md", "c:/work/app/AGENTS.md")).toBe(true);
     expect(samePath("/a/AGENTS.md", "/a/AGENTS.local.md")).toBe(false);

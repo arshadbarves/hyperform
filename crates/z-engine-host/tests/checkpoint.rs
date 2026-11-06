@@ -9,7 +9,7 @@ use std::path::Path;
 use support::{git as run_git, repo_with, set_mtime, write_files};
 use z_engine_host::{ChangeKind, HostError, PathChange, ShadowRepo, git_available};
 
-/// Every file under `root` (outside `.git` and `.z-engine`) with content.
+/// Every file under `root` (outside `.git` and `.hyperform`) with content.
 fn tree(root: &Path) -> BTreeMap<String, String> {
     let mut files = BTreeMap::new();
     let mut stack = vec![root.to_path_buf()];
@@ -21,7 +21,7 @@ fn tree(root: &Path) -> BTreeMap<String, String> {
                 .unwrap()
                 .to_string_lossy()
                 .replace('\\', "/");
-            if rel == ".git" || rel == ".z-engine" {
+            if rel == ".git" || rel == ".hyperform" {
                 continue;
             }
             if path.is_dir() {
@@ -57,7 +57,7 @@ async fn restore_brings_back_the_exact_tree_including_shell_changes() {
             ("ignored.txt", "i0"),
         ],
     );
-    let store = project.path().join(".z-engine/checkpoints");
+    let store = project.path().join(".hyperform/checkpoints");
     let shadow = ShadowRepo::open(&store, project.path()).await.unwrap();
     let before = tree(project.path());
     let first = shadow.snapshot("turn 1").await.unwrap();

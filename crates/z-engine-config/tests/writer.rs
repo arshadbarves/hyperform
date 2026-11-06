@@ -215,7 +215,7 @@ fn v1_config_files_are_read_only() {
 #[test]
 fn local_writes_keep_the_gitignore_current() {
     let f = fixture();
-    let ignore = f.project.join(".z-engine/.gitignore");
+    let ignore = f.project.join(".hyperform/.gitignore");
     write(&ignore, "# mine\nnotes/");
     add_permission_rule(&project_local_file(&f.project), RuleKind::Allow, "Read").unwrap();
     assert_eq!(
@@ -229,7 +229,7 @@ fn local_writes_keep_the_gitignore_current() {
     );
 
     let fresh = fixture();
-    let fresh_ignore = fresh.project.join(".z-engine/.gitignore");
+    let fresh_ignore = fresh.project.join(".hyperform/.gitignore");
     let shared = project_settings_file(&fresh.project);
     set_value(&shared, &["model", "main"], Value::String("m".into())).unwrap();
     assert!(!fresh_ignore.exists(), "shared settings are committed");

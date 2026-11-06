@@ -44,7 +44,7 @@ pub use work::{
 
 pub const BASE_SETTINGS: &str = "schema = 2\n\n[model]\nmain = \"test-model\"\n";
 pub const TITLE_NEEDLE: &str = "You write the title shown for a coding session";
-pub const SUMMARY_NEEDLE: &str = "You summarize a Z Engine coding session";
+pub const SUMMARY_NEEDLE: &str = "You summarize a HyperForm AI coding session";
 
 #[derive(Debug)]
 struct Factory(ScriptedModel);
@@ -111,7 +111,7 @@ impl Builder {
         std::fs::create_dir_all(&paths.config_dir).unwrap();
         std::fs::write(&paths.user_settings_file, &self.settings).unwrap();
         if let Some(toml) = &self.project_settings {
-            self.repo.write(".z-engine/settings.toml", toml);
+            self.repo.write(".hyperform/settings.toml", toml);
         }
         if self.trusted {
             let mut trust = TrustStore::default();

@@ -9,7 +9,7 @@ use z_engine_testkit::{FixtureRepo, Script};
 async fn command_model_is_used_for_one_turn() {
     let repo = FixtureRepo::empty();
     repo.write(
-        ".z-engine/commands/deep.md",
+        ".hyperform/commands/deep.md",
         "---\nmodel: big-model\n---\nThink hard.",
     );
     let mut h = Harness::start(repo).await;

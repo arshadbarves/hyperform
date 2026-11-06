@@ -23,7 +23,7 @@ export function packagesFromWebsite(): Plugin {
     return this.resolve(source, importer, { ...options, skipSelf: true });
   };
   return {
-    name: "z-engine:packages-from-website",
+    name: "hyperform:packages-from-website",
     enforce: "pre",
     config: {
       // Post, to see the entries VitePress and withMermaid add. Appended last,

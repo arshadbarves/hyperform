@@ -1,5 +1,5 @@
-//! Worktree isolation: an agent works in `.z-engine/worktrees/<agent>` on
-//! the branch `zengine/<agent>` from HEAD. At the end its changes are
+//! Worktree isolation: an agent works in `.hyperform/worktrees/<agent>` on
+//! the branch `hyperform/<agent>` from HEAD. At the end its changes are
 //! committed and summarized; applying merges `base..branch` into the
 //! project tree (a conflict leaves the tree untouched and keeps the
 //! worktree), discarding removes the worktree and its branch.
@@ -29,10 +29,10 @@ pub(crate) async fn prepare(
     }
     let path = core
         .root
-        .join(".z-engine")
+        .join(".hyperform")
         .join("worktrees")
         .join(agent.as_str());
-    let branch = format!("zengine/{agent}");
+    let branch = format!("hyperform/{agent}");
     let handle = create_worktree(&core.root, &path, &branch, None)
         .await
         .map_err(|error| error.to_string())?;
@@ -93,7 +93,7 @@ pub(crate) async fn finalize(
     mut info: WorktreeInfo,
 ) -> Result<WorktreeInfo, String> {
     let path = PathBuf::from(&info.path);
-    let message = format!("Z Engine agent {agent}: {description}");
+    let message = format!("HyperForm agent {agent}: {description}");
     commit_all(&path, &message)
         .await
         .map_err(|error| error.to_string())?;

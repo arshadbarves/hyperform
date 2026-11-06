@@ -52,7 +52,7 @@ gone; they remain in git history.
 | Approvals and questions docked in the composer; the **Plan ready · Review** row and the Plan tab | done |
 | Island shapes and the island card; turn actions, the work summary line, the live compaction row, the long-chat turn window | done |
 | QA in a browser against a mocked backend | done |
-| Performance profile in headless Chrome of a 1,000-turn chat (`__zengine.longChat(1000)`, dev builds only) | done |
+| Performance profile in headless Chrome of a 1,000-turn chat (`__hyperform.longChat(1000)`, dev builds only) | done |
 | Native checks: macOS vibrancy under `tauri dev`, Windows 11 Mica, a full Windows MSVC build, title-bar double-click on a real window | pending |
 
 ## After 2.2.0: the 3D pet (unreleased)
@@ -144,29 +144,29 @@ tokens, cost and tasks solved per arm. Results: pending (not run; no
 credentials here).
 
 ```bash
-ZENGINE_MODEL=... ZENGINE_API_KEY=... ZENGINE_DECISIONS_URL=... \
+HYPERFORM_MODEL=... HYPERFORM_API_KEY=... HYPERFORM_DECISIONS_URL=... \
   cargo test -p z-engine-engine --test decisions_ab_live -- --ignored --nocapture
 ```
 
-Optional: `ZENGINE_PROVIDER`, `ZENGINE_BASE_URL`, `ZENGINE_DECISIONS_KEY`,
-`ZENGINE_DECISIONS_ALLOW_REMOTE=1` and `ZENGINE_AB_FEATURES`
+Optional: `HYPERFORM_PROVIDER`, `HYPERFORM_BASE_URL`, `HYPERFORM_DECISIONS_KEY`,
+`HYPERFORM_DECISIONS_ALLOW_REMOTE=1` and `HYPERFORM_AB_FEATURES`
 (comma-separated ids; default every available feature).
 
 The offline benchmark (`crates/z-engine-decisions/tests/eval.rs`)
-always validates the hand-labeled fixtures; with `ZENGINE_DECISIONS_URL`
+always validates the hand-labeled fixtures; with `HYPERFORM_DECISIONS_URL`
 pointing at a laya-serve, its ignored run compares rules, the raw model
 and the hybrid gate per question kind, and prints a fitted
 `[decisions.calibration.<question>]` block per kind to paste into
 `settings.toml`. Results: pending.
 
 ```bash
-ZENGINE_DECISIONS_URL=http://127.0.0.1:8000 \
+HYPERFORM_DECISIONS_URL=http://127.0.0.1:8000 \
   cargo test -p z-engine-decisions --test eval -- --ignored --nocapture
 ```
 
-Optional: `ZENGINE_DECISIONS_KEY`, `ZENGINE_DECISIONS_CHECKPOINT`,
-`ZENGINE_DECISIONS_ALLOW_REMOTE=1`, `ZENGINE_DECISIONS_THRESHOLD` (default
-0.8) and `ZENGINE_DECISIONS_CALIBRATION` (`question=temperature[:threshold],...`).
+Optional: `HYPERFORM_DECISIONS_KEY`, `HYPERFORM_DECISIONS_CHECKPOINT`,
+`HYPERFORM_DECISIONS_ALLOW_REMOTE=1`, `HYPERFORM_DECISIONS_THRESHOLD` (default
+0.8) and `HYPERFORM_DECISIONS_CALIBRATION` (`question=temperature[:threshold],...`).
 
 ### Known gaps
 
@@ -295,7 +295,7 @@ Known gaps:
 
 ## After 2.0.0: documentation website
 
-- VitePress site at [arshadbarves.github.io/z-engine](https://arshadbarves.github.io/z-engine/),
+- VitePress site at [arshadbarves.github.io/hyperform](https://arshadbarves.github.io/hyperform/),
   built from `docs/` and deployed by `.github/workflows/docs-site.yml` on
   pushes to `release`.
 

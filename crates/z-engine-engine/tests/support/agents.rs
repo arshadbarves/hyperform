@@ -51,11 +51,11 @@ pub fn tool_names(request: &ModelRequest) -> Vec<String> {
     request.tools.iter().map(|tool| tool.name.clone()).collect()
 }
 
-/// Writes `.z-engine/agents/<name>.md` (before the session opens).
+/// Writes `.hyperform/agents/<name>.md` (before the session opens).
 pub fn write_agent(repo: &FixtureRepo, name: &str, frontmatter: &str, body: &str) {
     let text =
         format!("---\nname: {name}\ndescription: Test agent {name}.\n{frontmatter}---\n{body}\n");
-    repo.write(&format!(".z-engine/agents/{name}.md"), &text);
+    repo.write(&format!(".hyperform/agents/{name}.md"), &text);
 }
 
 impl Harness {

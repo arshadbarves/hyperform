@@ -1,16 +1,16 @@
 //! The decision benchmark: the hand-labeled fixtures (always validated)
-//! and, when `ZENGINE_DECISIONS_URL` points at a laya-serve, an ignored
+//! and, when `HYPERFORM_DECISIONS_URL` points at a laya-serve, an ignored
 //! run comparing rules, the raw model and the hybrid gate per kind. Run it
 //! with
 //!
 //! ```text
-//! ZENGINE_DECISIONS_URL=http://127.0.0.1:8000 \
+//! HYPERFORM_DECISIONS_URL=http://127.0.0.1:8000 \
 //!   cargo test -p z-engine-decisions --test eval -- --ignored --nocapture
 //! ```
 //!
-//! Optional: `ZENGINE_DECISIONS_KEY` (bearer key), `ZENGINE_DECISIONS_CHECKPOINT`,
-//! `ZENGINE_DECISIONS_ALLOW_REMOTE=1`, `ZENGINE_DECISIONS_THRESHOLD` (default
-//! 0.8) and `ZENGINE_DECISIONS_CALIBRATION` (`question=temperature[:threshold],...`)
+//! Optional: `HYPERFORM_DECISIONS_KEY` (bearer key), `HYPERFORM_DECISIONS_CHECKPOINT`,
+//! `HYPERFORM_DECISIONS_ALLOW_REMOTE=1`, `HYPERFORM_DECISIONS_THRESHOLD` (default
+//! 0.8) and `HYPERFORM_DECISIONS_CALIBRATION` (`question=temperature[:threshold],...`)
 //! to score the hybrid with a fit. The run prints a fitted
 //! `[decisions.calibration.<question>]` block per kind to paste into
 //! `settings.toml`.
@@ -92,29 +92,29 @@ fn the_rules_baseline_abstains_on_every_fixture() {
 }
 
 #[tokio::test]
-#[ignore = "needs a decision model at ZENGINE_DECISIONS_URL"]
+#[ignore = "needs a decision model at HYPERFORM_DECISIONS_URL"]
 async fn eval_against_the_decision_model() {
-    let Ok(endpoint) = std::env::var("ZENGINE_DECISIONS_URL") else {
-        eprintln!("ZENGINE_DECISIONS_URL is not set; skipping");
+    let Ok(endpoint) = std::env::var("HYPERFORM_DECISIONS_URL") else {
+        eprintln!("HYPERFORM_DECISIONS_URL is not set; skipping");
         return;
     };
     let env = |name: &str| std::env::var(name).ok().filter(|v| !v.is_empty());
     let config = SystemOneConfig {
         endpoint,
-        api_key: env("ZENGINE_DECISIONS_KEY"),
-        checkpoint: env("ZENGINE_DECISIONS_CHECKPOINT").unwrap_or_else(|| "bench".into()),
+        api_key: env("HYPERFORM_DECISIONS_KEY"),
+        checkpoint: env("HYPERFORM_DECISIONS_CHECKPOINT").unwrap_or_else(|| "bench".into()),
         max_len: 1024,
         timeout: Duration::from_secs(5),
-        allow_remote: env("ZENGINE_DECISIONS_ALLOW_REMOTE").as_deref() == Some("1"),
+        allow_remote: env("HYPERFORM_DECISIONS_ALLOW_REMOTE").as_deref() == Some("1"),
         max_batch: 8,
     };
     let model = Arc::new(SystemOneProvider::new(config).expect("endpoint"));
-    let threshold = env("ZENGINE_DECISIONS_THRESHOLD")
+    let threshold = env("HYPERFORM_DECISIONS_THRESHOLD")
         .and_then(|t| t.parse().ok())
         .unwrap_or(0.8);
     let mut calibration = Calibration::new(threshold);
     for (name, temperature, threshold) in
-        parse_calibration(&env("ZENGINE_DECISIONS_CALIBRATION").unwrap_or_default())
+        parse_calibration(&env("HYPERFORM_DECISIONS_CALIBRATION").unwrap_or_default())
     {
         calibration = calibration.with(
             &name,

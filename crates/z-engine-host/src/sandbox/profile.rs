@@ -33,8 +33,8 @@ pub const TOOL_CACHES: &[&str] = &[
 pub const PROTECTED: &[&str] = &[
     ".git/hooks",
     ".git/config",
-    ".z-engine/settings.toml",
-    ".z-engine/settings.local.toml",
+    ".hyperform/settings.toml",
+    ".hyperform/settings.local.toml",
     ".claude/settings.json",
     ".claude/settings.local.json",
     ".mcp.json",
@@ -223,7 +223,7 @@ mod tests {
         let canonical = std::fs::canonicalize(dir.path()).unwrap();
         let read_only = profile.resolved_read_only();
         assert!(read_only.contains(&canonical.join(".git/hooks")));
-        assert!(read_only.contains(&canonical.join(".z-engine/settings.toml")));
+        assert!(read_only.contains(&canonical.join(".hyperform/settings.toml")));
         assert_eq!(read_only.len(), PROTECTED.len());
     }
 
@@ -234,7 +234,7 @@ mod tests {
         let gitdir = common.join("worktrees/task");
         std::fs::create_dir_all(&gitdir).unwrap();
         std::fs::write(gitdir.join("commondir"), "../..\n").unwrap();
-        let tree = main.path().join(".z-engine/worktrees/task");
+        let tree = main.path().join(".hyperform/worktrees/task");
         std::fs::create_dir_all(&tree).unwrap();
         std::fs::write(tree.join(".git"), format!("gitdir: {}\n", gitdir.display())).unwrap();
         let profile = SandboxProfile::for_workspace(&tree, &[], &[], true);

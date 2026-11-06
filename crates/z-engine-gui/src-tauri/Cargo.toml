@@ -1,6 +1,6 @@
 [package]
 name = "z-engine-gui"
-description = "Desktop shell (Tauri 2) over the z-engine v2 engine"
+description = "Desktop shell (Tauri 2) over the HyperForm AI engine"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

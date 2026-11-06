@@ -6,7 +6,7 @@
 //! table. A missing `settings.toml` is seeded from the v1 `config.toml`
 //! beside it (which is never written), else created with `schema = 2`;
 //! removals from a missing file with nothing to seed do nothing. Writing
-//! `settings.local.toml` keeps `.z-engine/.gitignore` covering it.
+//! `settings.local.toml` keeps `.hyperform/.gitignore` covering it.
 
 use std::path::Path;
 

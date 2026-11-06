@@ -102,7 +102,7 @@ mod tests {
         let markdown = format!("---\nname: {name}\ndescription: Custom {name}.\n---\n{body}\n");
         let source = ExtensionSource {
             scope: ExtensionScope::Project,
-            path: format!("/p/.z-engine/agents/{name}.md"),
+            path: format!("/p/.hyperform/agents/{name}.md"),
         };
         parse_agent(&markdown, source).unwrap()
     }

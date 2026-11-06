@@ -215,7 +215,7 @@ async fn remind_and_prompt_rules_reach_the_agent() {
 #[tokio::test]
 async fn an_untrusted_projects_rules_never_run() {
     let dir = tempfile::tempdir().unwrap();
-    let project = dir.path().join("project/.z-engine");
+    let project = dir.path().join("project/.hyperform");
     std::fs::create_dir_all(&project).unwrap();
     let rules = rules_toml(&[("prod", "PreToolUse", "ask")]);
     std::fs::write(project.join("settings.toml"), rules).unwrap();

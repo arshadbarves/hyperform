@@ -21,7 +21,7 @@ describe("resuming a plan", () => {
   });
 
   it("says where an interrupted task picks up, only while it waits to start again", () => {
-    const pointer = { sessionId: "S1", agentId: "agt_2", worktree: "/repo/.z-engine/worktrees/agt_2", note: " Stopped in step 3 " };
+    const pointer = { sessionId: "S1", agentId: "agt_2", worktree: "/repo/.hyperform/worktrees/agt_2", note: " Stopped in step 3 " };
     expect(resumeNote(task("a", { resume: pointer }))).toEqual({
       text: "Interrupted; its helper's work is kept in a worktree",
       note: "Stopped in step 3",

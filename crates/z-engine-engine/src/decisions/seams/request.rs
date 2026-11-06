@@ -194,7 +194,7 @@ async fn confirm(ctx: &RunContext, findings: &[Finding]) -> bool {
     let Some(reply) = core.broker.request_approvals(vec![request.clone()]).pop() else {
         return false;
     };
-    let message = "Z Engine needs your permission to send possible secrets to the model";
+    let message = "HyperForm needs your permission to send possible secrets to the model";
     notify(
         core,
         message,

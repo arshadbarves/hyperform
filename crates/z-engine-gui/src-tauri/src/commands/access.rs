@@ -25,7 +25,7 @@ const BUCKETS: &[(&str, &str)] = &[
     ("exa", "EXA_API_KEY"),
 ];
 /// Applies to the configured provider, whatever its bucket.
-const ANY_PROVIDER_VAR: &str = "ZENGINE_API_KEY";
+const ANY_PROVIDER_VAR: &str = "HYPERFORM_API_KEY";
 
 #[tauri::command]
 pub(crate) fn credential_status(

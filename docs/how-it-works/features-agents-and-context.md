@@ -68,8 +68,8 @@ markdown files, or replace a built-in with one of the same name.
   markdown file with YAML *frontmatter* (a settings header).
 - Custom definitions come from four folders, lowest precedence first:
   `~/.claude/agents/` (with Claude compatibility on),
-  `~/.config/z-engine/agents/`, `<project>/.claude/agents/`,
-  `<project>/.z-engine/agents/`. A later file replaces a same-named one, and
+  `~/.config/hyperform/agents/`, `<project>/.claude/agents/`,
+  `<project>/.hyperform/agents/`. A later file replaces a same-named one, and
   a custom agent named like a built-in replaces it. Project files that link
   outside the project, and files that don't parse, are skipped (the latter
   with a notification). The registry is rebuilt on settings reload.
@@ -106,7 +106,7 @@ over (apply) or throw the photocopy away (discard).
 
 1. With `isolation: worktree` (from the definition or the `Agent` call) the
    engine creates a *git worktree* (a second checkout of the repository) at
-   `.z-engine/worktrees/<agent-id>` on a new branch `zengine/<agent-id>`,
+   `.hyperform/worktrees/<agent-id>` on a new branch `hyperform/<agent-id>`,
    from the current commit. A resumed worktree agent re-enters it.
 2. The worktree is the agent's root: it may read the main project but
    writes only in its worktree (the sandbox, when on, enforces the same
@@ -188,7 +188,7 @@ remembers nothing between chats on its own; these files are its memory.
 
 | Scope | Files, lowest precedence first |
 |---|---|
-| User | `~/.claude/CLAUDE.md`, then `~/.config/z-engine/AGENTS.md` |
+| User | `~/.claude/CLAUDE.md`, then `~/.config/hyperform/AGENTS.md` |
 | Project | In each folder from the repository root down to the project: `CLAUDE.md`, then `AGENTS.md` |
 | Local | `CLAUDE.local.md`, then `AGENTS.local.md` in the project folder |
 | Nested | `CLAUDE.md` and `AGENTS.md` in subfolders, added later |
@@ -220,7 +220,7 @@ and the templates in [`prompts/reminders/`](../../crates/z-engine-prompts/prompt
 only comes out when the agent opens a matching file.
 
 **How it works.** Rules are markdown files under `rules/` (subfolders
-allowed) in `<project>/.z-engine/` or `~/.config/z-engine/`, never read from
+allowed) in `<project>/.hyperform/` or `~/.config/hyperform/`, never read from
 `.claude/`. `alwaysApply: true` puts a rule in the system prompt like an
 instruction file. `globs` are gitignore-style patterns relative to the
 agent's root (for a worktree agent, its worktree); a pattern without `/`

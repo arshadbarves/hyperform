@@ -62,7 +62,7 @@ fn helper(h: &Harness, marker: &'static str, task_id: &str, file: &str, content:
     route_task(&h.model, marker, rounds);
 }
 
-/// Every file of the project tree (outside `.git` and `.z-engine`).
+/// Every file of the project tree (outside `.git` and `.hyperform`).
 fn snapshot(root: &Path) -> BTreeMap<String, Vec<u8>> {
     let mut files = BTreeMap::new();
     let mut dirs = vec![root.to_path_buf()];
@@ -74,7 +74,7 @@ fn snapshot(root: &Path) -> BTreeMap<String, Vec<u8>> {
                 .unwrap()
                 .to_string_lossy()
                 .into_owned();
-            if name == ".git" || name == ".z-engine" {
+            if name == ".git" || name == ".hyperform" {
                 continue;
             }
             if path.is_dir() {

@@ -92,7 +92,7 @@ fn dependency_build_and_state_directories_are_never_entered() {
             "[package]\nname = \"demo\"\n",
         ),
         (
-            ".z-engine/worktrees/agt_1/Cargo.toml",
+            ".hyperform/worktrees/agt_1/Cargo.toml",
             "[package]\nname = \"copy\"\n",
         ),
         ("build/Makefile", "test:\n\tctest\n"),

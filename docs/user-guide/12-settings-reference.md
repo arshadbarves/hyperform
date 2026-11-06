@@ -15,7 +15,7 @@ Settings are read in layers, lowest precedence first. A later layer wins.
 | **User** | `~/.config/hyperform/settings.toml` (Windows: `%APPDATA%\hyperform\settings.toml`) | Your preferences for every project. |
 | **Project** | `<project>/.hyperform/settings.toml` | Settings shared with your team through git. |
 | **Personal (local)** | `<project>/.hyperform/settings.local.toml` | Your own overrides for this project. HyperForm adds it to `.hyperform/.gitignore` when it writes the file. |
-| **Environment** | `ZENGINE_MODEL`, `ZENGINE_BASE_URL`, `ZENGINE_PROVIDER`, `ZENGINE_SHELL` | Overriding everything, for example in scripts. |
+| **Environment** | `HYPERFORM_MODEL`, `HYPERFORM_BASE_URL`, `HYPERFORM_PROVIDER`, `HYPERFORM_SHELL` | Overriding everything, for example in scripts. |
 
 How values combine:
 
@@ -233,7 +233,7 @@ Commands (Bash, background shells, checks, hooks) don't get your whole
 environment. They get `PATH`, `HOME`, `SHELL`, `TERM`, `LANG`, `LC_ALL`,
 `TMPDIR`, `USER`, `LOGNAME` (plus Windows system variables such as
 `USERPROFILE`, `APPDATA` and `Path`), the `env_passthrough` variables, and
-`GIT_TERMINAL_PROMPT=0`, `PAGER=cat`, `GIT_PAGER=cat`, `ZENGINE=1`, then
+`GIT_TERMINAL_PROMPT=0`, `PAGER=cat`, `GIT_PAGER=cat`, `HYPERFORM=1`, then
 `env`.
 
 `[shell.sandbox]` – see [the sandbox](03-permissions-and-safety.md#the-sandbox).
@@ -338,19 +338,19 @@ across layers like hooks. Every key, with its default and range, is in the
 
 | Variable | Effect |
 |---|---|
-| `ZENGINE_MODEL` | Overrides `model.main`. |
-| `ZENGINE_BASE_URL` | Overrides `provider.base_url`. |
-| `ZENGINE_PROVIDER` | Overrides `provider.kind` (`auto`, `openai_chat`, `anthropic`). |
-| `ZENGINE_SHELL` | Overrides `shell.path`. |
-| `ZENGINE_API_KEY` | API key for the configured provider (wins over all others). |
+| `HYPERFORM_MODEL` | Overrides `model.main`. |
+| `HYPERFORM_BASE_URL` | Overrides `provider.base_url`. |
+| `HYPERFORM_PROVIDER` | Overrides `provider.kind` (`auto`, `openai_chat`, `anthropic`). |
+| `HYPERFORM_SHELL` | Overrides `shell.path`. |
+| `HYPERFORM_API_KEY` | API key for the configured provider (wins over all others). |
 | `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `OPENCODE_API_KEY` | API key for that provider (wins over a stored key). GitHub Copilot has no variable of its own. |
 | `BRAVE_API_KEY`, `TAVILY_API_KEY`, `EXA_API_KEY` | Web search keys. |
-| `ZENGINE_CONFIG_DIR` | Use another config folder (settings, keys, trust, user extensions). |
-| `ZENGINE_DATA_DIR` | Use another data folder (chats, checkpoints, cache, log). |
-| `ZENGINE_GIT_BASH_PATH` | Windows: the Git Bash `bash.exe` to use. |
+| `HYPERFORM_CONFIG_DIR` | Use another config folder (settings, keys, trust, user extensions). |
+| `HYPERFORM_DATA_DIR` | Use another data folder (chats, checkpoints, cache, log). |
+| `HYPERFORM_GIT_BASH_PATH` | Windows: the Git Bash `bash.exe` to use. |
 | `RUST_LOG` | Detail of the app log, for example `debug` (default `info`). |
 
-HyperForm sets `ZENGINE=1` for commands it runs, `ZENGINE_PROJECT_DIR`
+HyperForm sets `HYPERFORM=1` for commands it runs, `HYPERFORM_PROJECT_DIR`
 and `CLAUDE_PROJECT_DIR` for hooks, and the `LAYA_*` variables above for
 the decision model's sidecar. `decisions.api_key_env` names a variable of
 your choice.

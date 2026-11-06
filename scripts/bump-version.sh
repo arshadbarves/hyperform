@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Single-source-of-truth version bump script for Z Engine workspace.
+# Single-source-of-truth version bump script for HyperForm AI workspace.
 # Usage: ./scripts/bump-version.sh <version>
 # Example: ./scripts/bump-version.sh 1.4.1
 
@@ -21,7 +21,7 @@ if ! [[ "$NEW_VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
   exit 1
 fi
 
-echo "Bumping Z Engine workspace version to v$NEW_VER..."
+echo "Bumping HyperForm AI workspace version to v$NEW_VER..."
 
 # 1. Update Cargo.toml workspace version
 perl -i -pe 's/^(version\s*=\s*)".*"/$1"'"$NEW_VER"'"/' Cargo.toml

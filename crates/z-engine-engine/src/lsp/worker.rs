@@ -90,7 +90,7 @@ impl LspWorker {
         let (sender, messages) = mpsc::unbounded_channel();
         let (root, specs) = (self.root.clone(), self.specs.clone());
         let spawned = std::thread::Builder::new()
-            .name("zengine-lsp".into())
+            .name("hyperform-lsp".into())
             .spawn(move || serve(root, specs, messages));
         if let Err(error) = spawned {
             tracing::warn!(%error, "could not start the language server worker");
@@ -153,7 +153,7 @@ mod tests {
         let name = worker
             .run(|_| async { std::thread::current().name().map(str::to_string) })
             .await;
-        assert_eq!(name, Some(Some("zengine-lsp".to_string())));
+        assert_eq!(name, Some(Some("hyperform-lsp".to_string())));
         worker.shutdown().await;
     }
 }

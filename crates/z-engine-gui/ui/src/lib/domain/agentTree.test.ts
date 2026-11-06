@@ -12,7 +12,7 @@ describe("agentSections", () => {
         agentId: "c",
         status: "completed",
         startedAt: 3,
-        worktree: { path: "/w", branch: "zengine/c", base: "abc", state: "pending", filesChanged: 3, diffstat: "+20 −4" },
+        worktree: { path: "/w", branch: "hyperform/c", base: "abc", state: "pending", filesChanged: 3, diffstat: "+20 −4" },
       }),
       d: agentInfo({ agentId: "d", status: "failed", startedAt: 4 }),
     };
@@ -23,7 +23,7 @@ describe("agentSections", () => {
   });
 
   it("keeps a helper that is still running out of Ready to apply", () => {
-    const worktree = { path: "/w", branch: "zengine/a", base: "abc", state: "pending" as const, filesChanged: 1, diffstat: "+2 −0" };
+    const worktree = { path: "/w", branch: "hyperform/a", base: "abc", state: "pending" as const, filesChanged: 1, diffstat: "+2 −0" };
     const agents = { a: agentInfo({ agentId: "a", status: "running", startedAt: 1, worktree }) };
     const sections = agentSections(agentTree(agents));
     expect(sections.ready).toEqual([]);

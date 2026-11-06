@@ -112,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Plan mode is a switch, separate from the permission mode**: the
   permission modes are now Ask, Auto-accept edits and Bypass, and plan mode
   turns on or off on top of any of them. While it is on, anything that
-  changes files or state is refused, including commands Z Engine can't
+  changes files or state is refused, including commands HyperForm can't
   prove read-only (such as `cargo test`); everything else follows the
   permission mode, so plan mode with Bypass researches without asking and
   still changes nothing. **Shift+Tab** now turns plan mode on or off
@@ -133,7 +133,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - The documentation website build finds the app icon from the README
-  (`./docs/assets/z-engine.png`) instead of treating the path as a package.
+  (`./docs/assets/hyperform.png`) instead of treating the path as a package.
 
 ## [2.5.0] - 2026-10-04
 
@@ -150,7 +150,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **OpenCode Zen without a key lists only its free models** in the model
   picker and the Settings suggestions, since paid Zen models fail without
   a key. With a key stored or set in `OPENCODE_API_KEY` or
-  `ZENGINE_API_KEY`, every Zen model is listed, free ones first.
+  `HYPERFORM_API_KEY`, every Zen model is listed, free ones first.
 - **Retired models are hidden** from the model picker and suggestions for
   every provider, when models.dev marks them `"status": "deprecated"`. The
   catalog still uses them for limits and prices, **Another model id…**
@@ -196,7 +196,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **The decision model**: a small local model (laya-serve or a
   Jev-compatible server) that the experimental decision features ask
   quick questions, set up in `[decisions]`: an address on this computer
-  or a sidecar command Z Engine starts and stops, timeout, confidence
+  or a sidecar command HyperForm starts and stops, timeout, confidence
   threshold, per-question calibration, **Test connection**, and an opt-in
   dataset in the data folder; a **Decisions** section in the Context tab
   shows what each feature decided. Every unanswered, slow or unsure
@@ -386,14 +386,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **User guide** (`docs/user-guide/`): complete documentation for using the
   app, from getting started to the settings reference and troubleshooting.
-- **How Z Engine works** (`docs/how-it-works/`): every feature and crate
+- **How HyperForm works** (`docs/how-it-works/`): every feature and crate
   explained in plain words first, then the mechanism, then developer detail,
   with a glossary.
 - **Documentation contract** (`docs/AGENTS.md`), a `docs-maintainer`
   subagent, and a CI link check, so feature changes update the docs in the
   same change.
 - **Documentation website** at
-  [arshadbarves.github.io/z-engine](https://arshadbarves.github.io/z-engine/):
+  [arshadbarves.github.io/hyperform](https://arshadbarves.github.io/hyperform/):
   the user guide, how it works and the contributor docs, with search,
   published from `docs/` whenever the docs change on `release`.
 - **Title bar island**: the companion orb and one line in the middle of the
@@ -593,7 +593,7 @@ runtime. See the [v2 engine architecture](docs/architecture/v2-engine.md).
 ## [1.4.5] - 2026-09-07
 
 ### Fixed
-- **Read-Only Filesystem on macOS App Launch**: Fixed `os error 30` when connecting providers or saving settings from the GUI by persisting general settings to the user's global configuration (`~/.config/z-engine/config.toml`), and gracefully falling back to saved workspaces or user home directory on launch instead of the root filesystem (`/`).
+- **Read-Only Filesystem on macOS App Launch**: Fixed `os error 30` when connecting providers or saving settings from the GUI by persisting general settings to the user's global configuration (`~/.config/hyperform/config.toml`), and gracefully falling back to saved workspaces or user home directory on launch instead of the root filesystem (`/`).
 - **Workspace Project Context Synchronization**: Automatically sync `ctx.project_root` when a new workspace is added in the GUI.
 
 ---

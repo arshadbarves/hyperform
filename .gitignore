@@ -2,6 +2,7 @@
 /target
 
 # local agent state (allowlists etc.)
+.hyperform/
 .z-engine/
 
 # scratch/demo repos used for acceptance runs

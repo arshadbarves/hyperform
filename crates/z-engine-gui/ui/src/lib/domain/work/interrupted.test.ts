@@ -5,7 +5,7 @@ import { agentInfo } from "../testFixtures";
 import { header, task, work } from "./fixtures";
 import { awaitsApply, interruptedHelper } from "./interrupted";
 
-const WT = { path: "/repo/.z-engine/worktrees/agt_1", branch: "z/agt_1", base: "main", state: "pending" as const, filesChanged: 2, diffstat: "+9 −1" };
+const WT = { path: "/repo/.hyperform/worktrees/agt_1", branch: "z/agt_1", base: "main", state: "pending" as const, filesChanged: 2, diffstat: "+9 −1" };
 const dispatched = (agentId: string, over: Partial<TaskRun> = {}): TaskRun => ({
   dispatch: { sessionId: "S1", agentId, worktree: WT.path, attempt: 1, at: 1 },
   integration: null,

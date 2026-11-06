@@ -115,7 +115,7 @@ fn api_keys_resolve_env_first_for_the_matching_host() {
     let anthropic = "https://api.anthropic.com/v1";
 
     let all = env(&[
-        ("ZENGINE_API_KEY", "zengine"),
+        ("HYPERFORM_API_KEY", "zengine"),
         ("OPENROUTER_API_KEY", "env-or"),
         ("ANTHROPIC_API_KEY", "env-ant"),
     ]);
@@ -137,7 +137,7 @@ fn api_keys_resolve_env_first_for_the_matching_host() {
         Some("env-ant")
     );
 
-    let none = env(&[("OPENAI_API_KEY", "env-oai"), ("ZENGINE_API_KEY", "  ")]);
+    let none = env(&[("OPENAI_API_KEY", "env-oai"), ("HYPERFORM_API_KEY", "  ")]);
     assert_eq!(
         resolve_api_key_with(&creds, openrouter, &none).as_deref(),
         Some("stored-or")

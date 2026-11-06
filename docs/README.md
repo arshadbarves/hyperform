@@ -1,12 +1,12 @@
 # HyperForm documentation
 
 <p align="center">
-  <img src="./assets/z-engine.png" alt="HyperForm" width="96" height="96">
+  <img src="./assets/hyperform.png" alt="HyperForm AI" width="96" height="96">
 </p>
 
 Start with the part that matches what you want to do. These pages are also
 published as a website, with search:
-[arshadbarves.github.io/z-engine](https://arshadbarves.github.io/z-engine/).
+[arshadbarves.github.io/hyperform](https://arshadbarves.github.io/hyperform/).
 
 | I want to… | Read |
 |---|---|

@@ -20,7 +20,7 @@ describe("now lanes", () => {
       task("h1", {
         status: { type: "active" },
         owner: { sessionId: "S1", agentId: "a1" },
-        run: dispatched("a1", 10, "/repo/.z-engine/worktrees/a1"),
+        run: dispatched("a1", 10, "/repo/.hyperform/worktrees/a1"),
       }),
       task("idle"),
     ]);
@@ -31,7 +31,7 @@ describe("now lanes", () => {
       ["h1", "helper"],
       ["h2", "helper"],
     ]);
-    expect(lanes[1]).toMatchObject({ agentId: "a1", worktree: "/repo/.z-engine/worktrees/a1" });
+    expect(lanes[1]).toMatchObject({ agentId: "a1", worktree: "/repo/.hyperform/worktrees/a1" });
     expect(lanes[1].agent?.agentId).toBe("a1");
     expect(lanes[2].agent).toBeNull();
   });

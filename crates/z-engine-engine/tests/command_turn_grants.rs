@@ -12,7 +12,7 @@ use z_engine_testkit::{FixtureRepo, Script};
 async fn allowed_tools_are_turn_scoped() {
     let repo = FixtureRepo::empty();
     repo.write(
-        ".z-engine/commands/make.md",
+        ".hyperform/commands/make.md",
         "---\nallowed-tools: Bash(touch:*)\n---\nCreate the files.",
     );
     let mut h = Harness::builder(repo).trusted().start().await;

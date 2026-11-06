@@ -17,7 +17,7 @@ pub(crate) struct CwdProbe {
 impl CwdProbe {
     pub(crate) fn new() -> Self {
         Self {
-            file: std::env::temp_dir().join(format!("zengine-cwd-{}", ulid::Ulid::new())),
+            file: std::env::temp_dir().join(format!("hyperform-cwd-{}", ulid::Ulid::new())),
         }
     }
 
@@ -27,15 +27,15 @@ impl CwdProbe {
         match kind {
             ShellKind::Bash | ShellKind::Zsh | ShellKind::Sh => format!(
                 // `status` is read-only in zsh, hence the prefixed name.
-                "{command}\n__zengine_status=$?\nprintf '%s' \"$PWD\" >| {} 2>/dev/null\nexit $__zengine_status\n",
+                "{command}\n__hyperform_status=$?\nprintf '%s' \"$PWD\" >| {} 2>/dev/null\nexit $__hyperform_status\n",
                 sh_quote(&file)
             ),
             ShellKind::PowerShell => format!(
-                "{command}\n$__zengine_status = $LASTEXITCODE\nif ($null -eq $__zengine_status) {{ $__zengine_status = 0 }}\n[System.IO.File]::WriteAllText('{}', (Get-Location).Path)\nexit $__zengine_status",
+                "{command}\n$__hyperform_status = $LASTEXITCODE\nif ($null -eq $__hyperform_status) {{ $__hyperform_status = 0 }}\n[System.IO.File]::WriteAllText('{}', (Get-Location).Path)\nexit $__hyperform_status",
                 ps_quote(&file)
             ),
             ShellKind::Cmd => format!(
-                "{command}\r\nset ZENGINE_STATUS=%ERRORLEVEL%\r\ncd > {}\r\nexit /b %ZENGINE_STATUS%\r\n",
+                "{command}\r\nset HYPERFORM_STATUS=%ERRORLEVEL%\r\ncd > {}\r\nexit /b %HYPERFORM_STATUS%\r\n",
                 cmd_quote(&file)
             ),
         }
@@ -96,16 +96,16 @@ mod tests {
     fn scripts_keep_the_exit_status_and_report_the_directory() {
         let probe = CwdProbe::new();
         let posix = probe.wrap(ShellKind::Zsh, "cd /tmp");
-        assert!(posix.starts_with("cd /tmp\n__zengine_status=$?"));
+        assert!(posix.starts_with("cd /tmp\n__hyperform_status=$?"));
         assert!(posix.contains("\"$PWD\""));
-        assert!(posix.ends_with("exit $__zengine_status\n"));
+        assert!(posix.ends_with("exit $__hyperform_status\n"));
         let ps = probe.wrap(ShellKind::PowerShell, "cargo test");
         assert!(ps.contains("(Get-Location).Path"));
-        assert!(ps.contains("$__zengine_status = 0"));
+        assert!(ps.contains("$__hyperform_status = 0"));
         assert!(
             probe
                 .wrap(ShellKind::Cmd, "dir")
-                .contains("exit /b %ZENGINE_STATUS%")
+                .contains("exit /b %HYPERFORM_STATUS%")
         );
     }
 

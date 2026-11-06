@@ -1,6 +1,6 @@
 //! Finds user-authored extensions. Roots are scanned from lowest to highest
 //! precedence (`~/.claude`, user config dir, `<project>/.claude`,
-//! `<project>/.z-engine`), so a later definition replaces a same-named one.
+//! `<project>/.hyperform`), so a later definition replaces a same-named one.
 //! Project files that resolve outside the project (via symlinks) are
 //! skipped, so a repository cannot pull arbitrary local files into prompts.
 

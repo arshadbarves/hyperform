@@ -6,7 +6,7 @@ import type { Usage } from "../../protocol/Usage";
 
 /**
  * A long, finished chat for performance checks: a unit test builds its
- * timeline, and in dev builds `__zengine.longChat(1000)` opens it in the app
+ * timeline, and in dev builds `__hyperform.longChat(1000)` opens it in the app
  * (lib/runtime/devChat.ts). Turns vary: plain answers, one call, runs of reads
  * and edits, a failed command, code blocks and tables.
  */

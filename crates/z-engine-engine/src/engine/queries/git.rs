@@ -16,7 +16,7 @@ use crate::error::EngineError;
 
 /// Untracked files larger than this report no line count.
 const MAX_COUNTED_BYTES: u64 = 2 * 1024 * 1024;
-const WORKTREES_DIR: &str = ".z-engine/worktrees";
+const WORKTREES_DIR: &str = ".hyperform/worktrees";
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -110,7 +110,7 @@ impl Engine {
         Ok(diff_head_file(&repo, Path::new(path)).await?)
     }
 
-    /// Adds `.z-engine/worktrees/<slug>` on the new branch `zengine/<slug>`
+    /// Adds `.hyperform/worktrees/<slug>` on the new branch `hyperform/<slug>`
     /// and returns its canonical path.
     pub async fn create_worktree(
         &self,
@@ -122,7 +122,7 @@ impl Engine {
         })?;
         let repo = repository(project_root).await?;
         let path = project_root.join(WORKTREES_DIR).join(&slug);
-        let branch = format!("zengine/{slug}");
+        let branch = format!("hyperform/{slug}");
         Ok(create_worktree(&repo, &path, &branch, None).await?.path)
     }
 }
@@ -228,7 +228,7 @@ mod tests {
         assert!(engine.git_file_diff(&root, "/etc/hosts").await.is_err());
 
         let worktree = engine.create_worktree(&root, "My Task").await.unwrap();
-        assert!(worktree.ends_with(".z-engine/worktrees/my-task"));
+        assert!(worktree.ends_with(".hyperform/worktrees/my-task"));
         assert!(worktree.join("a.txt").is_file());
         assert!(engine.create_worktree(&root, "My Task").await.is_err());
         assert!(engine.create_worktree(&root, "!!").await.is_err());

@@ -230,7 +230,7 @@ mod tests {
 
     #[tokio::test]
     async fn a_missing_model_is_unavailable_not_a_panic() {
-        let dir = std::env::temp_dir().join("z-engine-onnx-missing-model");
+        let dir = std::env::temp_dir().join("hyperform-onnx-missing-model");
         let provider = OnnxProvider::open(config(dir));
         let error = provider.ready(Duration::from_secs(5)).await.unwrap_err();
         assert!(error.to_string().contains("config.json"), "{error}");

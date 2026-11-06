@@ -17,7 +17,7 @@ pub(crate) fn initialize_params(root: &Path) -> Value {
     );
     json!({
         "processId": std::process::id(),
-        "clientInfo": {"name": "z-engine", "version": env!("CARGO_PKG_VERSION")},
+        "clientInfo": {"name": "hyperform", "version": env!("CARGO_PKG_VERSION")},
         "rootUri": uri,
         "rootPath": root.display().to_string(),
         "workspaceFolders": [{"uri": uri, "name": name}],

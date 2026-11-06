@@ -13,11 +13,11 @@ async fn glob_rule_is_injected_once_on_first_matching_read() {
         ("src/lib.rs", "pub fn one() {}\n"),
         ("notes.txt", "plain\n"),
         (
-            ".z-engine/rules/rust.md",
+            ".hyperform/rules/rust.md",
             "---\ndescription: Rust style\nglobs: \"*.rs\"\n---\nUse snake_case for every Rust item.\n",
         ),
         (
-            ".z-engine/rules/always.md",
+            ".hyperform/rules/always.md",
             "---\nalwaysApply: true\n---\nAlways answer briefly.\n",
         ),
     ]);

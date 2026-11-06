@@ -12,11 +12,11 @@ import {
 
 describe("extensionFileName", () => {
   it("derives the write name from the source path", () => {
-    expect(extensionFileName("agents", "/p/.z-engine/agents/reviewer.md")).toBe("reviewer");
-    expect(extensionFileName("commands", "/p/.z-engine/commands/frontend/component.md")).toBe("frontend:component");
-    expect(extensionFileName("rules", "C:\\Users\\me\\z-engine\\rules\\style.md")).toBe("style");
-    expect(extensionFileName("skills", "/c/z-engine/skills/release/SKILL.md")).toBe("release");
-    expect(extensionFileName("output-styles", "/c/z-engine/output-styles/terse.md")).toBe("terse");
+    expect(extensionFileName("agents", "/p/.hyperform/agents/reviewer.md")).toBe("reviewer");
+    expect(extensionFileName("commands", "/p/.hyperform/commands/frontend/component.md")).toBe("frontend:component");
+    expect(extensionFileName("rules", "C:\\Users\\me\\hyperform\\rules\\style.md")).toBe("style");
+    expect(extensionFileName("skills", "/c/hyperform/skills/release/SKILL.md")).toBe("release");
+    expect(extensionFileName("output-styles", "/c/hyperform/output-styles/terse.md")).toBe("terse");
   });
 
   it("returns null for paths outside the kind folder", () => {
@@ -62,7 +62,7 @@ describe("extensionEntries", () => {
         maxTurns: 12,
         color: null,
         prompt: "Review carefully.",
-        source: source("/c/z-engine/agents/reviewer.md", "user"),
+        source: source("/c/hyperform/agents/reviewer.md", "user"),
       },
     ],
     commands: [],
@@ -78,7 +78,7 @@ describe("extensionEntries", () => {
         kind: "agents",
         name: "code-reviewer",
         description: "Reviews diffs",
-        source: source("/c/z-engine/agents/reviewer.md", "user"),
+        source: source("/c/hyperform/agents/reviewer.md", "user"),
         fileName: "reviewer",
       },
     ]);

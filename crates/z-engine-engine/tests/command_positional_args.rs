@@ -10,7 +10,7 @@ use z_engine_testkit::{FixtureRepo, Script};
 async fn positional_placeholders_take_quoted_words() {
     let repo = FixtureRepo::empty();
     repo.write(
-        ".z-engine/commands/fix.md",
+        ".hyperform/commands/fix.md",
         "---\nargument-hint: <issue> <file>\n---\nFix issue #$1 in $2 (all: $ARGUMENTS; none: [$3]).",
     );
     let mut h = Harness::start(repo).await;

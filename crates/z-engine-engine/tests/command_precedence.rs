@@ -9,12 +9,12 @@ use z_engine_testkit::{FixtureRepo, Script};
 #[tokio::test]
 async fn project_commands_override_user_and_builtin_ones() {
     let repo = FixtureRepo::empty();
-    repo.write(".z-engine/commands/greet.md", "Project greeting.");
+    repo.write(".hyperform/commands/greet.md", "Project greeting.");
     repo.write(
-        ".z-engine/commands/review.md",
+        ".hyperform/commands/review.md",
         "Project review of $ARGUMENTS.",
     );
-    repo.write(".z-engine/commands/status.md", "Should never run.");
+    repo.write(".hyperform/commands/status.md", "Should never run.");
     let builder = Harness::builder(repo);
     let mut h = builder.start().await;
     let user_commands = h.paths.config_dir.join("commands");

@@ -33,7 +33,7 @@ async fn sandboxed_commands_write_only_inside_the_project() {
     assert!(dir.path().join("made.txt").is_file());
 
     let home = std::path::PathBuf::from(std::env::var("HOME").unwrap());
-    let target = home.join(format!("zengine-bash-denied-{}", ulid::Ulid::new()));
+    let target = home.join(format!("hyperform-bash-denied-{}", ulid::Ulid::new()));
     let command = format!("touch '{}'", target.display());
     let outside = BashTool
         .call(json!({ "command": command }), &ctx)
