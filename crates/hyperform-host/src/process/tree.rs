@@ -33,6 +33,7 @@ impl Drop for TreeGuard {
 
 #[cfg(all(test, unix))]
 mod tests {
+    use std::io::{BufRead, BufReader};
     use std::time::{Duration, Instant};
 
     use super::*;
@@ -49,16 +50,21 @@ mod tests {
         let spawn = || {
             use std::os::unix::process::CommandExt as _;
             std::process::Command::new("sh")
-                .args(["-c", "sleep 30 & wait"])
+                .args(["-c", "echo ready; sleep 30 & wait"])
                 .process_group(0)
+                .stdout(std::process::Stdio::piped())
                 .spawn()
                 .unwrap()
         };
         let mut armed = spawn();
         let pid = armed.id();
+        let mut ready = String::new();
+        let _ = BufReader::new(armed.stdout.take().unwrap()).read_line(&mut ready);
+        std::thread::sleep(Duration::from_millis(50));
+
         drop(TreeGuard::new(Some(pid)));
         armed.wait().unwrap();
-        let deadline = Instant::now() + Duration::from_secs(5);
+        let deadline = Instant::now() + Duration::from_secs(10);
         while group_alive(pid) && Instant::now() < deadline {
             std::thread::sleep(Duration::from_millis(20));
         }
@@ -66,6 +72,10 @@ mod tests {
 
         let mut spared = spawn();
         let spared_pid = spared.id();
+        let mut spared_ready = String::new();
+        let _ = BufReader::new(spared.stdout.take().unwrap()).read_line(&mut spared_ready);
+        std::thread::sleep(Duration::from_millis(50));
+
         TreeGuard::new(Some(spared_pid)).disarm();
         assert!(group_alive(spared_pid));
         kill_tree(spared_pid);
