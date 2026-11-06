@@ -1,5 +1,5 @@
 /* The app's design tokens on VitePress variables. The dark palette mirrors
-   crates/z-engine-gui/ui/src/styles/tokens.css; keep them in step. The app
+   crates/hyperform-gui/ui/src/styles/tokens.css; keep them in step. The app
    has no light palette, so the light one below is this site's own. */
 
 :root {

@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
-          cache-dependency-path: crates/z-engine-gui/ui/package-lock.json
+          cache-dependency-path: crates/hyperform-gui/ui/package-lock.json
 
 
       - name: Install Rust
@@ -85,11 +85,11 @@ jobs:
 
       - name: Install frontend dependencies
         run: npm ci
-        working-directory: crates/z-engine-gui/ui
+        working-directory: crates/hyperform-gui/ui
 
       - name: Build frontend
         run: npm run build
-        working-directory: crates/z-engine-gui/ui
+        working-directory: crates/hyperform-gui/ui
 
 
       - name: Build GUI
@@ -99,7 +99,7 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          projectPath: crates/z-engine-gui/src-tauri
+          projectPath: crates/hyperform-gui/src-tauri
           args: ${{ matrix.args }}
           uploadUpdaterJson: true
           # Prefer NSIS over WiX for Windows updater downloads when both exist.

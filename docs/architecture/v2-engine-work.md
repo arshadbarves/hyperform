@@ -11,7 +11,7 @@ context are in [v2 engine architecture](v2-engine.md).
 
 ## Kernel
 
-The pure kernel `z-engine-work` decides every change: `decide(state,
+The pure kernel `hyperform-work` decides every change: `decide(state,
 submission, facts)` checks the actor's authority (user, kernel,
 coordinator, worker, untrusted), the state machines, the dispatch and
 parallel rules and the completion gate, and returns the records to append
@@ -30,10 +30,10 @@ of an Active plan (`propagate::finished`), and the deterministic audit
   them, rewrites `meta.json` and emits `workUpdated` to every watching
   session; a rejection is appended as an audit record. A failed write
   makes the handle read-only until the plan is opened again.
-- **Files.** `PlanStore` (`z-engine-store/src/plans/`) keeps
+- **Files.** `PlanStore` (`hyperform-store/src/plans/`) keeps
   `<data dir>/plans/<project key>/<plan id>/events.jsonl` (one
   `WorkRecord` per line, `PLAN_SCHEMA` 1) and `meta.json`; the project
-  key is `z_engine_host::project_key`. The session log only records
+  key is `hyperform_host::project_key`. The session log only records
   `PlanAttached { plan_id }` and `PlanDetached`, so replay reattaches.
 - **Summary.** `meta.json` is the `PlanSummary` from
   `PlanState::summary`: goal, status, depth, revision, `tasks_total`,
@@ -53,7 +53,7 @@ of an Active plan (`propagate::finished`), and the deterministic audit
   `dismissFinding`, `requestAudit`, `recheckTask`, `retrySerially`,
   `acceptTask`, `pause`, `resume`, `stop`, `abandon`, `reopen`,
   `holdTask` and `releaseTask` (`WorkEdit`, mapped to proposals in
-  `z-engine-work/src/proposal.rs`). Recorded checks become evidence
+  `hyperform-work/src/proposal.rs`). Recorded checks become evidence
   (`work::link_check`: on the agent's own active task and, for the main
   agent's checks, on every Verifying task with a check criterion of that
   kind) and `TodoWrite` lists become the active task's steps.
@@ -176,7 +176,7 @@ refusal text.
 
 ## Plan audit
 
-- **Deterministic** (`z-engine-work/src/audit.rs`): uncovered
+- **Deterministic** (`hyperform-work/src/audit.rs`): uncovered
   requirements, criteria whose check kind the project lacks, risky paths
   (`RISKY_PATHS` plus `work.sensitive_paths`) without a test criterion,
   open leaf tasks without criteria, risks without a mitigation, overlaps
@@ -195,7 +195,7 @@ refusal text.
 - **Add to plan** (`work/findings.rs`) marks the finding `Added`, creates
   a user-authored Pending task from it and reminds the main agent
   (`reminders/work-finding-added.md`).
-- **Health** (`z-engine-work/src/health.rs`) is computed from the state
+- **Health** (`hyperform-work/src/health.rs`) is computed from the state
   for every snapshot and update (`PlanState::snapshot`, `update`).
 
 ## Held tasks
@@ -247,7 +247,7 @@ Paused still hold every task through `PlanNotActive`. The snapshot and
 plan, before the first snapshot) and `attach_command`, except for a Done
 or Abandoned plan. In one Kernel submission with `WorkCause::Resume`:
 
-1. `z-engine-work/src/resume.rs::interrupted` returns every Active task
+1. `hyperform-work/src/resume.rs::interrupted` returns every Active task
    whose owner is gone, given `Alive` (this session, its running helpers
    and those whose change waits at its apply card): `STOPPED`,
    `UNAPPLIED` or `OTHER_MAIN`. Pointers keep a worktree only if its

@@ -20,7 +20,7 @@ Follow docs/AGENTS.md (the documentation contract). In short:
    docs/how-it-works/ (plain words, mechanism, developer detail),
    docs/architecture/v2-engine.md, AGENTS.md, README.md, CHANGELOG.md
    (`[Unreleased]`), and tool descriptions under
-   crates/z-engine-prompts/prompts/tools/.
+   crates/hyperform-prompts/prompts/tools/.
 3. Confirm every fact in the code before writing it (section 4 of
    docs/AGENTS.md lists where each kind of fact is defined): names, defaults,
    paths, shortcuts, command syntax, limits.

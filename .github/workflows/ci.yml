@@ -22,11 +22,11 @@ jobs:
           components: clippy, rustfmt
       - uses: Swatinem/rust-cache@v2
       - run: cargo fmt --all --check
-      - run: cargo clippy --workspace --exclude z-engine-gui --all-targets -- -D warnings
+      - run: cargo clippy --workspace --exclude hyperform-gui --all-targets -- -D warnings
       # Cap build and test threads so the runner stays under memory pressure.
-      - run: cargo test --workspace --exclude z-engine-gui -j 2 -- --test-threads=2
+      - run: cargo test --workspace --exclude hyperform-gui -j 2 -- --test-threads=2
       - name: Generated protocol TypeScript is committed
-        run: git diff --exit-code -- crates/z-engine-gui/ui/src/lib/protocol
+        run: git diff --exit-code -- crates/hyperform-gui/ui/src/lib/protocol
 
   docs:
     runs-on: ubuntu-latest
@@ -61,9 +61,9 @@ jobs:
       - name: Windows-only code paths compile (${{ matrix.name }})
         run: >-
           cargo check --target ${{ matrix.target }} --all-targets
-          -p z-engine-protocol -p z-engine-llm -p z-engine-config -p z-engine-policy
-          -p z-engine-host -p z-engine-integrations -p z-engine-context -p z-engine-verify
-          -p z-engine-store -p z-engine-tools -p z-engine-engine
+          -p hyperform-protocol -p hyperform-llm -p hyperform-config -p hyperform-policy
+          -p hyperform-host -p hyperform-integrations -p hyperform-context -p hyperform-verify
+          -p hyperform-store -p hyperform-tools -p hyperform-engine
 
   ui:
     runs-on: ubuntu-latest
@@ -72,5 +72,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: npm ci --prefix crates/z-engine-gui/ui
-      - run: npm test --prefix crates/z-engine-gui/ui
+      - run: npm ci --prefix crates/hyperform-gui/ui
+      - run: npm test --prefix crates/hyperform-gui/ui

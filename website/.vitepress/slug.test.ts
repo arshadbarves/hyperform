@@ -27,7 +27,7 @@ describe("githubSlug", () => {
 
   it("keeps underscores, hyphens, accents and other scripts", () => {
     expect(githubSlug("default_config.toml")).toBe("default_configtoml");
-    expect(githubSlug("z-engine-tools")).toBe("z-engine-tools");
+    expect(githubSlug("hyperform-tools")).toBe("hyperform-tools");
     expect(githubSlug("Café Übersicht 日本語")).toBe("café-übersicht-日本語");
   });
 
@@ -42,12 +42,12 @@ describe("markdown.anchor.slugify", () => {
   it("ids headings with inline code by their text, as GitHub does", async () => {
     const md = await createMarkdownRenderer(root, { anchor: { slugify: githubSlug } });
     const html = md.render(
-      "## Save a note with `#`\n\n## GUI shell (`crates/z-engine-gui/src-tauri/src`)\n\n## Save a note with `#`\n",
+      "## Save a note with `#`\n\n## GUI shell (`crates/hyperform-gui/src-tauri/src`)\n\n## Save a note with `#`\n",
     );
 
     expect(html).toContain(`<h2 id="save-a-note-with-" tabindex="-1">`);
     expect(html).toContain(`href="#save-a-note-with-"`);
-    expect(html).toContain(`<h2 id="gui-shell-cratesz-engine-guisrc-taurisrc" tabindex="-1">`);
+    expect(html).toContain(`<h2 id="gui-shell-crateshyperform-guisrc-taurisrc" tabindex="-1">`);
     expect(html).toContain(`<h2 id="save-a-note-with--1" tabindex="-1">`);
   });
 });

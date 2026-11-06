@@ -1,0 +1,16 @@
+[package]
+name = "hyperform-work"
+description = "Pure work-plan kernel: task graph, state machine, fold, proposal validation, packets and reconciliation"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+hyperform-protocol.workspace = true
+thiserror.workspace = true
+globset.workspace = true
+
+[lints]
+workspace = true

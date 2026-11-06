@@ -58,14 +58,14 @@ grows as work gets done. It only echoes the status line, never adds to it.
    wears and its tricks.
 
 **For developers**
-- Pure rules, each with vitest tests, in [`lib/domain/pet/`](../../crates/z-engine-gui/ui/src/lib/domain/pet/):
+- Pure rules, each with vitest tests, in [`lib/domain/pet/`](../../crates/hyperform-gui/ui/src/lib/domain/pet/):
   `behavior.ts` (`petBehavior()`, `NAP_MS`, `WANDER_PERCHES`), `perches.ts`
   (`PerchId`, `PERCH_SIZE`, `nearestPerch()`, `STAGE_PERCHES`), `pose.ts`
   (`petPose()`, the moods), `emotions.ts` (how each mood looks),
   `motion.ts` (walks, hops, flings and drops), `physics.ts` and `drag.ts`
   (springs, the swing from your grip), `growth.ts` (`applyGrowth()`,
   `xpForLevel()`) and `looks.ts` (looks, stages, accessories, tricks).
-- [`components/pet/`](../../crates/z-engine-gui/ui/src/components/pet/):
+- [`components/pet/`](../../crates/hyperform-gui/ui/src/components/pet/):
   `IslandPet`, `PetLayer` (the roaming pet above the app: drag, throw,
   boop), `petMotion.svelte.ts` (plays moves frame by frame), `petEyes` and
   `petGaze`, `petIdle.svelte.ts` (strolls, wanders, tricks), `PetCard` with
@@ -76,12 +76,12 @@ grows as work gets done. It only echoes the status line, never adds to it.
   `lib/stores/pet.svelte.ts`.
 - Growth: `eventEffects()` in `lib/domain/sessions.ts` returns a
   `petGrowth` effect, `lib/runtime/effects.ts` hands it to `pet` in
-  [`lib/runtime/pet.svelte.ts`](../../crates/z-engine-gui/ui/src/lib/runtime/pet.svelte.ts),
+  [`lib/runtime/pet.svelte.ts`](../../crates/hyperform-gui/ui/src/lib/runtime/pet.svelte.ts),
   which loads and saves through `pet_load` and `pet_save`
-  ([`commands/pet.rs`](../../crates/z-engine-gui/src-tauri/src/commands/pet.rs),
-  stored by `PetStore` in [`src-tauri/src/pet.rs`](../../crates/z-engine-gui/src-tauri/src/pet.rs)).
+  ([`commands/pet.rs`](../../crates/hyperform-gui/src-tauri/src/commands/pet.rs),
+  stored by `PetStore` in [`src-tauri/src/pet.rs`](../../crates/hyperform-gui/src-tauri/src/pet.rs)).
   Settings types: `PetSettings`, `PetLook` in
-  [`settings/ui.rs`](../../crates/z-engine-config/src/settings/ui.rs).
+  [`settings/ui.rs`](../../crates/hyperform-config/src/settings/ui.rs).
 
 ## How it is drawn
 
@@ -113,7 +113,7 @@ full turn. Like a toy, it costs nothing while it just sits there.
    boot splash and the helper sprites on agent cards stay flat.
 
 **For developers**
-- [`components/pet/Pet.svelte`](../../crates/z-engine-gui/ui/src/components/pet/Pet.svelte)
+- [`components/pet/Pet.svelte`](../../crates/hyperform-gui/ui/src/components/pet/Pet.svelte)
   is what every screen draws: `loadPet3D()` in `petView.ts` imports
   `Pet3D.svelte` and `lib/pet3d` with a dynamic `import()` (so `three` is a
   separate chunk), and `PetFlat` (the SVG pet with `PetFace`, `PetProps`,
@@ -122,7 +122,7 @@ full turn. Like a toy, it costs nothing while it just sits there.
   its box, over `PetRing` (plan progress) and under `PetBubble`, inside
   the same `.pet-breath` wrapper (`styles/pet-3d.css`). `PetLayer` passes
   the motion engine's `turn`, `lift` and `bob`.
-- [`lib/pet3d/`](../../crates/z-engine-gui/ui/src/lib/pet3d/) is the only
+- [`lib/pet3d/`](../../crates/hyperform-gui/ui/src/lib/pet3d/) is the only
   code that imports `three`: `renderer.svelte.ts` (the one offscreen
   `WebGLRenderer`; `renderView()` copies each view into its canvas with
   `drawImage`; device pixel ratio capped at 2; context loss and restore as
@@ -161,10 +161,10 @@ except this one turns to look at where the pet went.
   pet itself in the island, and **Off** still shows the dot.
 
 **For developers**
-- `IslandPet` shows [`IslandPortrait.svelte`](../../crates/z-engine-gui/ui/src/components/pet/IslandPortrait.svelte)
+- `IslandPet` shows [`IslandPortrait.svelte`](../../crates/hyperform-gui/ui/src/components/pet/IslandPortrait.svelte)
   while `petUi.docked` is false. `PetLayer` publishes the roaming pet's
   middle in viewport pixels as `petUi.at` (null while docked), and
-  `portraitLook()` in [`lib/domain/pet/portrait.ts`](../../crates/z-engine-gui/ui/src/lib/domain/pet/portrait.ts)
+  `portraitLook()` in [`lib/domain/pet/portrait.ts`](../../crates/hyperform-gui/ui/src/lib/domain/pet/portrait.ts)
   turns it into the head's yaw and pitch (eased by a `Spring`) and the
   eyes' `lookAt`.
 - It draws `Pet` with `framing="portrait"` (`PORTRAIT_FRAME`), without

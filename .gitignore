@@ -3,7 +3,6 @@
 
 # local agent state (allowlists etc.)
 .hyperform/
-.z-engine/
 
 # scratch/demo repos used for acceptance runs
 /tmp/
@@ -13,9 +12,9 @@
 
 # gui
 node_modules/
-crates/z-engine-gui/ui/node_modules/
-crates/z-engine-gui/ui/dist/
-crates/z-engine-gui/src-tauri/gen/
+crates/hyperform-gui/ui/node_modules/
+crates/hyperform-gui/ui/dist/
+crates/hyperform-gui/src-tauri/gen/
 
 # docs website
 website/.vitepress/dist/

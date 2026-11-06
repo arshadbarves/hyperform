@@ -41,19 +41,19 @@ past the limit is refused with "subagents may nest at most N level(s) deep".
 | `max_turns` | 200 | Model rounds per run; a definition's `maxTurns` overrides it. |
 | `session_cost_cap_usd` | 0 (off) | Checked before every round; runs stop once the chat has spent this much. |
 
-**For developers.** In `z-engine-engine/src/orchestration/`:
-[`spawn.rs`](../../crates/z-engine-engine/src/orchestration/spawn.rs) starts
+**For developers.** In `hyperform-engine/src/orchestration/`:
+[`spawn.rs`](../../crates/hyperform-engine/src/orchestration/spawn.rs) starts
 a child (depth check, then an awaited task or a background job);
-[`launch.rs`](../../crates/z-engine-engine/src/orchestration/launch.rs)
+[`launch.rs`](../../crates/hyperform-engine/src/orchestration/launch.rs)
 prepares it (resumed transcript, worktree, cancellation, `needs_slot`);
-[`blueprint.rs`](../../crates/z-engine-engine/src/orchestration/blueprint.rs) builds its `AgentSpec`;
-[`child.rs`](../../crates/z-engine-engine/src/orchestration/child.rs) takes a
+[`blueprint.rs`](../../crates/hyperform-engine/src/orchestration/blueprint.rs) builds its `AgentSpec`;
+[`child.rs`](../../crates/hyperform-engine/src/orchestration/child.rs) takes a
 slot and runs the shared loop;
-[`sink.rs`](../../crates/z-engine-engine/src/orchestration/sink.rs) writes `agents/<id>.jsonl`;
-[`tracker.rs`](../../crates/z-engine-engine/src/orchestration/tracker.rs)
+[`sink.rs`](../../crates/hyperform-engine/src/orchestration/sink.rs) writes `agents/<id>.jsonl`;
+[`tracker.rs`](../../crates/hyperform-engine/src/orchestration/tracker.rs)
 persists `LogRecord::AgentUpdated` and emits `AgentUpdated`, whose
-`AgentStatus` is in [`protocol/src/agents.rs`](../../crates/z-engine-protocol/src/agents.rs).
-The [`Agent` tool](../../crates/z-engine-tools/src/builtin/agent.rs) reaches
+`AgentStatus` is in [`protocol/src/agents.rs`](../../crates/hyperform-protocol/src/agents.rs).
+The [`Agent` tool](../../crates/hyperform-tools/src/builtin/agent.rs) reaches
 the engine only through the `AgentPort` trait.
 
 ## The agent registry and custom agents
@@ -88,12 +88,12 @@ markdown files, or replace a built-in with one of the same name.
   `AskUserQuestion`, `ExitPlanMode` or `ApplyAgentChanges`.
 
 **For developers.**
-[`orchestration/registry.rs`](../../crates/z-engine-engine/src/orchestration/registry.rs)
+[`orchestration/registry.rs`](../../crates/hyperform-engine/src/orchestration/registry.rs)
 merges the built-ins (`BUILTIN` in
-[`prompts/src/agents.rs`](../../crates/z-engine-prompts/src/agents.rs)) with
-definitions parsed by [`extensions/agent.rs`](../../crates/z-engine-config/src/extensions/agent.rs)
-and found by [`discover.rs`](../../crates/z-engine-config/src/extensions/discover.rs).
-`RunContext::mode` in [`run/spec.rs`](../../crates/z-engine-engine/src/run/spec.rs)
+[`prompts/src/agents.rs`](../../crates/hyperform-prompts/src/agents.rs)) with
+definitions parsed by [`extensions/agent.rs`](../../crates/hyperform-config/src/extensions/agent.rs)
+and found by [`discover.rs`](../../crates/hyperform-config/src/extensions/discover.rs).
+`RunContext::mode` in [`run/spec.rs`](../../crates/hyperform-engine/src/run/spec.rs)
 applies the session's `Bypass` over the agent's mode.
 
 ## Worktree isolation and merge-back
@@ -139,14 +139,14 @@ flowchart LR
   conflicted -->|"Discard"| discarded
 ```
 
-**For developers.** [`orchestration/worktree.rs`](../../crates/z-engine-engine/src/orchestration/worktree.rs)
+**For developers.** [`orchestration/worktree.rs`](../../crates/hyperform-engine/src/orchestration/worktree.rs)
 creates, commits, applies and discards;
-[`decide.rs`](../../crates/z-engine-engine/src/orchestration/decide.rs)
+[`decide.rs`](../../crates/hyperform-engine/src/orchestration/decide.rs)
 handles the GUI's `ApplyAgentChanges` / `DiscardAgentChanges` commands;
-[`recover.rs`](../../crates/z-engine-engine/src/orchestration/recover.rs)
+[`recover.rs`](../../crates/hyperform-engine/src/orchestration/recover.rs)
 prunes on open. Git work is in the host
-([`git/worktree.rs`](../../crates/z-engine-host/src/git/worktree.rs),
-[`git/patch.rs`](../../crates/z-engine-host/src/git/patch.rs)).
+([`git/worktree.rs`](../../crates/hyperform-host/src/git/worktree.rs),
+[`git/patch.rs`](../../crates/hyperform-host/src/git/patch.rs)).
 `AgentInfo.worktree` carries the `WorktreeState`.
 
 ## Background jobs
@@ -172,11 +172,11 @@ it's done.
   still running is killed.
 
 **For developers.** Shells live in the host's
-[`process/background/`](../../crates/z-engine-host/src/process/background/);
-[`session/jobs.rs`](../../crates/z-engine-engine/src/session/jobs.rs) merges
+[`process/background/`](../../crates/hyperform-host/src/process/background/);
+[`session/jobs.rs`](../../crates/hyperform-engine/src/session/jobs.rs) merges
 them with background agents and queues the reminder. The tools
-[`job_output.rs`](../../crates/z-engine-tools/src/builtin/job_output.rs) and
-[`job_kill.rs`](../../crates/z-engine-tools/src/builtin/job_kill.rs) use `JobPort`.
+[`job_output.rs`](../../crates/hyperform-tools/src/builtin/job_output.rs) and
+[`job_kill.rs`](../../crates/hyperform-tools/src/builtin/job_kill.rs) use `JobPort`.
 
 ## Instruction files
 
@@ -207,12 +207,12 @@ remembers nothing between chats on its own; these files are its memory.
   instructions. Instructions guide; they never grant permissions.
 
 **For developers.** Discovery:
-[`config/src/instructions.rs`](../../crates/z-engine-config/src/instructions.rs);
-nested files: [`settings/instructions.rs`](../../crates/z-engine-engine/src/settings/instructions.rs),
+[`config/src/instructions.rs`](../../crates/hyperform-config/src/instructions.rs);
+nested files: [`settings/instructions.rs`](../../crates/hyperform-engine/src/settings/instructions.rs),
 queued by `announce_nested` in
-[`batch/execute.rs`](../../crates/z-engine-engine/src/batch/execute.rs);
-rendering: [`context/src/instructions.rs`](../../crates/z-engine-context/src/instructions.rs)
-and the templates in [`prompts/reminders/`](../../crates/z-engine-prompts/prompts/reminders/).
+[`batch/execute.rs`](../../crates/hyperform-engine/src/batch/execute.rs);
+rendering: [`context/src/instructions.rs`](../../crates/hyperform-context/src/instructions.rs)
+and the templates in [`prompts/reminders/`](../../crates/hyperform-prompts/prompts/reminders/).
 
 ## Glob-scoped rules
 
@@ -229,8 +229,8 @@ agent reads or writes a matching file, once per agent. A rule with neither
 is never used.
 
 **For developers.** Parsing in
-[`extensions/rule.rs`](../../crates/z-engine-config/src/extensions/rule.rs);
-matching in [`settings/rules.rs`](../../crates/z-engine-engine/src/settings/rules.rs),
+[`extensions/rule.rs`](../../crates/hyperform-config/src/extensions/rule.rs);
+matching in [`settings/rules.rs`](../../crates/hyperform-engine/src/settings/rules.rs),
 queued by `announce_nested` like nested instruction files.
 
 ## The context window and token estimates
@@ -257,11 +257,11 @@ tidy up before anything falls off.
   uses the provider's reported usage.
 
 **For developers.**
-[`context/src/tokens.rs`](../../crates/z-engine-context/src/tokens.rs)
-(estimates), [`breakdown.rs`](../../crates/z-engine-context/src/breakdown.rs)
-(`/context` layers), [`run/meter.rs`](../../crates/z-engine-engine/src/run/meter.rs)
+[`context/src/tokens.rs`](../../crates/hyperform-context/src/tokens.rs)
+(estimates), [`breakdown.rs`](../../crates/hyperform-context/src/breakdown.rs)
+(`/context` layers), [`run/meter.rs`](../../crates/hyperform-engine/src/run/meter.rs)
 (`ContextMeter`); the GUI's context card asks
-[`Engine::context_breakdown`](../../crates/z-engine-engine/src/engine/queries/context.rs).
+[`Engine::context_breakdown`](../../crates/hyperform-engine/src/engine/queries/context.rs).
 
 ## Compaction
 
@@ -312,14 +312,14 @@ flowchart TD
   tooLong -->|no| stream["Stream the answer"]
 ```
 
-**For developers.** Planning is pure, in `z-engine-context`:
-[`compaction/micro.rs`](../../crates/z-engine-context/src/compaction/micro.rs)
-and [`compaction/summary.rs`](../../crates/z-engine-context/src/compaction/summary.rs)
+**For developers.** Planning is pure, in `hyperform-context`:
+[`compaction/micro.rs`](../../crates/hyperform-context/src/compaction/micro.rs)
+and [`compaction/summary.rs`](../../crates/hyperform-context/src/compaction/summary.rs)
 (`plan_summary` holds the split rules). The engine does the I/O: `relieve`
-in [`run/pressure.rs`](../../crates/z-engine-engine/src/run/pressure.rs),
+in [`run/pressure.rs`](../../crates/hyperform-engine/src/run/pressure.rs),
 and the summary job shared with `/compact` in
-[`run/compact.rs`](../../crates/z-engine-engine/src/run/compact.rs) (prompt:
-[`auxiliary/compact.md`](../../crates/z-engine-prompts/prompts/auxiliary/compact.md)),
+[`run/compact.rs`](../../crates/hyperform-engine/src/run/compact.rs) (prompt:
+[`auxiliary/compact.md`](../../crates/hyperform-prompts/prompts/auxiliary/compact.md)),
 which emits `compactionStarted { trigger }` and then `compacted { marker }`.
 
 ## Prompt caching
@@ -346,13 +346,13 @@ that starts your usual order when you walk in: cheaper and faster.
   [Providers and models](features-integrations-and-safety.md#providers-and-models)).
 
 **For developers.**
-[`context/src/system.rs`](../../crates/z-engine-context/src/system.rs)
-(`build_system`) and [`cache.rs`](../../crates/z-engine-context/src/cache.rs)
+[`context/src/system.rs`](../../crates/hyperform-context/src/system.rs)
+(`build_system`) and [`cache.rs`](../../crates/hyperform-context/src/cache.rs)
 (`system_breakpoint`, `message_breakpoints`);
-[`run/request.rs`](../../crates/z-engine-engine/src/run/request.rs) inserts
+[`run/request.rs`](../../crates/hyperform-engine/src/run/request.rs) inserts
 the repo map after the last cached section, and the
-[Anthropic](../../crates/z-engine-llm/src/anthropic/request.rs) and
-[OpenAI-compatible](../../crates/z-engine-llm/src/openai/request.rs)
+[Anthropic](../../crates/hyperform-llm/src/anthropic/request.rs) and
+[OpenAI-compatible](../../crates/hyperform-llm/src/openai/request.rs)
 adapters write the provider fields.
 
 ## The repository map
@@ -380,9 +380,9 @@ knows where to look before opening files.
    turns it off.
 
 **For developers.**
-[`context/src/repo_map/`](../../crates/z-engine-context/src/repo_map/)
+[`context/src/repo_map/`](../../crates/hyperform-context/src/repo_map/)
 outlines (one walker per language), ranks (`rank.rs`) and renders;
-[`run/repo_map.rs`](../../crates/z-engine-engine/src/run/repo_map.rs) reads
+[`run/repo_map.rs`](../../crates/hyperform-engine/src/run/repo_map.rs) reads
 the files and keeps the section stable. To add a language, add a walker,
 its extensions in `language.rs`, the tree-sitter grammar, and tests.
 

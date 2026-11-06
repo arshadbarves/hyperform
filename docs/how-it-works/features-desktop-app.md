@@ -42,19 +42,19 @@ flowchart LR
 ```
 
 **For developers**
-- [`src-tauri/src/commands/`](../../crates/z-engine-gui/src-tauri/src/commands/)
+- [`src-tauri/src/commands/`](../../crates/hyperform-gui/src-tauri/src/commands/)
   has one file per domain (session, catalog, workspace, settings, access,
   extensions, app, update, pet), all in `generate_handler!` in `main.rs`; the
   webview reaches them only through `ui/src/lib/commands/*.ts`, screens
-  through [`lib/runtime/actions.ts`](../../crates/z-engine-gui/ui/src/lib/runtime/actions.ts).
-- `Engine::send` ([`engine/api.rs`](../../crates/z-engine-engine/src/engine/api.rs))
+  through [`lib/runtime/actions.ts`](../../crates/hyperform-gui/ui/src/lib/runtime/actions.ts).
+- `Engine::send` ([`engine/api.rs`](../../crates/hyperform-engine/src/engine/api.rs))
   hands the `Command` to the session actor, which never blocks on the model
   or a tool ([runtime model](../architecture/v2-engine.md#runtime-model)).
-- [`events.rs`](../../crates/z-engine-gui/src-tauri/src/events.rs) emits
+- [`events.rs`](../../crates/hyperform-gui/src-tauri/src/events.rs) emits
   each `EventEnvelope` as `engineEvent`, numbered per session by
-  [`session/emitter.rs`](../../crates/z-engine-engine/src/session/emitter.rs);
+  [`session/emitter.rs`](../../crates/hyperform-engine/src/session/emitter.rs);
   the one subscription is `initEvents()` in
-  [`lib/runtime/listen.ts`](../../crates/z-engine-gui/ui/src/lib/runtime/listen.ts).
+  [`lib/runtime/listen.ts`](../../crates/hyperform-gui/ui/src/lib/runtime/listen.ts).
   Adding an IPC command: [Where do I change X?](where-to-change.md)
 
 ## One dictionary for both languages
@@ -74,14 +74,14 @@ printed in two languages from one master.
   files fails the frontend type check instead of breaking at runtime.
 
 **For developers**
-- Source: [`crates/z-engine-protocol/src/`](../../crates/z-engine-protocol/src/)
+- Source: [`crates/hyperform-protocol/src/`](../../crates/hyperform-protocol/src/)
   (`Command` in `commands.rs`, `Event` and `EventEnvelope` in `events.rs`,
   `SessionSnapshot` in `session.rs`); settings types come from
-  `z-engine-config`, `ModelInfo` and `Pricing` from `z-engine-llm`.
-- Output: [`ui/src/lib/protocol/`](../../crates/z-engine-gui/ui/src/lib/protocol/),
+  `hyperform-config`, `ModelInfo` and `Pricing` from `hyperform-llm`.
+- Output: [`ui/src/lib/protocol/`](../../crates/hyperform-gui/ui/src/lib/protocol/),
   set by `TS_RS_EXPORT_DIR` in [`.cargo/config.toml`](../../.cargo/config.toml).
-  Regenerate with `cargo test -p z-engine-protocol` (or `-p z-engine-config`,
-  `-p z-engine-llm`), commit the files in the same change, never edit them.
+  Regenerate with `cargo test -p hyperform-protocol` (or `-p hyperform-config`,
+  `-p hyperform-llm`), commit the files in the same change, never edit them.
 
 ## From events to a screen
 
@@ -109,12 +109,12 @@ news, like a scorekeeper who updates the board after every play.
 **For developers**
 - Pure reducers, tested with vitest without a browser: `applyEnvelope`,
   `eventEffects` and unread marks in
-  [`lib/domain/sessions.ts`](../../crates/z-engine-gui/ui/src/lib/domain/sessions.ts);
-  one `case` per `Event` type in [`lib/domain/sessionView/reduce.ts`](../../crates/z-engine-gui/ui/src/lib/domain/sessionView/reduce.ts)
+  [`lib/domain/sessions.ts`](../../crates/hyperform-gui/ui/src/lib/domain/sessions.ts);
+  one `case` per `Event` type in [`lib/domain/sessionView/reduce.ts`](../../crates/hyperform-gui/ui/src/lib/domain/sessionView/reduce.ts)
   (a new variant needs a case and a test there); transcript turns, blocks
   and tool-run groups in `lib/domain/timeline/`.
 - Live state: `SessionsStore` in
-  [`lib/runtime/sessions.svelte.ts`](../../crates/z-engine-gui/ui/src/lib/runtime/sessions.svelte.ts)
+  [`lib/runtime/sessions.svelte.ts`](../../crates/hyperform-gui/ui/src/lib/runtime/sessions.svelte.ts)
   (`views`, `active`, `activity`, `unread`, `apply`); `effects.ts` runs the
   side effects (`petGrowth` goes to `lib/runtime/pet.svelte.ts`);
   `applyLocal` reduces window-made events (such as `/help`).
@@ -138,10 +138,10 @@ one, and the others keep cooking.
 
 **For developers**
 - Engine: `open_session`, `send`, `close_session`, `shutdown` in
-  [`engine/api.rs`](../../crates/z-engine-engine/src/engine/api.rs). Window:
+  [`engine/api.rs`](../../crates/hyperform-engine/src/engine/api.rs). Window:
   `activityMap` and `markRead` in `lib/domain/sessions.ts`, `sidebarMark`
-  and `sidebarModel` in `lib/domain/`, [`components/sidebar/AppSidebar.svelte`](../../crates/z-engine-gui/ui/src/components/sidebar/AppSidebar.svelte).
-- Branch and count: `git_summary` ([`Engine::git_summary`](../../crates/z-engine-engine/src/engine/queries/git.rs))
+  and `sidebarModel` in `lib/domain/`, [`components/sidebar/AppSidebar.svelte`](../../crates/hyperform-gui/ui/src/components/sidebar/AppSidebar.svelte).
+- Branch and count: `git_summary` ([`Engine::git_summary`](../../crates/hyperform-engine/src/engine/queries/git.rs))
   through `lib/runtime/projects.svelte.ts`, refreshed at start, on window
   focus, when a project is added and when a turn ends.
 
@@ -167,7 +167,7 @@ and island float over the chat like panes of frosted glass.
   window, like a native title bar.
 
 **For developers**
-- [`src-tauri/src/window.rs`](../../crates/z-engine-gui/src-tauri/src/window.rs)
+- [`src-tauri/src/window.rs`](../../crates/hyperform-gui/src-tauri/src/window.rs)
   builds the window and applies the material; `app_info` reports it as
   `nativeGlass`, and `applyWindowMaterial()` in `lib/platform.ts` sets
   `html.native-glass` or `html.solid-surfaces`.
@@ -195,12 +195,12 @@ you to say yes.
    percent, installing, ready); then the app restarts itself.
 
 **For developers**
-- [`commands/update.rs`](../../crates/z-engine-gui/src-tauri/src/commands/update.rs)
+- [`commands/update.rs`](../../crates/hyperform-gui/src-tauri/src/commands/update.rs)
   (`check_for_update`, `install_update`, `open_release_url`); endpoint and
   key under `plugins.updater` in
-  [`tauri.conf.json`](../../crates/z-engine-gui/src-tauri/tauri.conf.json);
+  [`tauri.conf.json`](../../crates/hyperform-gui/src-tauri/tauri.conf.json);
   signed bundles come from [`release.yml`](../../.github/workflows/release.yml).
-- Window: [`lib/updateStore.ts`](../../crates/z-engine-gui/ui/src/lib/updateStore.ts)
+- Window: [`lib/updateStore.ts`](../../crates/hyperform-gui/ui/src/lib/updateStore.ts)
   (check, install, `update-progress` listener), `sidebar/SidebarFooter`,
   `settings/AboutTab`.
 

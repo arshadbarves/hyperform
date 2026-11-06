@@ -43,8 +43,8 @@ behavior as if it works; remove documentation of removed features.
 
 | When you change… | Update |
 |---|---|
-| a tool (new, renamed, new input, new limit) | its description `crates/z-engine-prompts/prompts/tools/<snake_name>.md`; the user-guide page that explains the workflow; [how-it-works/features-core.md](how-it-works/features-core.md) (tools); the README tools list |
-| a settings key or default | [user-guide/12-settings-reference.md](user-guide/12-settings-reference.md) and the feature's user-guide page; the commented example in `crates/z-engine-config/src/default_config.toml`; the how-it-works page when behavior changes |
+| a tool (new, renamed, new input, new limit) | its description `crates/hyperform-prompts/prompts/tools/<snake_name>.md`; the user-guide page that explains the workflow; [how-it-works/features-core.md](how-it-works/features-core.md) (tools); the README tools list |
+| a settings key or default | [user-guide/12-settings-reference.md](user-guide/12-settings-reference.md) and the feature's user-guide page; the commented example in `crates/hyperform-config/src/default_config.toml`; the how-it-works page when behavior changes |
 | a slash command | [user-guide/06-commands-and-skills.md](user-guide/06-commands-and-skills.md); [how-it-works/features-interaction.md](how-it-works/features-interaction.md); the README commands paragraph |
 | a built-in or custom-agent feature | [user-guide/04-agents.md](user-guide/04-agents.md); [how-it-works/features-agents-and-context.md](how-it-works/features-agents-and-context.md) |
 | hooks (event, input field, output field) | [user-guide/08-hooks.md](user-guide/08-hooks.md); [architecture/v2-engine.md](architecture/v2-engine.md#hooks); [how-it-works/features-interaction.md](how-it-works/features-interaction.md) (hooks) |
@@ -75,34 +75,34 @@ window's parts) or [glossary-experimental.md](how-it-works/glossary-experimental
 
 Before writing a fact, confirm it where it is defined:
 
-- settings keys, defaults and clamps: `crates/z-engine-config/src/settings/*.rs`,
+- settings keys, defaults and clamps: `crates/hyperform-config/src/settings/*.rs`,
   `settings/normalize.rs`, `default_config.toml`; file locations and
-  environment variables: `crates/z-engine-config/src/paths.rs`, `loader.rs`,
+  environment variables: `crates/hyperform-config/src/paths.rs`, `loader.rs`,
   `credentials.rs`;
-- tools: `crates/z-engine-tools/src/builtin/*.rs` and `crates/z-engine-prompts/prompts/tools/*.md`;
-- commands: `crates/z-engine-engine/src/commands/`, `crates/z-engine-prompts/prompts/commands/*.md`,
-  UI commands in `crates/z-engine-gui/ui/src/lib/stores/uiCommands.ts`;
-- agents: `crates/z-engine-prompts/prompts/agents/*.md`, `crates/z-engine-config/src/extensions/agent.rs`,
-  `crates/z-engine-engine/src/orchestration/`;
-- permissions: `crates/z-engine-policy/src/rules/` and `src/decide/`;
-- hooks: `crates/z-engine-engine/src/hooks/`, `crates/z-engine-config/src/settings/hooks.rs`;
-- events and commands between app and engine: `crates/z-engine-protocol/src/`;
+- tools: `crates/hyperform-tools/src/builtin/*.rs` and `crates/hyperform-prompts/prompts/tools/*.md`;
+- commands: `crates/hyperform-engine/src/commands/`, `crates/hyperform-prompts/prompts/commands/*.md`,
+  UI commands in `crates/hyperform-gui/ui/src/lib/stores/uiCommands.ts`;
+- agents: `crates/hyperform-prompts/prompts/agents/*.md`, `crates/hyperform-config/src/extensions/agent.rs`,
+  `crates/hyperform-engine/src/orchestration/`;
+- permissions: `crates/hyperform-policy/src/rules/` and `src/decide/`;
+- hooks: `crates/hyperform-engine/src/hooks/`, `crates/hyperform-config/src/settings/hooks.rs`;
+- events and commands between app and engine: `crates/hyperform-protocol/src/`;
 - experimental features (ids, stage, `available`, graduation criteria):
-  `crates/z-engine-config/src/features/registry.rs`; their effective mode and
-  warnings: `crates/z-engine-config/src/settings/experimental.rs`;
-- decision questions: `crates/z-engine-prompts/prompts/decisions/`; decision
-  uses and seams: `crates/z-engine-engine/src/decisions/` (`USES` in
-  `registry.rs`); decision settings: `crates/z-engine-config/src/settings/decisions.rs`
+  `crates/hyperform-config/src/features/registry.rs`; their effective mode and
+  warnings: `crates/hyperform-config/src/settings/experimental.rs`;
+- decision questions: `crates/hyperform-prompts/prompts/decisions/`; decision
+  uses and seams: `crates/hyperform-engine/src/decisions/` (`USES` in
+  `registry.rs`); decision settings: `crates/hyperform-config/src/settings/decisions.rs`
   and its `decisions_*.rs` sub-tables;   native model pins:
-  `crates/z-engine-decisions/src/native_model.rs`;
-- work plans: the kernel and its refusal texts in `crates/z-engine-work/src/`
+  `crates/hyperform-decisions/src/native_model.rs`;
+- work plans: the kernel and its refusal texts in `crates/hyperform-work/src/`
   (`error.rs`; `parallel.rs` and `dispatch.rs` for parallel tasks,
   `audit.rs` and `health.rs` for the audit), the engine side in
-  `crates/z-engine-engine/src/work/` and `orchestration/task_run.rs`,
-  `[work]` in `crates/z-engine-config/src/settings/work.rs`, packet,
-  brief and reminder text in `crates/z-engine-context/src/work/` and
-  `crates/z-engine-prompts/prompts/work/`;
-- UI surfaces and shortcuts: `crates/z-engine-gui/ui/src/components/`, `ui/src/lib/domain/composerKeys.ts`.
+  `crates/hyperform-engine/src/work/` and `orchestration/task_run.rs`,
+  `[work]` in `crates/hyperform-config/src/settings/work.rs`, packet,
+  brief and reminder text in `crates/hyperform-context/src/work/` and
+  `crates/hyperform-prompts/prompts/work/`;
+- UI surfaces and shortcuts: `crates/hyperform-gui/ui/src/components/`, `ui/src/lib/domain/composerKeys.ts`.
 
 If the code and a document disagree, the code wins: fix the document, or
 report the disagreement if the code looks wrong.

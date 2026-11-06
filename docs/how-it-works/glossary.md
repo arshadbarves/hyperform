@@ -56,7 +56,7 @@ uses it to put files back. See [Checkpoints and rewind](features-integrations-an
 
 A typed request the app sends to the engine, such as `submit` (send a
 message), `steer`, `resolveApproval` or `cancel`. Commands go in and
-[events](#event) come out. See [z-engine-protocol](crates.md#z-engine-protocol).
+[events](#event) come out. See [hyperform-protocol](crates.md#hyperform-protocol).
 
 ### Compaction
 
@@ -74,7 +74,7 @@ are assumed to have 128,000 tokens. See
 ### Crate
 
 A Rust package, the unit the code is split into. HyperForm has one crate per
-responsibility, such as `z-engine-host` for everything that touches the
+responsibility, such as `hyperform-host` for everything that touches the
 operating system. See [Crates](crates.md).
 
 ## E
@@ -187,7 +187,7 @@ which the agent researches and proposes a plan but changes nothing;
 
 Text given to a model to act on. Your message is a prompt, and so are the
 instructions the engine writes, which are kept as markdown files in one
-crate. See [z-engine-prompts](crates.md#z-engine-prompts).
+crate. See [hyperform-prompts](crates.md#hyperform-prompts).
 
 ### Prompt cache
 

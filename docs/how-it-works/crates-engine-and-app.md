@@ -6,7 +6,7 @@ without a real provider. How all the crates fit together, and the crates
 they build on, are in [The crates](crates.md). Terms: the
 [glossary](glossary.md). Part of [How HyperForm works](README.md).
 
-## z-engine-engine
+## hyperform-engine
 
 **In plain words.** The conductor: it runs each session, asks the model,
 sends every tool call through the gate, keeps helpers and background jobs
@@ -31,21 +31,21 @@ going, saves everything, and announces each change as an event.
   than through host and integrations.
 
 **For developers**
-- [`src/`](../../crates/z-engine-engine/src/): `engine/` (API, catalog,
-  export, and [`queries/`](../../crates/z-engine-engine/src/engine/queries/):
+- [`src/`](../../crates/hyperform-engine/src/): `engine/` (API, catalog,
+  export, and [`queries/`](../../crates/hyperform-engine/src/engine/queries/):
   diffs, git summary and worktrees, context breakdown, catalogs, file
   search, MCP tests, trust, decisions, decision model, work), `session/`, `run/`, `batch/`,
   `broker/`, `orchestration/` (with `task_run.rs` for a plan task's
   helper), `ports/`, `hooks/`, `commands/`, `mcp/`,
-  `lsp/`, `verify/`, `settings/`, [`decisions/`](../../crates/z-engine-engine/src/decisions/),
-  [`work/`](../../crates/z-engine-engine/src/work/mod.rs) (with
+  `lsp/`, `verify/`, `settings/`, [`decisions/`](../../crates/hyperform-engine/src/decisions/),
+  [`work/`](../../crates/hyperform-engine/src/work/mod.rs) (with
   `dispatch.rs`, `helper.rs`, `merged.rs`, `coordinate.rs`, `drift.rs`,
   `audit.rs`, `findings.rs`, `bound.rs`, `interrupt.rs`, `kept.rs`,
   `driver.rs`, `checkpoint.rs`, `resume.rs`).
 - Uses every crate on [The crates](crates.md) (testkit only in tests); used by: gui. Contract: [v2 engine architecture](../architecture/v2-engine.md)
   and, for work plans, [v2-engine-work.md](../architecture/v2-engine-work.md).
 
-## z-engine-testkit
+## hyperform-testkit
 
 **In plain words.** The rehearsal kit: a pretend model that follows a
 script, throwaway project folders and an event recorder, so tests run the
@@ -58,10 +58,10 @@ real engine without a real provider.
 - Must not: ship in the product; it is only ever a dev-dependency.
 
 **For developers**
-- [`src/`](../../crates/z-engine-testkit/src/): `model.rs`, `repo.rs`,
+- [`src/`](../../crates/hyperform-testkit/src/): `model.rs`, `repo.rs`,
   `events.rs`. Uses protocol and llm; used by: engine tests.
 
-## z-engine-gui
+## hyperform-gui
 
 **In plain words.** The storefront: the Svelte window is the shop floor you
 see, and the Rust shell behind it is the counter that passes your orders to
@@ -81,11 +81,11 @@ the engine.
   call `invoke()` or import `bits-ui`; no terminal or headless replacement.
 
 **For developers**
-- Shell: [`src-tauri/src/`](../../crates/z-engine-gui/src-tauri/src/):
+- Shell: [`src-tauri/src/`](../../crates/hyperform-gui/src-tauri/src/):
   `main.rs`, `state.rs`, `events.rs`, `window.rs`, `workspaces.rs`,
   `pet.rs`, `layers.rs`, `guard.rs`, `ipc.rs`, `commands/` (one file per
   domain, `work.rs` for work plans).
-- Frontend: [`ui/src/`](../../crates/z-engine-gui/ui/src/): `lib/protocol/`,
+- Frontend: [`ui/src/`](../../crates/hyperform-gui/ui/src/): `lib/protocol/`,
   `lib/commands/`, `lib/runtime/`, `lib/domain/`, `lib/stores/`, `lib/ui/`,
   `lib/pet3d/`, `styles/`, `components/`. How it works: [the desktop app](features-desktop-app.md),
   [the pet](features-desktop-pet.md); rules: [GUI UI guide](../design/gui-ui-guide.md).

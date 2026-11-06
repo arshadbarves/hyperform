@@ -14,8 +14,8 @@ from pathlib import Path
 from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-ICONS_DIR = REPO_ROOT / "crates/z-engine-gui/src-tauri/icons"
-UI_PUBLIC_DIR = REPO_ROOT / "crates/z-engine-gui/ui/public"
+ICONS_DIR = REPO_ROOT / "crates/hyperform-gui/src-tauri/icons"
+UI_PUBLIC_DIR = REPO_ROOT / "crates/hyperform-gui/ui/public"
 
 # Master SVG Definition (512x512 canvas)
 # Full-bleed midnight squircle (#202024 to #0C0C0E) with soft blue and lilac

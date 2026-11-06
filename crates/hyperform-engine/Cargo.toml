@@ -1,0 +1,46 @@
+[package]
+name = "hyperform-engine"
+description = "Orchestrator: session actors, agent runs, gating, hooks, subagents, jobs, verification modes, commands"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[features]
+# The decision model's native runtime (Laya through ONNX Runtime).
+onnx = ["hyperform-decisions/onnx"]
+
+[dependencies]
+hyperform-protocol.workspace = true
+hyperform-prompts.workspace = true
+hyperform-llm.workspace = true
+hyperform-config.workspace = true
+hyperform-policy.workspace = true
+hyperform-host.workspace = true
+hyperform-integrations.workspace = true
+hyperform-verify.workspace = true
+hyperform-context.workspace = true
+hyperform-store.workspace = true
+hyperform-decisions.workspace = true
+hyperform-work.workspace = true
+hyperform-tools.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+futures.workspace = true
+ulid.workspace = true
+regex.workspace = true
+globset.workspace = true
+reqwest.workspace = true
+
+[dev-dependencies]
+hyperform-testkit.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

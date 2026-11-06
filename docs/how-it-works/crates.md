@@ -15,14 +15,14 @@ where the customer sits.
 **How it works**
 - Arrows mean "may import". Dependencies only point down, so a low crate
   never knows about a higher one.
-- `z-engine-protocol` and `z-engine-prompts` are *leaf* crates: every crate
+- `hyperform-protocol` and `hyperform-prompts` are *leaf* crates: every crate
   may use them, and they use nothing.
-- `z-engine-engine` is the only crate that knows the concrete
-  implementations; `z-engine-tools` reaches engine services only through
+- `hyperform-engine` is the only crate that knows the concrete
+  implementations; `hyperform-tools` reaches engine services only through
   *capability traits* (ports).
-- Only `z-engine-host` touches the operating system; `z-engine-integrations`
-  owns its server processes, `z-engine-llm` makes the provider HTTP calls,
-  `z-engine-decisions` sends the decision-model request (the native model
+- Only `hyperform-host` touches the operating system; `hyperform-integrations`
+  owns its server processes, `hyperform-llm` makes the provider HTTP calls,
+  `hyperform-decisions` sends the decision-model request (the native model
   is downloaded by host and run in process), and the GUI shell
   checks GitHub for updates, installs them, and opens project files
   through the opener plugin. `config` and `store` read and write only
@@ -30,27 +30,27 @@ where the customer sits.
 
 ```mermaid
 flowchart TD
-  gui["z-engine-gui"] --> engine["z-engine-engine"]
-  gui --> config["z-engine-config"]
-  engine --> tools["z-engine-tools"]
-  engine --> integrations["z-engine-integrations"]
-  engine --> verify["z-engine-verify"]
-  engine --> context["z-engine-context"]
-  engine --> llm["z-engine-llm"]
+  gui["hyperform-gui"] --> engine["hyperform-engine"]
+  gui --> config["hyperform-config"]
+  engine --> tools["hyperform-tools"]
+  engine --> integrations["hyperform-integrations"]
+  engine --> verify["hyperform-verify"]
+  engine --> context["hyperform-context"]
+  engine --> llm["hyperform-llm"]
   engine --> config
-  engine --> store["z-engine-store"]
-  engine --> decisions["z-engine-decisions"]
-  engine --> work["z-engine-work"]
-  engine --> policy["z-engine-policy"]
-  engine --> host["z-engine-host"]
-  engine -->|"dev-dependency"| testkit["z-engine-testkit"]
+  engine --> store["hyperform-store"]
+  engine --> decisions["hyperform-decisions"]
+  engine --> work["hyperform-work"]
+  engine --> policy["hyperform-policy"]
+  engine --> host["hyperform-host"]
+  engine -->|"dev-dependency"| testkit["hyperform-testkit"]
   tools --> policy
   tools --> host
   integrations --> host
   verify --> host
   testkit --> llm
-  everyCrate["every crate"] --> protocol["z-engine-protocol"]
-  everyCrate --> prompts["z-engine-prompts"]
+  everyCrate["every crate"] --> protocol["hyperform-protocol"]
+  everyCrate --> prompts["hyperform-prompts"]
 ```
 
 **For developers**
@@ -58,7 +58,7 @@ flowchart TD
   updates this page (or [the engine, app and test crates](crates-engine-and-app.md)),
   the diagram and [AGENTS.md](../../AGENTS.md) together.
 
-## z-engine-protocol
+## hyperform-protocol
 
 **In plain words.** The shared dictionary: the exact shape of every message
 between the engine, the store and the window, like the standard forms every
@@ -76,13 +76,13 @@ office department fills in.
 - Must not: do any I/O or depend on another HyperForm crate.
 
 **For developers**
-- [`src/`](../../crates/z-engine-protocol/src/): `commands.rs`, `events.rs`,
+- [`src/`](../../crates/hyperform-protocol/src/): `commands.rs`, `events.rs`,
   `session.rs`, `content.rs`, `ids.rs`, `permission.rs`, `interaction.rs`,
   `agents.rs`, `jobs.rs`, `verification.rs`, `usage.rs`, `work/`.
 - Used by every crate except prompts. After a change run
-  `cargo test -p z-engine-protocol` and commit `ui/src/lib/protocol/`.
+  `cargo test -p hyperform-protocol` and commit `ui/src/lib/protocol/`.
 
-## z-engine-prompts
+## hyperform-prompts
 
 **In plain words.** The script cabinet: every word the model is told, kept
 as markdown. The code reads its lines from here and never improvises its
@@ -97,15 +97,15 @@ own.
   prompt text.
 
 **For developers**
-- [`prompts/`](../../crates/z-engine-prompts/prompts/): `system/`, `tools/`
+- [`prompts/`](../../crates/hyperform-prompts/prompts/): `system/`, `tools/`
   (one file per tool), `agents/` (explore, general, plan, review, verify,
   audit), `commands/` (commit, init, replan, review, security-review),
   `reminders/`, `auxiliary/`, `decisions/` (decision questions), `work/`
-  (task packet, task list, helper brief, audit request). One module per area in [`src/`](../../crates/z-engine-prompts/src/);
+  (task packet, task list, helper brief, audit request). One module per area in [`src/`](../../crates/hyperform-prompts/src/);
   `agents.rs` and `commands.rs` hold the `BUILTIN` lists.
 - Used by: context, tools, engine, decisions.
 
-## z-engine-llm
+## hyperform-llm
 
 **In plain words.** The switchboard to the AI providers: it dials the model
 in each provider's language, streams the answer back, and redials when the
@@ -122,12 +122,12 @@ line is busy.
   the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-llm/src/): `client.rs` (`ModelClient`),
+- [`src/`](../../crates/hyperform-llm/src/): `client.rs` (`ModelClient`),
   `anthropic/`, `openai/`, `responses/`, `copilot/`, `provider/` (detection,
   construction), `transport.rs`, `retry.rs`, `fallback.rs`, `accumulate.rs`,
   `catalog/`, `cost.rs`. Used by: engine, testkit.
 
-## z-engine-config
+## hyperform-config
 
 **In plain words.** The receptionist who knows everyone's standing orders:
 it reads the settings files in order, keeps your API keys and trusted
@@ -145,16 +145,16 @@ folders, and finds the agents, commands and instructions you wrote.
   crates.
 
 **For developers**
-- [`src/settings/`](../../crates/z-engine-config/src/settings/) (one file
+- [`src/settings/`](../../crates/hyperform-config/src/settings/) (one file
   per section, clamps in `normalize.rs`),
-  [`default_config.toml`](../../crates/z-engine-config/src/default_config.toml),
+  [`default_config.toml`](../../crates/hyperform-config/src/default_config.toml),
   `loader.rs`, `merge.rs`, `writer.rs`, `migrate/`, `credentials.rs`,
   `trust.rs`, `paths.rs` (with `plans_dir`), `extensions/`, `instructions.rs`, and
-  [`features/`](../../crates/z-engine-config/src/features/) (`FeatureId`,
+  [`features/`](../../crates/hyperform-config/src/features/) (`FeatureId`,
   `FeatureMode`, `FEATURES`; `Settings::feature` in `settings/experimental.rs`).
 - Types export to `ui/src/lib/protocol/config/`. Used by: engine, gui.
 
-## z-engine-policy
+## hyperform-policy
 
 **In plain words.** The rulebook the security guard consults: given "this
 tool wants to do this", it answers allow, ask or deny. It reads rules; it
@@ -169,12 +169,12 @@ never opens a door itself.
 - Must not: do any I/O; paths are compared as text.
 
 **For developers**
-- [`src/`](../../crates/z-engine-policy/src/): `action.rs` (`Action`),
+- [`src/`](../../crates/hyperform-policy/src/): `action.rs` (`Action`),
   `engine.rs` (the policy), `rules/`, `decide/`, `shell/`, `paths.rs`.
 - Used by: tools, engine (which builds the policy from settings in
-  `z-engine-engine/src/settings/policy.rs`).
+  `hyperform-engine/src/settings/policy.rs`).
 
-## z-engine-host
+## hyperform-host
 
 **In plain words.** The only pair of hands that touches the computer:
 files, commands, search, git and web pages all go through it. Everyone else
@@ -191,12 +191,12 @@ asks the hands.
   the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-host/src/): `fs/`, `process/`, `sandbox/`,
+- [`src/`](../../crates/hyperform-host/src/): `fs/`, `process/`, `sandbox/`,
   `search/`, `git/`, `checkpoint/`, `web/`, `media.rs`, `fingerprint.rs`,
   `net.rs` (the sidecar's free port), `download.rs` (`.part` resume).
 - Used by: tools, integrations, verify, engine.
 
-## z-engine-integrations
+## hyperform-integrations
 
 **In plain words.** The interpreter on a conference call with outside
 helpers: MCP servers (extra tools) and language servers (code intelligence)
@@ -212,11 +212,11 @@ all speak JSON-RPC, and this crate speaks it back.
 - Must not: import anything but host and the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-integrations/src/): `jsonrpc/`, `mcp/`,
+- [`src/`](../../crates/hyperform-integrations/src/): `jsonrpc/`, `mcp/`,
   `lsp/`, `process/`.
 - Used by: engine, whose `src/mcp/` and `src/lsp/` run them per session.
 
-## z-engine-context
+## hyperform-context
 
 **In plain words.** The assistant who packs the model's briefcase: what goes
 into each request (instructions, environment, reminders, a map of the code)
@@ -231,14 +231,14 @@ and what to summarize when the briefcase is too full.
 - Must not: do I/O; callers pass file contents in.
 
 **For developers**
-- [`src/`](../../crates/z-engine-context/src/): `system.rs`, `sections.rs`,
+- [`src/`](../../crates/hyperform-context/src/): `system.rs`, `sections.rs`,
   `environment.rs`, `instructions.rs`, `reminders.rs`, `cache.rs`,
   `repo_map/`, `tokens.rs`, `breakdown.rs`, `compaction/`, `wellformed.rs`,
   `work/` (task packet, task list, helper brief, coordinator reminder and
   audit request text).
 - Used by: engine.
 
-## z-engine-verify
+## hyperform-verify
 
 **In plain words.** The inspector with a clipboard: it finds the project's
 tests and builds, runs them when asked, and writes down the evidence,
@@ -253,12 +253,12 @@ without ever stopping you from finishing.
   leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-verify/src/): `discovery/` (with
+- [`src/`](../../crates/hyperform-verify/src/): `discovery/` (with
   `ecosystems/`), `parse/` (one parser per test runner), `run.rs`,
   `select.rs`, `narrow.rs` (check selection), `assess.rs`, `artifact.rs`, `spec.rs`.
 - Used by: engine (`src/verify/` holds the modes).
 
-## z-engine-store
+## hyperform-store
 
 **In plain words.** The ship's logbook: every session is written down line
 by line as it happens, and can be read back to resume it.
@@ -274,12 +274,12 @@ by line as it happens, and can be read back to resume it.
   directories; import anything but the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-store/src/): `store.rs` (`SessionStore`),
+- [`src/`](../../crates/hyperform-store/src/): `store.rs` (`SessionStore`),
   `log.rs`, `append.rs`, `record.rs`, `replay.rs`, `meta.rs`, `heal.rs`,
   `listing.rs`, `artifacts.rs`, `dataset.rs` (`DecisionDataset`),
   `plans/` (`PlanStore`), `legacy/`. Used by: engine.
 
-## z-engine-decisions
+## hyperform-decisions
 
 **In plain words.** The quick second opinion: it puts short, typed
 questions to a small local model and hands back an answer only when the
@@ -295,12 +295,12 @@ model is sure, otherwise "keep today's behavior".
   the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-decisions/src/): `question.rs`,
+- [`src/`](../../crates/hyperform-decisions/src/): `question.rs`,
   `answer.rs`, `provider.rs`, `providers/` (with `onnx/`),
   `native_model.rs`, `calibration.rs`, `cache.rs`, `probe.rs`, `trace.rs`.
   Used by: engine. More: [the decision layer](features-experimental-and-decisions.md#the-decision-layer).
 
-## z-engine-work
+## hyperform-work
 
 **In plain words.** The clerk of the work plans: it knows who may change
 what, which status may follow which and when a task counts as done, and
@@ -321,7 +321,7 @@ checks every proposed change against those rules without touching a file.
 - Must not: do I/O; import anything but the leaf crates.
 
 **For developers**
-- [`src/`](../../crates/z-engine-work/src/): `proposal.rs`, `authority.rs`,
+- [`src/`](../../crates/hyperform-work/src/): `proposal.rs`, `authority.rs`,
   `transitions.rs`, `kernel/`, `state/`, `graph.rs`, `scope.rs`, `packet/`,
   `depth.rs`, `reconcile.rs`, `held.rs`, `dispatch.rs`, `parallel.rs`,
   `resume.rs`, `needs.rs`, `audit.rs`, `health.rs`, `why.rs`, `error.rs`.
@@ -329,7 +329,7 @@ checks every proposed change against those rules without touching a file.
   [parallel tasks and the plan audit](features-work-parallel.md),
   [pausing, resuming and moving plans](features-work-resume.md).
 
-## z-engine-tools
+## hyperform-tools
 
 **In plain words.** The toolbox: every action the model can take (read,
 edit, run a command, search, ask, send a helper) is one labelled tool with
@@ -347,8 +347,8 @@ an input form and a safety card.
   host.
 
 **For developers**
-- [`src/`](../../crates/z-engine-tools/src/): `tool.rs`, `context/`,
-  `ports/`, `registry.rs`, `names.rs`, [`builtin/`](../../crates/z-engine-tools/src/builtin/)
+- [`src/`](../../crates/hyperform-tools/src/): `tool.rs`, `context/`,
+  `ports/`, `registry.rs`, `names.rs`, [`builtin/`](../../crates/hyperform-tools/src/builtin/)
   (one file per tool; `list.rs` registers them), `mcp_tool.rs`, `edit/`,
   `reading/`, `notebook/`, `text/`.
 - Used by: engine. Tool list: [core features](features-core.md).

@@ -50,16 +50,16 @@ job, and can't rewrite the rest of the folder.
    too.
 
 **For developers**
-- Kernel: [`dispatch.rs`](../../crates/z-engine-work/src/dispatch.rs)
+- Kernel: [`dispatch.rs`](../../crates/hyperform-work/src/dispatch.rs)
   (`check`, `budget`, `parallel_reason`), `kernel/run_ops.rs` (dispatch,
   report, integrate, retry), the worker role in `authority.rs`.
 - Engine: `work/dispatch.rs` (`admit`, the helper-busy and cap
-  refusals), [`orchestration/task_run.rs`](../../crates/z-engine-engine/src/orchestration/task_run.rs)
+  refusals), [`orchestration/task_run.rs`](../../crates/hyperform-engine/src/orchestration/task_run.rs)
   (`admit`, `bind`, `settle`), `work/helper.rs` (`save_report`,
   `conclude`, `integrate`), `work/inject.rs` (`helper_packet`); the brief
-  is `prompts/work/helper.md` (`helper_brief` in `z-engine-context`).
+  is `prompts/work/helper.md` (`helper_brief` in `hyperform-context`).
 - The tool's side: `AgentTool::with_tasks` in
-  `z-engine-tools/src/builtin/agent.rs`; `AgentInfo.taskId` names the task
+  `hyperform-tools/src/builtin/agent.rs`; `AgentInfo.taskId` names the task
   on the Agents tab and the Agent card.
 
 ## Which tasks run together
@@ -92,10 +92,10 @@ are touched by almost everyone, so a job that names one works alone.
    building plan gets the live set for the row badges.
 
 **For developers**
-- [`z-engine-work/src/parallel.rs`](../../crates/z-engine-work/src/parallel.rs):
+- [`hyperform-work/src/parallel.rs`](../../crates/hyperform-work/src/parallel.rs):
   `eligible`, `preview`, `beside_running`, `describe` (the refusal text
   per `ParallelBlock`, `Replanning` for a held task).
-- Settings: `WorkSettings` in `z-engine-config/src/settings/work.rs`
+- Settings: `WorkSettings` in `hyperform-config/src/settings/work.rs`
   (`max_parallel`, `merge`, `serial_paths`, `DEFAULT_SERIAL_PATHS`) and
   `Settings::max_parallel_tasks`; the feature's prerequisite in
   `features/registry.rs` (`requires`).
@@ -128,7 +128,7 @@ ran. The helper's own lists are kept, but marked as its word.
 **For developers**
 - `ReportDraft`, `TaskReport`, `ReportClaims`, `ReportSource` in
   `protocol/src/work/report.rs`; `RunFacts` and the fold in
-  `kernel/run_ops.rs`; the schema in `z-engine-tools/src/builtin/task_update.rs`.
+  `kernel/run_ops.rs`; the schema in `hyperform-tools/src/builtin/task_update.rs`.
 - The GUI's **Result**: `TaskResult.svelte` with `resultView()`,
   `integrationLine()`, `attemptLine()` in `ui/src/lib/domain/work/report.ts`.
 
@@ -191,7 +191,7 @@ flowchart LR
 - `settle`, `apply`, `discard`, `drop_kept` in `orchestration/task_run.rs`;
   `changed_files`, `apply` (merge lock, conflicts) in
   `orchestration/worktree.rs`; `verify_merged` and `recheck` in
-  [`work/merged.rs`](../../crates/z-engine-engine/src/work/merged.rs),
+  [`work/merged.rs`](../../crates/hyperform-engine/src/work/merged.rs),
   `link_check` in `work/evidence.rs`;
   `orchestration/recover.rs` on open.
 - `Integration` (`pendingApply`, `applied`, `conflict`, `discarded`) on
@@ -218,9 +218,9 @@ came back and which jobs can start now.
    unblock once it is done or cancelled, or the dependency is removed.
 
 **For developers**
-- [`work/coordinate.rs`](../../crates/z-engine-engine/src/work/coordinate.rs)
+- [`work/coordinate.rs`](../../crates/hyperform-engine/src/work/coordinate.rs)
   (`News`, `tell_coordinator`), `prompts/reminders/work-coordinate.md`;
-  the phrases in `z-engine-context/src/work/coordinate.rs`; propagation in
+  the phrases in `hyperform-context/src/work/coordinate.rs`; propagation in
   `kernel/propagate.rs`.
 
 ## Scope drift
@@ -240,7 +240,7 @@ the hall has to ask first, and the plan notes that it asked.
    the write is allowed or denied.
 
 **For developers**
-- [`work/drift.rs`](../../crates/z-engine-engine/src/work/drift.rs)
+- [`work/drift.rs`](../../crates/hyperform-engine/src/work/drift.rs)
   (`outside_scope`, `Drift`), called from `batch/gate.rs` before
   `review_call`; `escalate` in `decisions/seams/`.
 
@@ -282,10 +282,10 @@ can't run, risky changes without a test.
    the main agent is told to address it. **Dismiss** is yours only.
 
 **For developers**
-- [`z-engine-work/src/audit.rs`](../../crates/z-engine-work/src/audit.rs)
+- [`hyperform-work/src/audit.rs`](../../crates/hyperform-work/src/audit.rs)
   (`audit`, `RISKY_PATHS`), `kernel/audit_ops.rs` (`follow_up`,
   `upserts`); `AuditFinding` in `protocol/src/work/audit.rs`.
-- Engine: [`work/audit.rs`](../../crates/z-engine-engine/src/work/audit.rs)
+- Engine: [`work/audit.rs`](../../crates/hyperform-engine/src/work/audit.rs)
   (`review_deep_plan`, `request`, `parse`), `work/findings.rs` (Add to
   plan); prompts `agents/audit.md`, `work/audit-request.md`,
   `reminders/work-finding-added.md`.
@@ -306,7 +306,7 @@ much is covered, how good the proof is, and how many problems wait.
   appears once a task is done.
 
 **For developers**
-- [`z-engine-work/src/health.rs`](../../crates/z-engine-work/src/health.rs);
+- [`hyperform-work/src/health.rs`](../../crates/hyperform-work/src/health.rs);
   `PlanHealth` in `protocol/src/work/health.rs`; `coverageLine()` in
   `ui/src/lib/domain/work/health.ts`.
 
@@ -335,7 +335,7 @@ the plan.
 **For developers**
 - Protocol: `run.rs` (`TaskRun`, `TaskDispatch`, `Integration`),
   `report.rs`, `audit.rs`, `health.rs`, `parallel.rs` (`ParallelSet`,
-  `ParallelBlock`) in [`protocol/src/work/`](../../crates/z-engine-protocol/src/work/mod.rs).
+  `ParallelBlock`) in [`protocol/src/work/`](../../crates/hyperform-protocol/src/work/mod.rs).
 - Contract details: [v2 engine architecture: work plans](../architecture/v2-engine-work.md).
 
 See also: [Work plans](features-work-plans.md) ·

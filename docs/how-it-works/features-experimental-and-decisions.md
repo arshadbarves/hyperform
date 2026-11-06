@@ -49,20 +49,20 @@ down in advance, it joins the menu for good.
    alone gets a warning. `work_parallel` requires `work_plans`.
 
 **For developers**
-- [`features/id.rs`](../../crates/z-engine-config/src/features/id.rs)
+- [`features/id.rs`](../../crates/hyperform-config/src/features/id.rs)
   (`FeatureId`, its `[experimental]` key),
-  [`mode.rs`](../../crates/z-engine-config/src/features/mode.rs)
+  [`mode.rs`](../../crates/hyperform-config/src/features/mode.rs)
   (`FeatureMode`: `runs()` for Shadow or On, `acts()` for On only) and
-  [`registry.rs`](../../crates/z-engine-config/src/features/registry.rs)
+  [`registry.rs`](../../crates/hyperform-config/src/features/registry.rs)
   (`FeatureSpec`, `FEATURES`, `.available()`).
-- [`settings/experimental.rs`](../../crates/z-engine-config/src/settings/experimental.rs):
+- [`settings/experimental.rs`](../../crates/hyperform-config/src/settings/experimental.rs):
   `Settings::feature(id)`, the only way code asks, `running_features()`,
   and the warnings; unknown ids are reported by `settings/unknown_keys.rs`.
 - The GUI lists `FEATURES` from the `feature_catalog` command
   (`listedFeatures()` in `ui/src/lib/domain/settings/features.ts`).
 - A new feature: a `FeatureId` variant (in `ALL` and `as_str`), its
   `FeatureSpec`, code gated on `settings.feature(id)`, then
-  `cargo test -p z-engine-config` to regenerate the TypeScript.
+  `cargo test -p hyperform-config` to regenerate the TypeScript.
 
 ## The decision layer
 
@@ -99,14 +99,14 @@ they don't answer in time.
    it does Off.
 
 **For developers**
-- The crate [`z-engine-decisions`](crates.md#z-engine-decisions):
-  [`question.rs`](../../crates/z-engine-decisions/src/question.rs)
+- The crate [`hyperform-decisions`](crates.md#hyperform-decisions):
+  [`question.rs`](../../crates/hyperform-decisions/src/question.rs)
   (`Question`, `Form`, `DecisionRequest`),
-  [`answer.rs`](../../crates/z-engine-decisions/src/answer.rs) (`Answer`,
+  [`answer.rs`](../../crates/hyperform-decisions/src/answer.rs) (`Answer`,
   `Verdict`, `AbstainReason`),
-  [`provider.rs`](../../crates/z-engine-decisions/src/provider.rs) (the
+  [`provider.rs`](../../crates/hyperform-decisions/src/provider.rs) (the
   async `DecisionProvider` trait, cancellable), and
-  [`providers/`](../../crates/z-engine-decisions/src/providers/):
+  [`providers/`](../../crates/hyperform-decisions/src/providers/):
   `rules.rs`, `systemone/`, `onnx/` and `hybrid.rs`, with
   `calibration.rs` and `cache.rs` beside them.
 - The wire format (`providers/systemone/wire.rs`):
@@ -119,17 +119,17 @@ they don't answer in time.
   given as a choice index is divided by the number of levels minus one;
   unknown fields are ignored and `act_probability` is never read.
 - Question wording lives in
-  [`prompts/decisions/`](../../crates/z-engine-prompts/prompts/decisions/):
+  [`prompts/decisions/`](../../crates/hyperform-prompts/prompts/decisions/):
   the instructions, then one `- key: description` line per option, with a
   `pub const` and an `ALL` entry in `src/decisions.rs`: 33 files, one per
   question plus `connection-probe.md`. Custom rules bring their own
   questions, named `rule_<slug>`.
-- In the engine, [`decisions/service.rs`](../../crates/z-engine-engine/src/decisions/service.rs)
-  (`DecisionService`), [`hub.rs`](../../crates/z-engine-engine/src/decisions/hub.rs)
+- In the engine, [`decisions/service.rs`](../../crates/hyperform-engine/src/decisions/service.rs)
+  (`DecisionService`), [`hub.rs`](../../crates/hyperform-engine/src/decisions/hub.rs)
   (`DecisionHub` on `SessionCore`: the service, swapped on reload, plus
   the trace, the shadow slots, the per-feature memory and a memo of what
   was already said, kept) and
-  [`context.rs`](../../crates/z-engine-engine/src/decisions/context.rs)
+  [`context.rs`](../../crates/hyperform-engine/src/decisions/context.rs)
   (`UseContext::ask`, `record`).
 
 ## Seams: where a decision may act
@@ -174,14 +174,14 @@ wheel.
    or a card. It never allows, denies, cancels or hides.
 
 **For developers**
-- [`decisions/registry.rs`](../../crates/z-engine-engine/src/decisions/registry.rs):
+- [`decisions/registry.rs`](../../crates/hyperform-engine/src/decisions/registry.rs):
   the `DecisionUse` trait (one method per seam, each defaulting to no
   advice), `Seam`, and `USES`, the 21 uses in registry order (a test keeps
   them equal to the `.available()` features).
-  [`decisions/uses/`](../../crates/z-engine-engine/src/decisions/uses/)
+  [`decisions/uses/`](../../crates/hyperform-engine/src/decisions/uses/)
   holds one file or folder per feature, named after its id without
   `decisions_`.
-- [`decisions/seams/`](../../crates/z-engine-engine/src/decisions/seams/):
+- [`decisions/seams/`](../../crates/hyperform-engine/src/decisions/seams/):
   `dispatch.rs` (shadow slots, deadline) and one file per seam, called from
   `session/turn.rs` (`at_turn_start`, `at_turn_end`), `run/pressure.rs`
   (`review_clears`), `run/agent.rs` (`screen_request`), `batch/gate.rs`
@@ -194,12 +194,12 @@ wheel.
   (`rank_items`), `hooks/notify.rs` (`score_attention`,
   `worth_notifying`) and `session/open.rs` (`watch_notices`).
 - Suggestion cards go through
-  [`decisions/suggest.rs`](../../crates/z-engine-engine/src/decisions/suggest.rs):
+  [`decisions/suggest.rs`](../../crates/hyperform-engine/src/decisions/suggest.rs):
   `offer` emits `Suggested` (not in shadow), and
   `Command::ResolveSuggestion` traces the click with provider `user`.
 - The Off guarantee is tested in `decisions/seams/tests.rs` (a probe use
   against a model that is down, times out, answers garbage, is unsure or
-  hangs) and [`tests/decisions_fallback.rs`](../../crates/z-engine-engine/tests/decisions_fallback.rs)
+  hangs) and [`tests/decisions_fallback.rs`](../../crates/hyperform-engine/tests/decisions_fallback.rs)
   (every feature On with a dead model sends the main model the same
   requests as every feature Off).
 - A new use: implement `DecisionUse` in `uses/<name>.rs` for its seams, ask
@@ -263,32 +263,32 @@ timer, or have built into the kitchen.
    a model started moments ago may still be loading.
 
 **For developers**
-- [`decisions/build.rs`](../../crates/z-engine-engine/src/decisions/build.rs)
+- [`decisions/build.rs`](../../crates/hyperform-engine/src/decisions/build.rs)
   (`build_service`, `connect`, the notice),
-  [`sidecar.rs`](../../crates/z-engine-engine/src/decisions/sidecar.rs)
+  [`sidecar.rs`](../../crates/hyperform-engine/src/decisions/sidecar.rs)
   (`Sidecars` on `Shared`, `WARM_UP`; `Engine::shutdown` stops it); the
   free port from `free_loopback_port` in
-  [`host/src/net.rs`](../../crates/z-engine-host/src/net.rs).
+  [`host/src/net.rs`](../../crates/hyperform-host/src/net.rs).
 - Native: the pins in
-  [`native_model.rs`](../../crates/z-engine-decisions/src/native_model.rs)
+  [`native_model.rs`](../../crates/hyperform-decisions/src/native_model.rs)
   (`NativeModel`, `native_model`, the aliases), the provider in
   `providers/onnx/` (feature `onnx`: `ort` and `tokenizers`), the engine
-  side in [`decisions/native/`](../../crates/z-engine-engine/src/decisions/native/)
+  side in [`decisions/native/`](../../crates/hyperform-engine/src/decisions/native/)
   (`NativeRuntime` on `Shared`, `connect`, `files.rs`) and the download in
-  [`host/src/download.rs`](../../crates/z-engine-host/src/download.rs).
-  The feature chain is `z-engine-gui/onnx` → `z-engine-engine/onnx` →
-  `z-engine-decisions/onnx`.
+  [`host/src/download.rs`](../../crates/hyperform-host/src/download.rs).
+  The feature chain is `hyperform-gui/onnx` → `hyperform-engine/onnx` →
+  `hyperform-decisions/onnx`.
 - The loopback rule is `providers/systemone/endpoint.rs`; the probe is
-  [`probe.rs`](../../crates/z-engine-decisions/src/probe.rs), run by
+  [`probe.rs`](../../crates/hyperform-decisions/src/probe.rs), run by
   `Engine::test_decision_model` in
-  [`engine/queries/decisions.rs`](../../crates/z-engine-engine/src/engine/queries/decisions.rs);
+  [`engine/queries/decisions.rs`](../../crates/hyperform-engine/src/engine/queries/decisions.rs);
   the model card's status, download, cancel and remove are in
   `engine/queries/decision_model.rs` (Tauri `decision_model_status`,
   `download_decision_model`, `cancel_decision_model_download`,
   `remove_decision_model`; wording in
   `ui/src/lib/domain/settings/decisionModel.ts` and `nativeModel.ts`).
 - Trust: `restrict_to_user_level` and `trust_gated` in
-  [`settings/effective.rs`](../../crates/z-engine-engine/src/settings/effective.rs).
+  [`settings/effective.rs`](../../crates/hyperform-engine/src/settings/effective.rs).
 
 ## The decision trace and the dataset
 
@@ -318,7 +318,7 @@ dataset is an opt-in notebook on disk, for measuring and training.
    computer. Secret screening's questions are never recorded.
 
 **For developers**
-- [`trace.rs`](../../crates/z-engine-decisions/src/trace.rs)
+- [`trace.rs`](../../crates/hyperform-decisions/src/trace.rs)
   (`DecisionTrace`, `DecisionRecord`, `DecisionSummary`);
   `UseContext::record_of` and `record` in `decisions/context.rs`.
 - `Engine::session_decisions` (`engine/queries/decisions.rs`, Tauri
@@ -326,7 +326,7 @@ dataset is an opt-in notebook on disk, for measuring and training.
   by `ui/src/lib/domain/decisionTrace.ts`, which reads only generic record
   fields, so a new use needs no GUI change.
 - The dataset: `DecisionDataset` in
-  [`store/src/dataset.rs`](../../crates/z-engine-store/src/dataset.rs),
+  [`store/src/dataset.rs`](../../crates/hyperform-store/src/dataset.rs),
   written by `DecisionService::ask` (`decisions/service.rs`).
 
 See also: [Decision uses](features-decision-uses.md) ·

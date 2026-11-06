@@ -164,17 +164,17 @@ commands `resolveSuggestion { suggestionId, accepted }` and
 Details: [the decision layer](../how-it-works/features-experimental-and-decisions.md)
 and [decision uses](../how-it-works/features-decision-uses.md).
 
-## Tools contract (`z-engine-tools`)
+## Tools contract (`hyperform-tools`)
 
 ```rust
 #[async_trait]
 pub trait Tool: Send + Sync {
     fn name(&self) -> &str;
-    fn description(&self) -> String;        // from z-engine-prompts::tools
+    fn description(&self) -> String;        // from hyperform-prompts::tools
     fn input_schema(&self) -> Value;
     fn is_read_only(&self, input: &Value) -> bool;
     fn is_concurrency_safe(&self, input: &Value) -> bool;
-    fn action(&self, input: &Value, ctx: &ToolCtx) -> Action;       // z_engine_policy::Action
+    fn action(&self, input: &Value, ctx: &ToolCtx) -> Action;       // hyperform_policy::Action
     fn title(&self, input: &Value, ctx: &ToolCtx) -> String;        // "Edit src/main.rs"
     async fn preview(&self, input: &Value, ctx: &ToolCtx) -> Option<Preview>;
     async fn call(&self, input: Value, ctx: &ToolCtx) -> Result<ToolOutput, ToolError>;
@@ -203,7 +203,7 @@ the engine:
 
 - Definitions: built-ins (`general`, `explore`, `plan`, `review`, `verify`,
   and `audit` only while `work_plans` is On)
-  shipped as markdown in `z-engine-prompts`, plus custom definitions from
+  shipped as markdown in `hyperform-prompts`, plus custom definitions from
   `.hyperform/agents` and `.claude/agents`. Tools are filtered by the
   definition; `AskUserQuestion` and `ExitPlanMode` are never given to
   subagents; `Agent` is removed at the depth limit.
@@ -228,7 +228,7 @@ the engine:
 
 ## Persistence
 
-`z-engine-store` keeps one directory per session: `log.jsonl` (records:
+`hyperform-store` keeps one directory per session: `log.jsonl` (records:
 messages, turns, todos, plans, questions, approvals, agents, checks,
 checkpoints, compactions, rewinds, mode/planning/model/title changes, usage,
 task views), `meta.json`, `agents/<id>.jsonl`, and `artifacts/`. Replay rebuilds
@@ -292,7 +292,7 @@ commands/`), first name wins: engine built-ins (`compact`, `context`,
 `doctor`, `add-dir`, and `replan` while work plans are On), custom commands (discovery already layers project >
 `.claude` project > user > `.claude` user; they may shadow a prompt built-in
 but never an engine built-in), prompt built-ins
-(`z_engine_prompts::commands::BUILTIN`), and MCP prompts of ready servers as
+(`hyperform_prompts::commands::BUILTIN`), and MCP prompts of ready servers as
 `mcp__<server>__<prompt>`. The GUI's own commands (`help`, `agents`, ...)
 are listed by `Engine::slash_commands` with kind `ui` and never resolved.
 
@@ -343,7 +343,7 @@ are listed by `Engine::slash_commands` with kind `ui` and never resolved.
 Experimental (`work_plans`, Off or On, and `work_parallel`, which
 requires it); the work tools, `Agent { task_id }`, the `audit` agent and
 `/replan` are offered only while `work_plans` is On. The pure kernel
-`z-engine-work` decides every change and does no I/O; `PlanHub` keeps one
+`hyperform-work` decides every change and does no I/O; `PlanHub` keeps one
 writer per plan; task-bound helpers run under a worker role, and their
 worktree changes come back one at a time and are verified in the project
 tree. One chat drives a plan at a time, and a plan resumes (interrupted

@@ -40,14 +40,14 @@ HyperForm exists to make the loop safe, fast, and trustworthy.
 **For developers**
 
 - The loop is `AgentRun` in
-  [run/agent.rs](../../crates/z-engine-engine/src/run/agent.rs): rounds of
+  [run/agent.rs](../../crates/hyperform-engine/src/run/agent.rs): rounds of
   request, stream, record, then either a tool batch or the stop boundary.
 - The engine reaches a model only through the `ModelClient` trait in
-  [client.rs](../../crates/z-engine-llm/src/client.rs), with adapters for
+  [client.rs](../../crates/hyperform-llm/src/client.rs), with adapters for
   OpenAI-compatible chat and Anthropic messages in the same crate.
 - Tools implement the `Tool` trait in
-  [tool.rs](../../crates/z-engine-tools/src/tool.rs); the 27 built-in names
-  are listed in [names.rs](../../crates/z-engine-tools/src/names.rs).
+  [tool.rs](../../crates/hyperform-tools/src/tool.rs); the 27 built-in names
+  are listed in [names.rs](../../crates/hyperform-tools/src/names.rs).
 
 ## The core idea: judgment versus authority
 
@@ -85,26 +85,26 @@ The engine takes on four jobs the model is never trusted with:
 **For developers**
 
 - Authority: the gate in
-  [batch/gate.rs](../../crates/z-engine-engine/src/batch/gate.rs) runs
+  [batch/gate.rs](../../crates/hyperform-engine/src/batch/gate.rs) runs
   `PreToolUse` hooks, then asks the pure policy engine
-  ([decide/pipeline.rs](../../crates/z-engine-policy/src/decide/pipeline.rs));
+  ([decide/pipeline.rs](../../crates/hyperform-policy/src/decide/pipeline.rs));
   asks wait in the broker
-  ([broker/approvals.rs](../../crates/z-engine-engine/src/broker/approvals.rs)).
-- Execution: only `z-engine-host` touches the OS or the network
-  ([lib.rs](../../crates/z-engine-host/src/lib.rs)); tools reach engine
+  ([broker/approvals.rs](../../crates/hyperform-engine/src/broker/approvals.rs)).
+- Execution: only `hyperform-host` touches the OS or the network
+  ([lib.rs](../../crates/hyperform-host/src/lib.rs)); tools reach engine
   services through the capability traits in
-  [ports](../../crates/z-engine-tools/src/ports/mod.rs).
+  [ports](../../crates/hyperform-tools/src/ports/mod.rs).
 - Evidence: the badge is computed from check records in
-  [assess.rs](../../crates/z-engine-verify/src/assess.rs).
+  [assess.rs](../../crates/hyperform-verify/src/assess.rs).
 - Durability: the session log is written by
-  [z-engine-store](../../crates/z-engine-store/src/log.rs); code snapshots
+  [hyperform-store](../../crates/hyperform-store/src/log.rs); code snapshots
   live in a shadow git repository
-  ([checkpoint/shadow.rs](../../crates/z-engine-host/src/checkpoint/shadow.rs)).
+  ([checkpoint/shadow.rs](../../crates/hyperform-host/src/checkpoint/shadow.rs)).
 - The app and the engine speak only through the typed
   [protocol](glossary.md#protocol): `Command` values go in
-  ([commands.rs](../../crates/z-engine-protocol/src/commands.rs)) and
+  ([commands.rs](../../crates/hyperform-protocol/src/commands.rs)) and
   `Event` values come out
-  ([events.rs](../../crates/z-engine-protocol/src/events.rs)).
+  ([events.rs](../../crates/hyperform-protocol/src/events.rs)).
 
 ## One turn at a glance
 
@@ -166,27 +166,27 @@ flowchart TD
 
 **For developers**
 
-- The [session actor](../../crates/z-engine-engine/src/session/actor.rs)
+- The [session actor](../../crates/hyperform-engine/src/session/actor.rs)
   owns the command channel and never waits on the model or a tool, so
   steering, approvals and cancel stay responsive.
-- [session/turn.rs](../../crates/z-engine-engine/src/session/turn.rs) runs
+- [session/turn.rs](../../crates/hyperform-engine/src/session/turn.rs) runs
   one user turn: `UserPromptSubmit` hooks, `turnStarted`, the checkpoint,
   the agent run, and `turnFinished` with its badge.
 - One round: budgets in
-  [run/budget.rs](../../crates/z-engine-engine/src/run/budget.rs)
+  [run/budget.rs](../../crates/hyperform-engine/src/run/budget.rs)
   (`agents.max_turns`, default 200 rounds, and the session cost cap),
   context pressure in
-  [run/pressure.rs](../../crates/z-engine-engine/src/run/pressure.rs),
-  the request in [run/request.rs](../../crates/z-engine-engine/src/run/request.rs),
-  streaming in [run/stream.rs](../../crates/z-engine-engine/src/run/stream.rs),
-  the batch in [batch/execute.rs](../../crates/z-engine-engine/src/batch/execute.rs),
-  and the stop boundary in [run/stop.rs](../../crates/z-engine-engine/src/run/stop.rs).
+  [run/pressure.rs](../../crates/hyperform-engine/src/run/pressure.rs),
+  the request in [run/request.rs](../../crates/hyperform-engine/src/run/request.rs),
+  streaming in [run/stream.rs](../../crates/hyperform-engine/src/run/stream.rs),
+  the batch in [batch/execute.rs](../../crates/hyperform-engine/src/batch/execute.rs),
+  and the stop boundary in [run/stop.rs](../../crates/hyperform-engine/src/run/stop.rs).
 - A typical event sequence: `turnStarted`, `assistantStarted`, `textDelta`
   and `thinkingDelta`, `assistantFinished`, `toolStarted`, `toolProgress`,
   `toolFinished`, then `verificationChanged` and `turnFinished`
   (`approvalRequested` and `approvalResolved` in between when a call asks).
 - Outcomes are `TurnOutcome` in
-  [session.rs](../../crates/z-engine-protocol/src/session.rs): `Completed`,
+  [session.rs](../../crates/hyperform-protocol/src/session.rs): `Completed`,
   `Cancelled`, `Failed`, `BudgetExhausted`, and `Interrupted` for a turn
   the app closed on.
 
@@ -237,33 +237,33 @@ stale and the badge would say so.
 **For developers**
 
 - The webview calls the Tauri command `send_command`
-  ([commands/session.rs](../../crates/z-engine-gui/src-tauri/src/commands/session.rs))
+  ([commands/session.rs](../../crates/hyperform-gui/src-tauri/src/commands/session.rs))
   with `Command::Submit`; the session actor starts the turn, and
-  [session/checkpoint.rs](../../crates/z-engine-engine/src/session/checkpoint.rs)
+  [session/checkpoint.rs](../../crates/hyperform-engine/src/session/checkpoint.rs)
   snapshots the tree.
-- `Verify` ([builtin/verify.rs](../../crates/z-engine-tools/src/builtin/verify.rs))
+- `Verify` ([builtin/verify.rs](../../crates/hyperform-tools/src/builtin/verify.rs))
   runs checks through `CheckPort`
-  ([ports/checks.rs](../../crates/z-engine-engine/src/ports/checks.rs)),
+  ([ports/checks.rs](../../crates/hyperform-engine/src/ports/checks.rs)),
   which records a `CheckRecord` and emits `checkRecorded`.
-- `Edit` ([builtin/edit.rs](../../crates/z-engine-tools/src/builtin/edit.rs))
+- `Edit` ([builtin/edit.rs](../../crates/hyperform-tools/src/builtin/edit.rs))
   checks read-before-edit with the file tracker
-  ([fs/tracker.rs](../../crates/z-engine-host/src/fs/tracker.rs)).
+  ([fs/tracker.rs](../../crates/hyperform-host/src/fs/tracker.rs)).
 - **Always allow…** › **In this chat** arrives as `resolveApproval` with
   `ApprovalDecision::AllowSession { rule }`
-  ([permission.rs](../../crates/z-engine-protocol/src/permission.rs)); the
+  ([permission.rs](../../crates/hyperform-protocol/src/permission.rs)); the
   rule joins the session policy for the rest of the chat.
 - The stop boundary calls the verifier seam
-  ([verify/verdict.rs](../../crates/z-engine-engine/src/verify/verdict.rs)),
-  which asks [assess.rs](../../crates/z-engine-verify/src/assess.rs) for
+  ([verify/verdict.rs](../../crates/hyperform-engine/src/verify/verdict.rs)),
+  which asks [assess.rs](../../crates/hyperform-verify/src/assess.rs) for
   the badge; `verificationChanged` and `turnFinished` carry it to the GUI.
 - Every event goes to the webview on one Tauri event, `engineEvent`
-  ([events.rs](../../crates/z-engine-gui/src-tauri/src/events.rs)), is
-  received in [listen.ts](../../crates/z-engine-gui/ui/src/lib/runtime/listen.ts)
+  ([events.rs](../../crates/hyperform-gui/src-tauri/src/events.rs)), is
+  received in [listen.ts](../../crates/hyperform-gui/ui/src/lib/runtime/listen.ts)
   and reduced into the session view by
-  [sessionView/reduce.ts](../../crates/z-engine-gui/ui/src/lib/domain/sessionView/reduce.ts).
-- To reproduce a flow like this in a test, the dev-only `z-engine-testkit`
+  [sessionView/reduce.ts](../../crates/hyperform-gui/ui/src/lib/domain/sessionView/reduce.ts).
+- To reproduce a flow like this in a test, the dev-only `hyperform-testkit`
   crate provides a `ScriptedModel`, a `FixtureRepo` and an `EventRecorder`
-  ([lib.rs](../../crates/z-engine-testkit/src/lib.rs)).
+  ([lib.rs](../../crates/hyperform-testkit/src/lib.rs)).
 
 ## How to read these pages
 
@@ -299,7 +299,7 @@ stale and the badge would say so.
 | [Parallel tasks and the plan audit](features-work-parallel.md) | Helpers on plan tasks, which tasks run together, the result contract, bringing changes back and verifying them, the coordinator, scope drift, the plan audit and plan health |
 | [Pausing, resuming and moving plans](features-work-resume.md) | Pausing, holding and stopping a plan's work; resuming a plan after a restart or an attach; one chat driving a plan; the plan list, the home card, the Inbox and what "needs you" counts |
 | [Crates](crates.md) | What each crate does, its main modules, and how the crates depend on each other |
-| [The engine, app and test crates](crates-engine-and-app.md) | The crates that put the others together: z-engine-engine, z-engine-gui, z-engine-testkit |
+| [The engine, app and test crates](crates-engine-and-app.md) | The crates that put the others together: hyperform-engine, hyperform-gui, hyperform-testkit |
 | [Where do I change X?](where-to-change.md) | Which files to touch for a common change: a tool, prompt, setting, command, agent, feature, decision use, work-plan rule, hook, event, IPC command, settings screen, permission rule, check parser or provider |
 | [Glossary](glossary.md) | Short definitions of every term used on these pages |
 | [Glossary: the desktop app](glossary-desktop.md) | The names of the window's parts: Inbox, island, pet, side panel |

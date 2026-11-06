@@ -27,12 +27,12 @@ echo "Bumping HyperForm AI workspace version to v$NEW_VER..."
 perl -i -pe 's/^(version\s*=\s*)".*"/$1"'"$NEW_VER"'"/' Cargo.toml
 
 # 2. Update tauri.conf.json version
-perl -i -pe 's/("version"\s*:\s*)".*"/$1"'"$NEW_VER"'"/' crates/z-engine-gui/src-tauri/tauri.conf.json
+perl -i -pe 's/("version"\s*:\s*)".*"/$1"'"$NEW_VER"'"/' crates/hyperform-gui/src-tauri/tauri.conf.json
 
 # 3. Update Cargo.lock
 cargo check --workspace --quiet
 
 echo "Successfully updated version to v$NEW_VER in:"
 echo " - Cargo.toml"
-echo " - crates/z-engine-gui/src-tauri/tauri.conf.json"
+echo " - crates/hyperform-gui/src-tauri/tauri.conf.json"
 echo " - Cargo.lock"

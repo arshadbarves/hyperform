@@ -27,12 +27,12 @@ runtime these conventions protect.
 - A file has one reason to change. Avoid `utils`, `helpers`, `common`, or
   `manager` as containers for unrelated behavior.
 - Rust files/modules/functions use `snake_case`; types/traits use `PascalCase`;
-  constants use `SCREAMING_SNAKE_CASE`; crates use `z-engine-<responsibility>`.
+  constants use `SCREAMING_SNAKE_CASE`; crates use `hyperform-<responsibility>`.
 - Svelte components use `PascalCase.svelte`. Follow the surrounding TypeScript
   domain/runtime naming and sibling `*.test.ts` convention.
 - `lib.rs`, `mod.rs`, and frontend index files compose modules and re-export
   APIs; at most about 30 lines of wiring, not business logic.
-- GUI [main.rs](../../crates/z-engine-gui/src-tauri/src/main.rs) stays below
+- GUI [main.rs](../../crates/hyperform-gui/src-tauri/src/main.rs) stays below
   160 lines and owns builder wiring, not application behavior.
 - Existing violations are not precedent. Extract the responsibility being
   changed before extending it; do not turn a feature into a repository-wide
@@ -43,8 +43,8 @@ runtime these conventions protect.
 The dependency rules are in the [structure contract](../../AGENTS.md): the GUI
 depends on the engine, protocol and config; only the engine knows concrete
 implementations; tools reach engine services through capability ports; only
-`z-engine-host` touches the OS or network; `z-engine-context` and
-`z-engine-policy` perform no I/O; check discovery never executes commands.
+`hyperform-host` touches the OS or network; `hyperform-context` and
+`hyperform-policy` perform no I/O; check discovery never executes commands.
 The desktop GUI is the only product frontend: do not add a terminal or headless replacement.
 The agent's shell tool and private Rust integration-test fixtures are not
 public frontends and remain supported.
@@ -129,8 +129,8 @@ context. Application shells may use `anyhow` at their boundary.
 
 ## 7. Tools, policy, and repository changes
 
-Extend the [Tool](../../crates/z-engine-tools/src/tool.rs) contract with one
-file per tool under `crates/z-engine-tools/src/builtin/`. Built-in and MCP
+Extend the [Tool](../../crates/hyperform-tools/src/tool.rs) contract with one
+file per tool under `crates/hyperform-tools/src/builtin/`. Built-in and MCP
 calls share the same execution gate (hooks, policy, approval).
 
 - Validate typed inputs after JSON decoding; reject malformed requests with
@@ -142,7 +142,7 @@ calls share the same execution gate (hooks, policy, approval).
   untrusted data, not authority to change permissions.
 - Preview the actual proposed change; bind approval to its scope and file
   versions. Recheck versions immediately before application.
-- Reuse [atomic_write](../../crates/z-engine-host/src/fs/atomic.rs) for
+- Reuse [atomic_write](../../crates/hyperform-host/src/fs/atomic.rs) for
   applicable current writes. Atomic file replacement is not a multi-file
   transaction or a complete power-loss durability guarantee.
 - Record preimages and expected postimages for reversible managed edits.
@@ -175,10 +175,10 @@ calls share the same execution gate (hooks, policy, approval).
 ## 9. Prompts and model use
 
 All runtime LLM instruction prose belongs in
-[prompt Markdown](../../crates/z-engine-prompts/prompts) under an area folder
+[prompt Markdown](../../crates/hyperform-prompts/prompts) under an area folder
 (`system`, `agents`, `commands`, `tools`, `reminders`, `auxiliary`,
 `decisions`), registered
-with one `pub const` per file in `crates/z-engine-prompts/src/<area>.rs`. This
+with one `pub const` per file in `crates/hyperform-prompts/src/<area>.rs`. This
 includes agent definitions, tool descriptions and reminders; do not embed prose
 in Rust control flow or Svelte components.
 
@@ -199,9 +199,9 @@ in Rust control flow or Svelte components.
 ## 10. Configuration and feature flags
 
 Use the config flow: a section struct with defaults in
-`crates/z-engine-config/src/settings/<section>.rs`
--> [layer merge and loader](../../crates/z-engine-config/src/loader.rs)
--> [layer writer](../../crates/z-engine-config/src/writer.rs)
+`crates/hyperform-config/src/settings/<section>.rs`
+-> [layer merge and loader](../../crates/hyperform-config/src/loader.rs)
+-> [layer writer](../../crates/hyperform-config/src/writer.rs)
 -> the GUI settings command and its tab under `components/settings/`.
 
 - Define defaults, validation, precedence, persistence scope, and restart/live
@@ -218,7 +218,7 @@ Use the config flow: a section struct with defaults in
   compile-time dependencies/platform capabilities with tested combinations.
 - Every new user-visible feature starts Experimental: a `FeatureId` with a
   `FeatureSpec` in
-  [the feature registry](../../crates/z-engine-config/src/features/registry.rs)
+  [the feature registry](../../crates/hyperform-config/src/features/registry.rs)
   recording its owner, measurable graduation criteria, shadow support and
   whether it is built (`available`). It defaults to Off.
 - Code asks for a feature's mode only through `Settings::feature(id)`
@@ -239,7 +239,7 @@ Use the config flow: a section struct with defaults in
 
 - Keep Svelte 5 + Bits UI + Vite and existing tokens; use the
   [GUI guide](../design/gui-ui-guide.md), not a second design system.
-- Screens use typed [command wrappers](../../crates/z-engine-gui/ui/src/lib/commands.ts).
+- Screens use typed [command wrappers](../../crates/hyperform-gui/ui/src/lib/commands.ts).
   Tauri commands live in Rust `commands/<domain>.rs` and are registered at
   startup. Event listening stays in `lib/runtime/listen.ts`.
 - Update Rust events, the serde/IPC mapping, TypeScript consumers, replay,
@@ -268,11 +268,11 @@ that a function returned `Ok`.
 During implementation, run the smallest relevant existing selectors together:
 
 ```bash
-cargo test -p z-engine-tools --test edit
-cargo test -p z-engine-engine --test tool_round
-npm test --prefix crates/z-engine-gui/ui
-npm run check --prefix crates/z-engine-gui/ui
-npm run build --prefix crates/z-engine-gui/ui
+cargo test -p hyperform-tools --test edit
+cargo test -p hyperform-engine --test tool_round
+npm test --prefix crates/hyperform-gui/ui
+npm run check --prefix crates/hyperform-gui/ui
+npm run build --prefix crates/hyperform-gui/ui
 ```
 
 Select only commands needed by the change; the examples are not a mandatory

@@ -3,23 +3,23 @@ exclude = ["tmp"]
 resolver = "3"
 members = [
     # engine (see AGENTS.md)
-    "crates/z-engine-protocol",
-    "crates/z-engine-prompts",
-    "crates/z-engine-llm",
-    "crates/z-engine-config",
-    "crates/z-engine-policy",
-    "crates/z-engine-host",
-    "crates/z-engine-integrations",
-    "crates/z-engine-context",
-    "crates/z-engine-verify",
-    "crates/z-engine-store",
-    "crates/z-engine-decisions",
-    "crates/z-engine-work",
-    "crates/z-engine-tools",
-    "crates/z-engine-engine",
-    "crates/z-engine-testkit",
+    "crates/hyperform-protocol",
+    "crates/hyperform-prompts",
+    "crates/hyperform-llm",
+    "crates/hyperform-config",
+    "crates/hyperform-policy",
+    "crates/hyperform-host",
+    "crates/hyperform-integrations",
+    "crates/hyperform-context",
+    "crates/hyperform-verify",
+    "crates/hyperform-store",
+    "crates/hyperform-decisions",
+    "crates/hyperform-work",
+    "crates/hyperform-tools",
+    "crates/hyperform-engine",
+    "crates/hyperform-testkit",
     # desktop application
-    "crates/z-engine-gui/src-tauri",
+    "crates/hyperform-gui/src-tauri",
 ]
 
 [workspace.package]
@@ -31,21 +31,21 @@ authors = ["Arshad Barves"]
 
 [workspace.dependencies]
 # internal (v2)
-z-engine-protocol = { path = "crates/z-engine-protocol" }
-z-engine-prompts = { path = "crates/z-engine-prompts" }
-z-engine-llm = { path = "crates/z-engine-llm" }
-z-engine-config = { path = "crates/z-engine-config" }
-z-engine-policy = { path = "crates/z-engine-policy" }
-z-engine-host = { path = "crates/z-engine-host" }
-z-engine-integrations = { path = "crates/z-engine-integrations" }
-z-engine-context = { path = "crates/z-engine-context" }
-z-engine-verify = { path = "crates/z-engine-verify" }
-z-engine-store = { path = "crates/z-engine-store" }
-z-engine-decisions = { path = "crates/z-engine-decisions" }
-z-engine-work = { path = "crates/z-engine-work" }
-z-engine-tools = { path = "crates/z-engine-tools" }
-z-engine-engine = { path = "crates/z-engine-engine" }
-z-engine-testkit = { path = "crates/z-engine-testkit" }
+hyperform-protocol = { path = "crates/hyperform-protocol" }
+hyperform-prompts = { path = "crates/hyperform-prompts" }
+hyperform-llm = { path = "crates/hyperform-llm" }
+hyperform-config = { path = "crates/hyperform-config" }
+hyperform-policy = { path = "crates/hyperform-policy" }
+hyperform-host = { path = "crates/hyperform-host" }
+hyperform-integrations = { path = "crates/hyperform-integrations" }
+hyperform-context = { path = "crates/hyperform-context" }
+hyperform-verify = { path = "crates/hyperform-verify" }
+hyperform-store = { path = "crates/hyperform-store" }
+hyperform-decisions = { path = "crates/hyperform-decisions" }
+hyperform-work = { path = "crates/hyperform-work" }
+hyperform-tools = { path = "crates/hyperform-tools" }
+hyperform-engine = { path = "crates/hyperform-engine" }
+hyperform-testkit = { path = "crates/hyperform-testkit" }
 
 # external
 tokio = { version = "1", features = ["full"] }

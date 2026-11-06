@@ -30,12 +30,12 @@ while you looked elsewhere waits.
   card and reacts to each step.
 
 **For developers**
-- `stageFor()` in [`lib/domain/stage.ts`](../../crates/z-engine-gui/ui/src/lib/domain/stage.ts)
-  picks home, chat or inbox for [`chrome/MainStage.svelte`](../../crates/z-engine-gui/ui/src/components/chrome/MainStage.svelte);
-  [`components/home/`](../../crates/z-engine-gui/ui/src/components/home/),
-  [`inbox/`](../../crates/z-engine-gui/ui/src/components/inbox/) (over
+- `stageFor()` in [`lib/domain/stage.ts`](../../crates/hyperform-gui/ui/src/lib/domain/stage.ts)
+  picks home, chat or inbox for [`chrome/MainStage.svelte`](../../crates/hyperform-gui/ui/src/components/chrome/MainStage.svelte);
+  [`components/home/`](../../crates/hyperform-gui/ui/src/components/home/),
+  [`inbox/`](../../crates/hyperform-gui/ui/src/components/inbox/) (over
   `inboxSnapshot()`; `pushToast` records the last 200 notices) and
-  [`onboarding/`](../../crates/z-engine-gui/ui/src/components/onboarding/)
+  [`onboarding/`](../../crates/hyperform-gui/ui/src/components/onboarding/)
   (when `needsOnboarding()`; the pet's pose per step is `onboardingPose()`
   in `lib/domain/onboarding.ts`) draw the rest.
 
@@ -79,14 +79,14 @@ the details; failures stay in view.
   of the transcript (`suggested`), which hide once the next turn starts.
 
 **For developers**
-- [`components/chat/`](../../crates/z-engine-gui/ui/src/components/chat/):
+- [`components/chat/`](../../crates/hyperform-gui/ui/src/components/chat/):
   `TurnView` with `WorkSummary`, `TurnBlocks`, `TurnActions` and
   `TurnFooter`; folds and the work line from `lib/domain/timeline/groups.ts`
   (`workSection()`, `workLine()`), receipts from `lib/domain/receipt.ts`,
   the turn window from `lib/domain/timeline/window.ts`, the rail in
   `ChatTimeline`; placeholders and code colors wait for `whenVisible()`;
-  [`chat/tools/ToolCall.svelte`](../../crates/z-engine-gui/ui/src/components/chat/tools/ToolCall.svelte)
-  picks the card from the family in [`lib/domain/tools/toolMeta.ts`](../../crates/z-engine-gui/ui/src/lib/domain/tools/toolMeta.ts)
+  [`chat/tools/ToolCall.svelte`](../../crates/hyperform-gui/ui/src/components/chat/tools/ToolCall.svelte)
+  picks the card from the family in [`lib/domain/tools/toolMeta.ts`](../../crates/hyperform-gui/ui/src/lib/domain/tools/toolMeta.ts)
   (a new card: a `FAMILIES` entry, a component, a branch in `ToolCall`).
 - Decision surfaces: `chat/RouteChip.svelte` and `chat/TaskViewDivider.svelte`
   (through `LocalCards`), the claim in `TurnFooter` (`claimNote()` in
@@ -122,14 +122,14 @@ who knocks before taking down a wall.
    waits you can also steer. Cards from a subagent carry that agent's label.
 
 **For developers**
-- [`components/planning/PendingInteractions.svelte`](../../crates/z-engine-gui/ui/src/components/planning/PendingInteractions.svelte),
+- [`components/planning/PendingInteractions.svelte`](../../crates/hyperform-gui/ui/src/components/planning/PendingInteractions.svelte),
   inside `chat/Composer.svelte`, renders `chat/ApprovalCard` (worded by
   `lib/domain/approvals.ts`) or `planning/QuestionCard`; plans are
   `planning/PlanReady` and `planning/PlanView` (`panelPlan()` in
   `lib/domain/plans.ts`). Those, and `chat/TrustBanner`, carry
   `data-pending-card`. Types: `ApprovalRequest`, `ApprovalDecision`,
   `PlanDecision`, `Question`, `QuestionAnswer`; the engine's
-  [`broker/`](../../crates/z-engine-engine/src/broker/) holds pending
+  [`broker/`](../../crates/hyperform-engine/src/broker/) holds pending
   requests so the session actor keeps accepting commands.
 
 ## The island and the pet
@@ -167,20 +167,20 @@ full the context is; an amber count, how many other chats need you.
   the island; **Off** shows a dot.
 
 **For developers**
-- [`chrome/TitleStatus.svelte`](../../crates/z-engine-gui/ui/src/components/chrome/TitleStatus.svelte)
+- [`chrome/TitleStatus.svelte`](../../crates/hyperform-gui/ui/src/components/chrome/TitleStatus.svelte)
   holds `WaitingBubble`, `Island` (`IslandCapsule` and `IslandCard` in one
   surface) and `ContextBubble` (with `ContextCard`); `liveStatus()` in
-  [`lib/domain/liveStatus.ts`](../../crates/z-engine-gui/ui/src/lib/domain/liveStatus.ts)
+  [`lib/domain/liveStatus.ts`](../../crates/hyperform-gui/ui/src/lib/domain/liveStatus.ts)
   picks the state and `lib/domain/island.ts` shapes the pill
   (`islandMode()`, `islandAction()`, `islandLine()`).
-- `createLive()` in [`lib/stores/live.svelte.ts`](../../crates/z-engine-gui/ui/src/lib/stores/live.svelte.ts)
+- `createLive()` in [`lib/stores/live.svelte.ts`](../../crates/hyperform-gui/ui/src/lib/stores/live.svelte.ts)
   computes the status, the pet's pose (`petPose()` in `lib/domain/pet/pose.ts`)
   and the clock once, for the title bar and the roaming pet;
   `pet/IslandPet.svelte` draws the pet in the island's slot (its
   `IslandPortrait` while the pet roams), and
   `lib/stores/island.svelte.ts` holds whether the island card and the
   context card are open.
-- The card calls `context_breakdown` ([`Engine::context_breakdown`](../../crates/z-engine-engine/src/engine/queries/context.rs)),
+- The card calls `context_breakdown` ([`Engine::context_breakdown`](../../crates/hyperform-engine/src/engine/queries/context.rs)),
   the estimate `/context` prints, which also arrives as `contextReport`.
 
 ## The side panel
@@ -242,32 +242,32 @@ exactly what was last sent to the model.
   what the agent was given about its task.
 
 **For developers**
-- [`components/sidepanel/`](../../crates/z-engine-gui/ui/src/components/sidepanel/)
+- [`components/sidepanel/`](../../crates/hyperform-gui/ui/src/components/sidepanel/)
   (`SidePanel`, `SidePanelTabs`); state `ui.panel` and `openPanel()` in
   `lib/stores/ui.svelte.ts`; tabs, widths and nudges in
-  [`lib/domain/sidePanel.ts`](../../crates/z-engine-gui/ui/src/lib/domain/sidePanel.ts)
+  [`lib/domain/sidePanel.ts`](../../crates/hyperform-gui/ui/src/lib/domain/sidePanel.ts)
   (`panelTabs()`, `clampPanelWidth()`, `panelNudge()`), followed by
   `followPanelNudges()` in `lib/stores/panelNudges.svelte.ts`.
-- Changes: [`overlays/DiffPanel.svelte`](../../crates/z-engine-gui/ui/src/components/overlays/DiffPanel.svelte)
+- Changes: [`overlays/DiffPanel.svelte`](../../crates/hyperform-gui/ui/src/components/overlays/DiffPanel.svelte)
   and its `Diff*` parts, rows from `lib/domain/diffRows.ts`. This chat:
-  `session_changed_files`, `session_diff_for_file` ([`engine/queries/changes.rs`](../../crates/z-engine-engine/src/engine/queries/changes.rs)).
-  Uncommitted: `list_changed_files`, `diff_for_file` ([`engine/queries/git.rs`](../../crates/z-engine-engine/src/engine/queries/git.rs),
+  `session_changed_files`, `session_diff_for_file` ([`engine/queries/changes.rs`](../../crates/hyperform-engine/src/engine/queries/changes.rs)).
+  Uncommitted: `list_changed_files`, `diff_for_file` ([`engine/queries/git.rs`](../../crates/hyperform-engine/src/engine/queries/git.rs),
   which also creates the worktree for **New chat in a worktree…**); they
   take a project root, else the active project, and refuse other folders.
-  `open_path` and `reveal_path` ([`commands/workspace.rs`](../../crates/z-engine-gui/src-tauri/src/commands/workspace.rs))
+  `open_path` and `reveal_path` ([`commands/workspace.rs`](../../crates/hyperform-gui/src-tauri/src/commands/workspace.rs))
   use the opener plugin once `guard::project_path` finds the path inside a
   known project, symlinks resolved.
 - Plan: `planning/PlanView.svelte` over `panelPlan()` in `lib/domain/plans.ts`;
   with a work plan, `planPanel()` in `lib/domain/work/panel.ts` and the
   `Plan*` and `Task*` parts in `planning/`, over `SessionView.work`.
-- Agents: [`components/agents/`](../../crates/z-engine-gui/ui/src/components/agents/)
+- Agents: [`components/agents/`](../../crates/hyperform-gui/ui/src/components/agents/)
   (`WorkPanel`, `ApplyCard`, `AgentRow`, `JobRow`, `AgentTranscript`;
   `AgentSummary` is the one helper layout, with a `PetSprite`, for both
   its rows and the transcript's Agent card), `agentSections` and
   `agentActivity` in `lib/domain/agentTree.ts`; commands
   `applyAgentChanges`, `discardAgentChanges`, `killJob`. How agents run:
   [agents and context](features-agents-and-context.md).
-- Context: [`overlays/PromptInspector.svelte`](../../crates/z-engine-gui/ui/src/components/overlays/PromptInspector.svelte)
+- Context: [`overlays/PromptInspector.svelte`](../../crates/hyperform-gui/ui/src/components/overlays/PromptInspector.svelte)
   with its `Inspector*` parts (the ring is `InspectorMap`); parsing in
   `lib/domain/requestInspect.ts`, the outline in `lib/domain/inspectOutline.ts`;
   data from `Engine::last_request`. Decisions: `overlays/InspectorDecisions.svelte`
@@ -308,14 +308,14 @@ comes from.
   a check that the path is one the app knows.
 
 **For developers**
-- [`components/settings/`](../../crates/z-engine-gui/ui/src/components/settings/):
+- [`components/settings/`](../../crates/hyperform-gui/ui/src/components/settings/):
   `SettingsPage.svelte` switches on the page ids of `SettingsNav.svelte`,
   grouped and searched through `lib/domain/settings/searchIndex.ts`; one
   `*Tab.svelte` per page; form logic in `lib/domain/settings/`. The page
   sits in `chrome/FullPage.svelte` (the `sheet` transition of
   `lib/ui/motion.ts`, a fade under Reduce Motion); `openSettings()` in
   `lib/stores/app-actions.ts` opens it at a page and a setting.
-- Shell: [`commands/settings.rs`](../../crates/z-engine-gui/src-tauri/src/commands/settings.rs)
+- Shell: [`commands/settings.rs`](../../crates/hyperform-gui/src-tauri/src/commands/settings.rs)
   (`set_setting`, `add_permission_rule`, `set_hooks`, `feature_catalog`,
   `test_decision_model`, ...), `layers.rs`, `commands/access.rs` (keys,
   trust), `commands/extensions.rs` and `guard.rs`.
@@ -354,10 +354,10 @@ chat, a project, a setting or an action.
   side panel back; on Settings it goes back.
 
 **For developers**
-- [`chat/Composer.svelte`](../../crates/z-engine-gui/ui/src/components/chat/Composer.svelte)
-  and its `Composer*` parts; keys in [`lib/domain/composerKeys.ts`](../../crates/z-engine-gui/ui/src/lib/domain/composerKeys.ts);
+- [`chat/Composer.svelte`](../../crates/hyperform-gui/ui/src/components/chat/Composer.svelte)
+  and its `Composer*` parts; keys in [`lib/domain/composerKeys.ts`](../../crates/hyperform-gui/ui/src/lib/domain/composerKeys.ts);
   app-only slash commands in `lib/stores/uiCommands.ts`.
-- [`overlays/CommandPalette.svelte`](../../crates/z-engine-gui/ui/src/components/overlays/CommandPalette.svelte)
+- [`overlays/CommandPalette.svelte`](../../crates/hyperform-gui/ui/src/components/overlays/CommandPalette.svelte)
   with `lib/paletteActions.ts` and `lib/domain/palette.ts`; global keys in
   `lib/stores/shortcuts.ts`.
 

@@ -22,22 +22,22 @@ fixtures remain supported; neither is a public command-line product.
 
 ```
 crates/
-├── z-engine-protocol/     # leaf: ids, conversation model, Event/Command (ts-rs -> ui/src/lib/protocol/)
-├── z-engine-prompts/      # leaf: ALL prompt prose as markdown under prompts/<area>/*.md
-├── z-engine-llm/          # ModelClient seam, openai_chat + anthropic + responses adapters, GitHub Copilot client, retry, fallback, catalog, cost
-├── z-engine-config/       # settings layering + v1 migration, credentials, trust, extension discovery, feature registry
-├── z-engine-policy/       # pure permission engine: rules, modes, shell analysis
-├── z-engine-host/         # the ONLY OS/network adapter: fs, processes, jobs, search, git, checkpoints, web, model download
-├── z-engine-integrations/ # MCP (stdio + HTTP) and LSP clients over one JSON-RPC core
-├── z-engine-context/      # pure prompt assembly, reminders, repo map, tokens, compaction planning
-├── z-engine-verify/       # check discovery, records, output parsing, freshness, outcome
-├── z-engine-store/        # session logs, subagent transcripts, plan logs, artifacts, index, v1 import, decision dataset
-├── z-engine-decisions/    # decision layer: questions, answers, DecisionProvider (rules, systemone, onnx, hybrid), native model pins, cache, calibration, trace
-├── z-engine-work/         # pure work-plan kernel: task graph, state machines, plan-log fold, authority and completion gate, packets, reconciliation and replan holds, dispatch and parallel eligibility, interrupted tasks (resume), needs you, audit, health
-├── z-engine-tools/        # Tool trait, capability ports, registry, builtin/<tool>.rs (one file per tool)
-├── z-engine-engine/       # orchestrator: sessions, agent runs, gating, hooks, jobs, commands, decision seams and uses, GUI queries
-├── z-engine-testkit/      # dev-only: ScriptedModel, FixtureRepo, EventRecorder
-└── z-engine-gui/
+├── hyperform-protocol/     # leaf: ids, conversation model, Event/Command (ts-rs -> ui/src/lib/protocol/)
+├── hyperform-prompts/      # leaf: ALL prompt prose as markdown under prompts/<area>/*.md
+├── hyperform-llm/          # ModelClient seam, openai_chat + anthropic + responses adapters, GitHub Copilot client, retry, fallback, catalog, cost
+├── hyperform-config/       # settings layering + v1 migration, credentials, trust, extension discovery, feature registry
+├── hyperform-policy/       # pure permission engine: rules, modes, shell analysis
+├── hyperform-host/         # the ONLY OS/network adapter: fs, processes, jobs, search, git, checkpoints, web, model download
+├── hyperform-integrations/ # MCP (stdio + HTTP) and LSP clients over one JSON-RPC core
+├── hyperform-context/      # pure prompt assembly, reminders, repo map, tokens, compaction planning
+├── hyperform-verify/       # check discovery, records, output parsing, freshness, outcome
+├── hyperform-store/        # session logs, subagent transcripts, plan logs, artifacts, index, v1 import, decision dataset
+├── hyperform-decisions/    # decision layer: questions, answers, DecisionProvider (rules, systemone, onnx, hybrid), native model pins, cache, calibration, trace
+├── hyperform-work/         # pure work-plan kernel: task graph, state machines, plan-log fold, authority and completion gate, packets, reconciliation and replan holds, dispatch and parallel eligibility, interrupted tasks (resume), needs you, audit, health
+├── hyperform-tools/        # Tool trait, capability ports, registry, builtin/<tool>.rs (one file per tool)
+├── hyperform-engine/       # orchestrator: sessions, agent runs, gating, hooks, jobs, commands, decision seams and uses, GUI queries
+├── hyperform-testkit/      # dev-only: ScriptedModel, FixtureRepo, EventRecorder
+└── hyperform-gui/
     ├── src-tauri/         # Tauri shell: builder wiring, AppState, event bridge, commands/<domain>.rs
     └── ui/                # Svelte 5 frontend
 website/                   # VitePress docs site (config, theme, sidebar); the content stays in docs/
@@ -46,7 +46,7 @@ website/                   # VitePress docs site (config, theme, sidebar); the c
 Dependency rules (arrows mean "may import"):
 
 ```
-z-engine-gui -> engine, protocol, config
+hyperform-gui -> engine, protocol, config
 engine       -> every crate below
 tools        -> host, policy
 integrations -> host
@@ -58,7 +58,7 @@ testkit      -> llm (dev-dependency of other crates only)
 ```
 
 - Only `engine` knows concrete implementations; tools reach engine
-  services through capability traits in `z-engine-tools::ports`. The GUI
+  services through capability traits in `hyperform-tools::ports`. The GUI
   shell calls `Engine` (sessions, settings, catalog, and the queries in
   `engine/queries/`) and uses `config` only for settings files, credentials,
   trust and extension/instruction discovery.
@@ -74,13 +74,13 @@ HTTP connections, `llm` sends the model-provider requests (including
   and opens or reveals project files (`open_path`, `reveal_path`) through
   the opener plugin. `config` and `store` read/write their own files;
   `context`, `policy` and `work` do no I/O.
-- Prompt prose lives only in `crates/z-engine-prompts/prompts/<area>/`,
+- Prompt prose lives only in `crates/hyperform-prompts/prompts/<area>/`,
   one `pub const` per file in `src/<area>.rs`. Tool descriptions are
   `prompts/tools/<snake_name>.md` (e.g. `multi_edit.md`). Never inline
   prompt text in logic files.
 - Protocol types are the GUI contract: change them only in
-  `z-engine-protocol` (config types in `z-engine-config`), then run
-  `cargo test -p z-engine-protocol` / `-p z-engine-config` and commit the
+  `hyperform-protocol` (config types in `hyperform-config`), then run
+  `cargo test -p hyperform-protocol` / `-p hyperform-config` and commit the
   regenerated `ui/src/lib/protocol/**/*.ts` in the same change.
 - Tool names and input schemas follow Claude Code (`Read`, `Edit`, `Bash`,
   `Grep`, `TodoWrite`, `Agent`, ...). Custom agents, commands and skills are
@@ -104,20 +104,20 @@ HTTP connections, `llm` sends the model-provider requests (including
 7. **Tests live next to what they test** (`#[cfg(test)] mod tests`) or in
    `tests/` for integration flows. One concern per integration file.
 8. **Every new feature starts Experimental**: a `FeatureId` in
-   `z-engine-config/src/features/registry.rs` (owner, graduation criteria,
+   `hyperform-config/src/features/registry.rs` (owner, graduation criteria,
    default off), checked only through `Settings::feature(id)`. It becomes
    Stable once it meets its criteria (recorded in `docs/status.md`); a flag
    never disables a safety invariant, and a decision use may only tighten
    (Allow to Ask), never loosen.
 
-## GUI shell (`crates/z-engine-gui/src-tauri/src`)
+## GUI shell (`crates/hyperform-gui/src-tauri/src`)
 
 ```
 main.rs          # builder wiring: runtime, logging, plugins, handler list, setup, shutdown
 state.rs         # AppState { engine, workspaces, pet store, active project }
 events.rs        # EventSink -> Tauri event `engineEvent` (payload: EventEnvelope)
 window.rs        # main window, title bar, vibrancy/Mica
-logging.rs       # <data dir>/z-engine-gui.log
+logging.rs       # <data dir>/hyperform-gui.log
 workspaces.rs    # <data dir>/workspaces.json registry
 pet.rs           # <data dir>/pet.json: the pet's growth (temp-file write, 64 KB cap)
 layers.rs        # settings scope -> layer file, layer tables (incl. in-memory v1 import)
@@ -128,7 +128,7 @@ commands/        # ALL #[tauri::command] fns, one file per domain:
                  # extensions, app, update, pet, work (plans, packets, why)
 ```
 
-## Frontend (`crates/z-engine-gui/ui/src`)
+## Frontend (`crates/hyperform-gui/ui/src`)
 
 **Svelte 5 + Bits UI + Vite**, with Three.js for the pet only. Canonical UI rules:
 [`docs/design/gui-ui-guide.md`](docs/design/gui-ui-guide.md).
@@ -176,18 +176,18 @@ Tailwind, shadcn-svelte, React, or a second design system.
 
 | Adding… | Do this |
 |---|---|
-| a tool | `z-engine-tools/src/builtin/<snake_name>.rs` implementing `Tool`, declared in `builtin/mod.rs` and registered in `builtin/list.rs`; its name in `z-engine-tools/src/names.rs`; description in `z-engine-prompts/prompts/tools/<snake_name>.md` with a `pub const` and a table entry in `src/tools.rs` |
-| a prompt | `z-engine-prompts/prompts/<area>/<name>.md` + one `pub const` in `src/<area>.rs` |
+| a tool | `hyperform-tools/src/builtin/<snake_name>.rs` implementing `Tool`, declared in `builtin/mod.rs` and registered in `builtin/list.rs`; its name in `hyperform-tools/src/names.rs`; description in `hyperform-prompts/prompts/tools/<snake_name>.md` with a `pub const` and a table entry in `src/tools.rs` |
+| a prompt | `hyperform-prompts/prompts/<area>/<name>.md` + one `pub const` in `src/<area>.rs` |
 | an IPC command | fn in the matching `src-tauri/src/commands/<domain>.rs` with `#[tauri::command]`, add it to `generate_handler!` in `main.rs`, wrapper in `ui/src/lib/commands/<domain>.ts` |
-| a GUI query | `impl Engine` method in `z-engine-engine/src/engine/queries/<topic>.rs` with camelCase `Serialize` results and unit tests |
+| a GUI query | `impl Engine` method in `hyperform-engine/src/engine/queries/<topic>.rs` with camelCase `Serialize` results and unit tests |
 | a GUI screen | `ui/src/components/<area>/<Name>.svelte`; use `lib/ui` primitives; follow the UI guide |
 | a GUI primitive | wrapper in `ui/src/lib/ui/` around Bits UI; never import `bits-ui` from a screen |
-| a config key | field in `z-engine-config/src/settings/<section>.rs` (+ default), commented example in `default_config.toml`, v1 mapping in `migrate/convert.rs` if v1 had it; regenerate TS |
-| an event/command variant | `z-engine-protocol` enum, handle it in the engine (actor / emitter) and in `lib/domain/sessionView`; run `cargo test -p z-engine-protocol` and commit the TS |
-| a built-in agent | `z-engine-prompts/prompts/agents/<name>.md` (frontmatter) + `BUILTIN` entry in `src/agents.rs` |
-| a hook event | `HOOK_EVENTS` in `z-engine-config/src/settings/hooks.rs`, fire it from `z-engine-engine/src/hooks/`, document it in `docs/architecture/v2-engine.md` and `docs/user-guide/08-hooks.md` |
-| a feature | a `FeatureId` variant (`features/id.rs`) and its `FeatureSpec` in `z-engine-config/src/features/registry.rs` (Experimental, owner, graduation criteria, `available` once built); gate the code on `settings.feature(id)`; it is listed in Settings > Experimental by itself; document it in `docs/user-guide/15-experimental-features.md` (a decision feature in `16-decision-features.md`, its settings in `17-decision-settings.md`; a work-plan feature in `18-work-plans.md`) and the CHANGELOG as Added (experimental); regenerate TS |
-| a decision use | `z-engine-engine/src/decisions/uses/<name>.rs` implementing `DecisionUse` for its seams, added to `USES` in `decisions/registry.rs`; question wording in `z-engine-prompts/prompts/decisions/<name>.md` with a `pub const` in `src/decisions.rs`; every failure must behave as Off (extend `decisions/seams/tests.rs`) |
+| a config key | field in `hyperform-config/src/settings/<section>.rs` (+ default), commented example in `default_config.toml`, v1 mapping in `migrate/convert.rs` if v1 had it; regenerate TS |
+| an event/command variant | `hyperform-protocol` enum, handle it in the engine (actor / emitter) and in `lib/domain/sessionView`; run `cargo test -p hyperform-protocol` and commit the TS |
+| a built-in agent | `hyperform-prompts/prompts/agents/<name>.md` (frontmatter) + `BUILTIN` entry in `src/agents.rs` |
+| a hook event | `HOOK_EVENTS` in `hyperform-config/src/settings/hooks.rs`, fire it from `hyperform-engine/src/hooks/`, document it in `docs/architecture/v2-engine.md` and `docs/user-guide/08-hooks.md` |
+| a feature | a `FeatureId` variant (`features/id.rs`) and its `FeatureSpec` in `hyperform-config/src/features/registry.rs` (Experimental, owner, graduation criteria, `available` once built); gate the code on `settings.feature(id)`; it is listed in Settings > Experimental by itself; document it in `docs/user-guide/15-experimental-features.md` (a decision feature in `16-decision-features.md`, its settings in `17-decision-settings.md`; a work-plan feature in `18-work-plans.md`) and the CHANGELOG as Added (experimental); regenerate TS |
+| a decision use | `hyperform-engine/src/decisions/uses/<name>.rs` implementing `DecisionUse` for its seams, added to `USES` in `decisions/registry.rs`; question wording in `hyperform-prompts/prompts/decisions/<name>.md` with a `pub const` in `src/decisions.rs`; every failure must behave as Off (extend `decisions/seams/tests.rs`) |
 
 Every row above also means updating the documentation (next section).
 
@@ -218,7 +218,7 @@ updates the affected pages in the same change:
 cargo fmt --all
 cargo clippy --workspace --all-targets -- -D warnings   # 0 warnings required
 cargo test --workspace                                   # all green required
-npm test --prefix crates/z-engine-gui/ui && npm run check --prefix crates/z-engine-gui/ui
+npm test --prefix crates/hyperform-gui/ui && npm run check --prefix crates/hyperform-gui/ui
 python3 scripts/check_docs_links.py                     # docs links resolve
 wc -l $(git diff --name-only | grep '\.rs$')             # respect the 400 cap
 ```

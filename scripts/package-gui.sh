@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 # Package the desktop app into a macOS .app bundle (ad-hoc signed).
-# Prereqs: release build of zengine-gui + ui/dist present.
+# Prereqs: release build of hyperform-gui + ui/dist present.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-BIN="target/release/zengine-gui"
+BIN="target/release/hyperform-gui"
 [ -x "$BIN" ] || { echo "missing $BIN — run: cargo build --release --workspace"; exit 1; }
-[ -d "crates/z-engine-gui/ui/dist" ] || { echo "missing ui/dist — run: (cd crates/z-engine-gui/ui && npm run build)"; exit 1; }
+[ -d "crates/hyperform-gui/ui/dist" ] || { echo "missing ui/dist — run: (cd crates/hyperform-gui/ui && npm run build)"; exit 1; }
 
 APP="target/release/bundle/macos/HyperForm AI.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-cp "$BIN" "$APP/Contents/MacOS/zengine-gui"
-cp crates/z-engine-gui/src-tauri/icons/icon.icns "$APP/Contents/Resources/icon.icns"
-cp crates/z-engine-gui/src-tauri/icons/icon.png "$APP/Contents/Resources/icon.png"
+cp "$BIN" "$APP/Contents/MacOS/hyperform-gui"
+cp crates/hyperform-gui/src-tauri/icons/icon.icns "$APP/Contents/Resources/icon.icns"
+cp crates/hyperform-gui/src-tauri/icons/icon.png "$APP/Contents/Resources/icon.png"
 
 VERSION=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)
 
@@ -26,7 +26,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleName</key>              <string>HyperForm AI</string>
     <key>CFBundleDisplayName</key>       <string>HyperForm AI</string>
     <key>CFBundleIdentifier</key>        <string>ai.hyperform.gui</string>
-    <key>CFBundleExecutable</key>        <string>zengine-gui</string>
+    <key>CFBundleExecutable</key>        <string>hyperform-gui</string>
     <key>CFBundleIconFile</key>          <string>icon</string>
     <key>CFBundlePackageType</key>       <string>APPL</string>
     <key>CFBundleShortVersionString</key><string>${VERSION}</string>

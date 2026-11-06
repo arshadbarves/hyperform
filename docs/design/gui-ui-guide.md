@@ -1,7 +1,7 @@
 # HyperForm GUI — UI Guide (Svelte 5)
 
 Status: **canonical** · Frontend is Svelte 5 + Bits UI + Vite, hosted by Tauri 2.
-Read this before adding or changing any file under `crates/z-engine-gui/ui`.
+Read this before adding or changing any file under `crates/hyperform-gui/ui`.
 
 This guide exists so humans and LLMs produce the same kind of code: small
 files, one responsibility, reusable primitives, no ad-hoc overlays.
@@ -74,7 +74,7 @@ cover the window; dialogs and popovers float above.
 ### 3.2 File map
 
 ```
-crates/z-engine-gui/ui/src/
+crates/hyperform-gui/ui/src/
 ├── main.ts                 # mount + platform and window-material classes (and, in a dev build outside Tauri, the mock backend first); imports styles/* only
 ├── App.svelte              # composition root (wiring only)
 ├── styles/                 # every stylesheet (4.5); splash.css is linked from index.html
@@ -310,7 +310,7 @@ Settings is the one full-window page (`chrome/FullPage.svelte`,
 | A screen control | New `components/<area>/<Name>.svelte`. Use kit primitives. Keep ≤300 lines. |
 | A Bits wrapper | New file in `lib/ui/`. Re-export from `lib/ui/index.ts`. |
 | An IPC command | Rust `src-tauri/src/commands/<domain>.rs` + `generate_handler!` + wrapper in `lib/commands/<domain>.ts`. Then call the wrapper. |
-| An engine event | Variant in `z-engine-protocol` (regenerate TS), then reduce it in `lib/domain/sessionView/`. Never listen in a component. |
+| An engine event | Variant in `hyperform-protocol` (regenerate TS), then reduce it in `lib/domain/sessionView/`. Never listen in a component. |
 | A pure helper | `lib/domain/<name>.ts` + sibling `*.test.ts`. |
 | A Settings page | `SettingsTab` in `lib/stores/ui.svelte.ts`, `SETTINGS_TABS` in `SettingsNav.svelte`, a `SETTINGS_SECTIONS` group and `SETTING_ENTRIES` rows, a branch in `SettingsPage.svelte`. |
 | A CSS token | `--name` in `styles/tokens.css`. Use it; do not hard-code hex in components. |
@@ -326,7 +326,7 @@ Settings is the one full-window page (`chrome/FullPage.svelte`,
 - Performance: in a dev build, `__hyperform.longChat(1000)` in the webview
   console opens a local-only chat of 1,000 finished turns to profile
   (`lib/runtime/devChat.ts`; it never reaches the engine).
-- Browser QA without the engine: `npm run dev --prefix crates/z-engine-gui/ui`
+- Browser QA without the engine: `npm run dev --prefix crates/hyperform-gui/ui`
   and open `http://localhost:1420` in a browser. Outside Tauri, a dev build
   installs the mock backend (`lib/runtime/dev/mockBackend.ts`) before the
   app mounts: it answers IPC from fixtures in `mockWorld.ts` and

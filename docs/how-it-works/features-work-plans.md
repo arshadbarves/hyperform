@@ -51,7 +51,7 @@ follow the rules and says exactly why it refused the others.
 | Compaction summaries | record discoveries only, which stay unconfirmed until you confirm them |
 
 **For developers**
-- [`z-engine-work`](../../crates/z-engine-work/src/lib.rs) is pure (no
+- [`hyperform-work`](../../crates/hyperform-work/src/lib.rs) is pure (no
   I/O): `proposal.rs` (`Proposal`, and `From<WorkEdit>` for Plan-tab
   edits), `authority.rs` (`Role`, `admit`), `transitions.rs` (the task
   and plan state machines), `kernel/` (`decide`, the completion gate in
@@ -59,13 +59,13 @@ follow the rules and says exactly why it refused the others.
   `packet/`, `reconcile.rs`, `held.rs` (what a replan holds), `needs.rs`
   (what needs you), `resume.rs` (interrupted tasks) and `error.rs`
   (`Reason`, `Rejection`).
-- The engine's side is [`work/`](../../crates/z-engine-engine/src/work/mod.rs):
+- The engine's side is [`work/`](../../crates/hyperform-engine/src/work/mod.rs):
   `PlanHub` (`hub.rs`) keeps one live `PlanHandle` per plan for the whole
   process, so each log has one writer; `PlanHandle::submit` (`plan.rs`)
   decides, appends and syncs, applies, writes `meta.json` and emits
   `workUpdated` to every watching session.
-- The tools' side is `WorkPort` ([tools](../../crates/z-engine-tools/src/ports/work.rs),
-  [engine](../../crates/z-engine-engine/src/ports/work.rs)); tool input
+- The tools' side is `WorkPort` ([tools](../../crates/hyperform-tools/src/ports/work.rs),
+  [engine](../../crates/hyperform-engine/src/ports/work.rs)); tool input
   becomes proposals in `work/proposals.rs`.
 
 ## Web content waits for you
@@ -118,7 +118,7 @@ kept, but nothing the plan already says changes until you agree.
    or an MCP tool's result, doesn't count as reading the web.
 
 **For developers**
-- The taint is `WebTaint` ([`run/web.rs`](../../crates/z-engine-engine/src/run/web.rs))
+- The taint is `WebTaint` ([`run/web.rs`](../../crates/hyperform-engine/src/run/web.rs))
   on `RunContext`, set in `batch/call.rs` when a `WebFetch` or `WebSearch`
   call returns. Helpers inherit it in `orchestration/launch.rs`; a
   foreground report passes it back in `orchestration/spawn.rs`, a
@@ -129,7 +129,7 @@ kept, but nothing the plan already says changes until you agree.
 - The kernel's role is `Role::Untrusted(Provenance::Research)` next to the
   actor's `Role::base` (a researching helper keeps its task scope). The
   coarse gate is `admit_research` in `authority.rs`, the edit limits are
-  [`kernel/research.rs`](../../crates/z-engine-work/src/kernel/research.rs),
+  [`kernel/research.rs`](../../crates/hyperform-work/src/kernel/research.rs),
   and a new task's status and provenance are set in `kernel/task_ops.rs`.
   `Task.provenance` and `TaskReport.provenance` load as `agent` from older
   logs (a report's is set in `kernel/run_ops.rs`); the Plan tab's Accept
@@ -183,9 +183,9 @@ flowchart LR
 ```
 
 **For developers**
-- `ensure` and the attach commands in [`work/attach.rs`](../../crates/z-engine-engine/src/work/attach.rs);
+- `ensure` and the attach commands in [`work/attach.rs`](../../crates/hyperform-engine/src/work/attach.rs);
   `approve`, `planning_on`, `edit` and `replan` in
-  [`work/lifecycle.rs`](../../crates/z-engine-engine/src/work/lifecycle.rs),
+  [`work/lifecycle.rs`](../../crates/hyperform-engine/src/work/lifecycle.rs),
   called from `control::resolve_plan` and `control::set_planning`.
 - `PlanDecision::Approve { mode, edited_plan, handoff }`; commands
   `editWork { planId, edit }`, `attachPlan { planId }`, `detachPlan`. The
@@ -229,10 +229,10 @@ on the code as it is now.
    [audited](features-work-parallel.md#the-plan-audit).
 
 **For developers**
-- [`kernel/gate.rs`](../../crates/z-engine-work/src/kernel/gate.rs)
-  (`completion`, `check_gap`), [`kernel/status.rs`](../../crates/z-engine-work/src/kernel/status.rs),
-  `kernel/propagate.rs` and [`transitions.rs`](../../crates/z-engine-work/src/transitions.rs).
-- [`work/evidence.rs`](../../crates/z-engine-engine/src/work/evidence.rs):
+- [`kernel/gate.rs`](../../crates/hyperform-work/src/kernel/gate.rs)
+  (`completion`, `check_gap`), [`kernel/status.rs`](../../crates/hyperform-work/src/kernel/status.rs),
+  `kernel/propagate.rs` and [`transitions.rs`](../../crates/hyperform-work/src/transitions.rs).
+- [`work/evidence.rs`](../../crates/hyperform-engine/src/work/evidence.rs):
   `link_check` (called from `verify/record.rs`) and `record_steps` (from
   `TodoWrite`); the attempt limit is in `work/proposals.rs`.
 
@@ -273,13 +273,13 @@ it forget what it is doing.
    by section, with why each entry made it in.
 
 **For developers**
-- Selection: [`z-engine-work/src/packet/`](../../crates/z-engine-work/src/packet/mod.rs)
-  (`select`, `rank.rs`); text: [`z-engine-context/src/work/`](../../crates/z-engine-context/src/work/mod.rs)
+- Selection: [`hyperform-work/src/packet/`](../../crates/hyperform-work/src/packet/mod.rs)
+  (`select`, `rank.rs`); text: [`hyperform-context/src/work/`](../../crates/hyperform-context/src/work/mod.rs)
   with `prompts/work/packet.md`, `reminders/work-pin.md` and
   `work-packet.md`.
-- Sending: [`work/inject.rs`](../../crates/z-engine-engine/src/work/inject.rs)
+- Sending: [`work/inject.rs`](../../crates/hyperform-engine/src/work/inject.rs)
   (`pin`, `due_packet`, `focus_files`) and `work/session.rs` (`take_due`);
-  compaction in [`work/compaction.rs`](../../crates/z-engine-engine/src/work/compaction.rs)
+  compaction in [`work/compaction.rs`](../../crates/hyperform-engine/src/work/compaction.rs)
   with `auxiliary/compact-work.md`. GUI: the `work_packet` query and
   `overlays/InspectorPacket.svelte`.
 
@@ -330,11 +330,11 @@ carries on.
    accept the changes.
 
 **For developers**
-- Findings: [`z-engine-work/src/reconcile.rs`](../../crates/z-engine-work/src/reconcile.rs)
+- Findings: [`hyperform-work/src/reconcile.rs`](../../crates/hyperform-work/src/reconcile.rs)
   (`ReconcileFinding` in `protocol/src/work/finding.rs`). The hold:
-  [`held.rs`](../../crates/z-engine-work/src/held.rs) (`partial`,
+  [`held.rs`](../../crates/hyperform-work/src/held.rs) (`partial`,
   `replan_held`), `Readiness::ReplanHeld` and `WorkSnapshot.replanHeld`. Triggers:
-  [`work/reconcile.rs`](../../crates/z-engine-engine/src/work/reconcile.rs);
+  [`work/reconcile.rs`](../../crates/hyperform-engine/src/work/reconcile.rs);
   the command: `work/replan.rs`, `WORK_COMMANDS` in `commands/catalog.rs`,
   prompts `commands/replan.md` and `reminders/work-reconcile.md`.
 
@@ -360,17 +360,17 @@ survives the chat that made it and can be read back exactly.
   [storage and protocol](features-work-parallel.md#storage-and-protocol).
 
 **For developers**
-- Store: [`z-engine-store/src/plans/`](../../crates/z-engine-store/src/plans/mod.rs)
+- Store: [`hyperform-store/src/plans/`](../../crates/hyperform-store/src/plans/mod.rs)
   (`PlanStore`, `PlanLog`, `PLAN_SCHEMA`; a newer schema is refused); the
-  folder: `plans_dir` in `z-engine-config/src/paths.rs`; the key:
-  `project_key` in `z-engine-host/src/checkpoint/shadow.rs`.
-- Protocol [`work/`](../../crates/z-engine-protocol/src/work/mod.rs):
+  folder: `plans_dir` in `hyperform-config/src/paths.rs`; the key:
+  `project_key` in `hyperform-host/src/checkpoint/shadow.rs`.
+- Protocol [`work/`](../../crates/hyperform-protocol/src/work/mod.rs):
   `plan.rs`, `task.rs`, `ledger.rs`, `record.rs` (`WorkRecord`,
   `WorkEvent`), `edit.rs` (`WorkEdit`), `packet.rs`, `finding.rs`,
   `view.rs` (`WorkSnapshot`, `WorkUpdate`, `WhyStep`), and `run.rs`,
   `report.rs`, `audit.rs`, `health.rs`, `parallel.rs`; ids `pln_`,
   `tsk_`, `ent_`.
-- GUI queries in [`engine/queries/work.rs`](../../crates/z-engine-engine/src/engine/queries/work.rs):
+- GUI queries in [`engine/queries/work.rs`](../../crates/hyperform-engine/src/engine/queries/work.rs):
   `work_plans`, `work_packet`, `work_why` (a task's history for
   **Why?**) and `work_parallel` (the parallel set), behind
   `src-tauri/src/commands/work.rs`.

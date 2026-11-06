@@ -1975,6 +1975,300 @@ dependencies = [
 ]
 
 [[package]]
+name = "hyperform-config"
+version = "1.0.0"
+dependencies = [
+ "chrono",
+ "dirs",
+ "globset",
+ "hyperform-protocol",
+ "regex",
+ "serde",
+ "serde_json",
+ "serde_yaml_ng",
+ "tempfile",
+ "thiserror 2.0.20",
+ "toml 0.9.12+spec-1.1.0",
+ "tracing",
+ "ts-rs",
+]
+
+[[package]]
+name = "hyperform-context"
+version = "1.0.0"
+dependencies = [
+ "chrono",
+ "hyperform-prompts",
+ "hyperform-protocol",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.20",
+ "tree-sitter",
+ "tree-sitter-go",
+ "tree-sitter-javascript",
+ "tree-sitter-python",
+ "tree-sitter-rust",
+ "tree-sitter-typescript",
+]
+
+[[package]]
+name = "hyperform-decisions"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "axum",
+ "futures",
+ "hyperform-prompts",
+ "hyperform-protocol",
+ "ort",
+ "reqwest 0.12.28",
+ "serde",
+ "serde_json",
+ "sha2",
+ "thiserror 2.0.20",
+ "tokenizers",
+ "tokio",
+ "tokio-util",
+ "tracing",
+]
+
+[[package]]
+name = "hyperform-engine"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "futures",
+ "globset",
+ "hyperform-config",
+ "hyperform-context",
+ "hyperform-decisions",
+ "hyperform-host",
+ "hyperform-integrations",
+ "hyperform-llm",
+ "hyperform-policy",
+ "hyperform-prompts",
+ "hyperform-protocol",
+ "hyperform-store",
+ "hyperform-testkit",
+ "hyperform-tools",
+ "hyperform-verify",
+ "hyperform-work",
+ "regex",
+ "reqwest 0.12.28",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-gui"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "hyperform-config",
+ "hyperform-engine",
+ "hyperform-protocol",
+ "reqwest 0.12.28",
+ "semver",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-dialog",
+ "tauri-plugin-opener",
+ "tauri-plugin-process",
+ "tauri-plugin-updater",
+ "tempfile",
+ "tokio",
+ "toml 0.9.12+spec-1.1.0",
+ "tracing",
+ "tracing-subscriber",
+ "window-vibrancy",
+]
+
+[[package]]
+name = "hyperform-host"
+version = "1.0.0"
+dependencies = [
+ "axum",
+ "base64 0.22.1",
+ "dirs",
+ "globset",
+ "htmd",
+ "hyperform-protocol",
+ "ignore",
+ "pdf-extract",
+ "regex",
+ "reqwest 0.12.28",
+ "serde_json",
+ "sha2",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "ulid",
+ "which",
+]
+
+[[package]]
+name = "hyperform-integrations"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "axum",
+ "futures",
+ "hyperform-host",
+ "hyperform-protocol",
+ "reqwest 0.12.28",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "which",
+]
+
+[[package]]
+name = "hyperform-llm"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "axum",
+ "futures",
+ "hyperform-prompts",
+ "hyperform-protocol",
+ "reqwest 0.12.28",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "ts-rs",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-policy"
+version = "1.0.0"
+dependencies = [
+ "globset",
+ "hyperform-protocol",
+ "regex",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.20",
+]
+
+[[package]]
+name = "hyperform-prompts"
+version = "1.0.0"
+dependencies = [
+ "serde_yaml_ng",
+]
+
+[[package]]
+name = "hyperform-protocol"
+version = "1.0.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "ts-rs",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-store"
+version = "1.0.0"
+dependencies = [
+ "hyperform-protocol",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tracing",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-testkit"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "axum",
+ "futures",
+ "hyperform-llm",
+ "hyperform-protocol",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tokio-util",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-tools"
+version = "1.0.0"
+dependencies = [
+ "async-trait",
+ "axum",
+ "base64 0.22.1",
+ "globset",
+ "hyperform-host",
+ "hyperform-policy",
+ "hyperform-prompts",
+ "hyperform-protocol",
+ "regex",
+ "serde",
+ "serde_json",
+ "similar",
+ "strsim",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "tracing",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-verify"
+version = "1.0.0"
+dependencies = [
+ "hyperform-host",
+ "hyperform-protocol",
+ "regex",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "thiserror 2.0.20",
+ "tokio",
+ "tokio-util",
+ "toml 0.9.12+spec-1.1.0",
+ "tracing",
+ "ulid",
+]
+
+[[package]]
+name = "hyperform-work"
+version = "1.0.0"
+dependencies = [
+ "globset",
+ "hyperform-protocol",
+ "thiserror 2.0.20",
+]
+
+[[package]]
 name = "iana-time-zone"
 version = "0.1.65"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6700,300 +6994,6 @@ dependencies = [
  "quote",
  "syn 2.0.119",
  "synstructure",
-]
-
-[[package]]
-name = "z-engine-config"
-version = "1.0.0"
-dependencies = [
- "chrono",
- "dirs",
- "globset",
- "regex",
- "serde",
- "serde_json",
- "serde_yaml_ng",
- "tempfile",
- "thiserror 2.0.20",
- "toml 0.9.12+spec-1.1.0",
- "tracing",
- "ts-rs",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-context"
-version = "1.0.0"
-dependencies = [
- "chrono",
- "serde",
- "serde_json",
- "thiserror 2.0.20",
- "tree-sitter",
- "tree-sitter-go",
- "tree-sitter-javascript",
- "tree-sitter-python",
- "tree-sitter-rust",
- "tree-sitter-typescript",
- "z-engine-prompts",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-decisions"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "axum",
- "futures",
- "ort",
- "reqwest 0.12.28",
- "serde",
- "serde_json",
- "sha2",
- "thiserror 2.0.20",
- "tokenizers",
- "tokio",
- "tokio-util",
- "tracing",
- "z-engine-prompts",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-engine"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "futures",
- "globset",
- "regex",
- "reqwest 0.12.28",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "tracing",
- "ulid",
- "z-engine-config",
- "z-engine-context",
- "z-engine-decisions",
- "z-engine-host",
- "z-engine-integrations",
- "z-engine-llm",
- "z-engine-policy",
- "z-engine-prompts",
- "z-engine-protocol",
- "z-engine-store",
- "z-engine-testkit",
- "z-engine-tools",
- "z-engine-verify",
- "z-engine-work",
-]
-
-[[package]]
-name = "z-engine-gui"
-version = "1.0.0"
-dependencies = [
- "anyhow",
- "reqwest 0.12.28",
- "semver",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-dialog",
- "tauri-plugin-opener",
- "tauri-plugin-process",
- "tauri-plugin-updater",
- "tempfile",
- "tokio",
- "toml 0.9.12+spec-1.1.0",
- "tracing",
- "tracing-subscriber",
- "window-vibrancy",
- "z-engine-config",
- "z-engine-engine",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-host"
-version = "1.0.0"
-dependencies = [
- "axum",
- "base64 0.22.1",
- "dirs",
- "globset",
- "htmd",
- "ignore",
- "pdf-extract",
- "regex",
- "reqwest 0.12.28",
- "serde_json",
- "sha2",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "tracing",
- "ulid",
- "which",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-integrations"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "axum",
- "futures",
- "reqwest 0.12.28",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "tracing",
- "which",
- "z-engine-host",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-llm"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "axum",
- "futures",
- "reqwest 0.12.28",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "tracing",
- "ts-rs",
- "ulid",
- "z-engine-prompts",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-policy"
-version = "1.0.0"
-dependencies = [
- "globset",
- "regex",
- "serde",
- "serde_json",
- "thiserror 2.0.20",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-prompts"
-version = "1.0.0"
-dependencies = [
- "serde_yaml_ng",
-]
-
-[[package]]
-name = "z-engine-protocol"
-version = "1.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "ts-rs",
- "ulid",
-]
-
-[[package]]
-name = "z-engine-store"
-version = "1.0.0"
-dependencies = [
- "serde",
- "serde_json",
- "tempfile",
- "thiserror 2.0.20",
- "tracing",
- "ulid",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-testkit"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "axum",
- "futures",
- "serde",
- "serde_json",
- "tempfile",
- "tokio",
- "tokio-util",
- "ulid",
- "z-engine-llm",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-tools"
-version = "1.0.0"
-dependencies = [
- "async-trait",
- "axum",
- "base64 0.22.1",
- "globset",
- "regex",
- "serde",
- "serde_json",
- "similar",
- "strsim",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "tracing",
- "ulid",
- "z-engine-host",
- "z-engine-policy",
- "z-engine-prompts",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-verify"
-version = "1.0.0"
-dependencies = [
- "regex",
- "serde",
- "serde_json",
- "tempfile",
- "thiserror 2.0.20",
- "tokio",
- "tokio-util",
- "toml 0.9.12+spec-1.1.0",
- "tracing",
- "ulid",
- "z-engine-host",
- "z-engine-protocol",
-]
-
-[[package]]
-name = "z-engine-work"
-version = "1.0.0"
-dependencies = [
- "globset",
- "thiserror 2.0.20",
- "z-engine-protocol",
 ]
 
 [[package]]

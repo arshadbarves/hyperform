@@ -42,16 +42,16 @@ device while the agent keeps working the same way.
    restarts only the servers whose entries changed.
 
 **For developers.** The client is
-[`integrations/src/mcp/`](../../crates/z-engine-integrations/src/mcp/)
+[`integrations/src/mcp/`](../../crates/hyperform-integrations/src/mcp/)
 (`manager.rs` with `McpManager` and reconnect-once, `transport.rs` and
 `http.rs`, `naming.rs`) over the JSON-RPC core in `jsonrpc/`. Per session,
-[`engine/src/mcp/`](../../crates/z-engine-engine/src/mcp/) keeps one
+[`engine/src/mcp/`](../../crates/hyperform-engine/src/mcp/) keeps one
 manager per server (`hub.rs`), reconciles them on reload (`lifecycle.rs`),
 builds the catalog (`catalog.rs`, `DEFER_ABOVE = 40`) and tracks loaded
 tools (`deferred.rs`); prompts become commands in
-[`commands/catalog.rs`](../../crates/z-engine-engine/src/commands/catalog.rs).
+[`commands/catalog.rs`](../../crates/hyperform-engine/src/commands/catalog.rs).
 The three MCP tools are `list_mcp_resources.rs`, `read_mcp_resource.rs`
-and `load_mcp_tools.rs` in [`builtin/`](../../crates/z-engine-tools/src/builtin/).
+and `load_mcp_tools.rs` in [`builtin/`](../../crates/hyperform-tools/src/builtin/).
 
 ## Language servers
 
@@ -80,13 +80,13 @@ helpers, like asking a local guide instead of reading the whole map.
    started in the background for later writes. Warnings are left out.
 
 **For developers.** The client is
-[`integrations/src/lsp/`](../../crates/z-engine-integrations/src/lsp/):
+[`integrations/src/lsp/`](../../crates/hyperform-integrations/src/lsp/):
 `spec.rs` (built-in servers), `routing.rs` (file to server), `manager.rs`
 (`LspManager`: lazy start, cached failures, `MAX_RESTARTS = 3`) and
 `progress.rs` (busy while an indexing token is open). In the engine,
-[`lsp/`](../../crates/z-engine-engine/src/lsp/) runs the manager on its own
+[`lsp/`](../../crates/hyperform-engine/src/lsp/) runs the manager on its own
 thread (`hub.rs`, `worker.rs`), serves the
-[`LSP` tool](../../crates/z-engine-tools/src/builtin/lsp.rs) (`query.rs`)
+[`LSP` tool](../../crates/hyperform-tools/src/builtin/lsp.rs) (`query.rs`)
 and appends post-write errors (`after_write.rs`, `WAIT` of 2 s). A new
 built-in server is a spec in `spec.rs` plus a test.
 
@@ -134,16 +134,16 @@ never from the model's words.
 
 The badge never blocks you.
 
-**For developers.** [`z-engine-verify`](../../crates/z-engine-verify/src/):
+**For developers.** [`hyperform-verify`](../../crates/hyperform-verify/src/):
 `discovery/` (one module per ecosystem), `parse/` (test counts), `run.rs`,
 `select.rs` (checks for changed paths) and `assess.rs` (the badge).
 `workspace_fingerprint` is in
-[`host/src/fingerprint.rs`](../../crates/z-engine-host/src/fingerprint.rs);
+[`host/src/fingerprint.rs`](../../crates/hyperform-host/src/fingerprint.rs);
 `CheckRecord`, `VerificationOutcome` and `VerificationMode` are in
-[`protocol/src/verification.rs`](../../crates/z-engine-protocol/src/verification.rs).
-The engine's [`verify/`](../../crates/z-engine-engine/src/verify/) holds the
+[`protocol/src/verification.rs`](../../crates/hyperform-protocol/src/verification.rs).
+The engine's [`verify/`](../../crates/hyperform-engine/src/verify/) holds the
 modes and the stop-boundary verdict; runs go through `CheckPort`
-([`ports/checks.rs`](../../crates/z-engine-engine/src/ports/checks.rs)),
+([`ports/checks.rs`](../../crates/hyperform-engine/src/ports/checks.rs)),
 emitting `checkRecorded`, then `verificationChanged`. A new ecosystem is a
 module under `discovery/ecosystems/`, plus a parser if its output differs.
 
@@ -176,12 +176,12 @@ whole folder.
 Rewind cannot undo effects outside your files, such as installed packages
 or a `git push`.
 
-**For developers.** [`host/src/checkpoint/`](../../crates/z-engine-host/src/checkpoint/):
+**For developers.** [`host/src/checkpoint/`](../../crates/hyperform-host/src/checkpoint/):
 `shadow.rs` (sets `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE`; chains
 snapshots on one ref), `exclude.rs`, `compare.rs` and `restore.rs`. The
-engine snapshots in [`session/checkpoint.rs`](../../crates/z-engine-engine/src/session/checkpoint.rs)
-and rewinds idle sessions in [`session/rewind.rs`](../../crates/z-engine-engine/src/session/rewind.rs);
-`CheckpointInfo` is in [`protocol/src/session.rs`](../../crates/z-engine-protocol/src/session.rs).
+engine snapshots in [`session/checkpoint.rs`](../../crates/hyperform-engine/src/session/checkpoint.rs)
+and rewinds idle sessions in [`session/rewind.rs`](../../crates/hyperform-engine/src/session/rewind.rs);
+`CheckpointInfo` is in [`protocol/src/session.rs`](../../crates/hyperform-protocol/src/session.rs).
 
 ## Sessions and persistence
 
@@ -219,13 +219,13 @@ written.
   the chat's log only records which plan is attached
   ([Work plans](features-work-plans.md#storage-and-protocol)).
 
-**For developers.** [`z-engine-store`](../../crates/z-engine-store/src/):
+**For developers.** [`hyperform-store`](../../crates/hyperform-store/src/):
 `store.rs` (`SessionStore`), `record.rs` (`LogRecord`, tagged by `kind`),
 `append.rs` (torn-tail repair), `read.rs`, `replay.rs` (resume state and
 `cost_usd`), `meta.rs`, `heal.rs` and `legacy/` (v1 import). The engine
-writes records in [`session/journal.rs`](../../crates/z-engine-engine/src/session/journal.rs)
-and repairs crashes in [`session/resume.rs`](../../crates/z-engine-engine/src/session/resume.rs);
-[`context/src/wellformed.rs`](../../crates/z-engine-context/src/wellformed.rs)
+writes records in [`session/journal.rs`](../../crates/hyperform-engine/src/session/journal.rs)
+and repairs crashes in [`session/resume.rs`](../../crates/hyperform-engine/src/session/resume.rs);
+[`context/src/wellformed.rs`](../../crates/hyperform-context/src/wellformed.rs)
 enforces the request shape. To persist something new, add a `LogRecord`
 variant and fold it in `replay.rs`; unknown kinds are skipped.
 
@@ -274,18 +274,18 @@ when the line is busy and tries another number if it must.
    else a built-in table, per [token](glossary.md#token) class. Footers and
    `/cost` show totals; `agents.session_cost_cap_usd` stops a chat at its cap.
 
-**For developers.** In [`z-engine-llm`](../../crates/z-engine-llm/src/):
+**For developers.** In [`hyperform-llm`](../../crates/hyperform-llm/src/):
 `client.rs` (`ModelClient`), `anthropic/`, `openai/`, `responses/` (only
-Copilot uses it) and [`copilot/`](../../crates/z-engine-llm/src/copilot/)
+Copilot uses it) and [`copilot/`](../../crates/hyperform-llm/src/copilot/)
 (`login.rs`, `models.rs` routing, `headers.rs`), `provider/` (endpoint
 detection), `retry.rs`, `fallback.rs`, `catalog/` and `cost.rs`; sign-in is
-saved by [`queries/copilot.rs`](../../crates/z-engine-engine/src/engine/queries/copilot.rs). The engine builds each session's
-client in [`settings/client.rs`](../../crates/z-engine-engine/src/settings/client.rs)
+saved by [`queries/copilot.rs`](../../crates/hyperform-engine/src/engine/queries/copilot.rs). The engine builds each session's
+client in [`settings/client.rs`](../../crates/hyperform-engine/src/settings/client.rs)
 (in `FallbackClient` when fallbacks are set; a client that cannot be built
 fails each request with the reason, so the chat still opens) and resolves roles,
-limits and prices in [`settings/models.rs`](../../crates/z-engine-engine/src/settings/models.rs)
+limits and prices in [`settings/models.rs`](../../crates/hyperform-engine/src/settings/models.rs)
 (`catalog_provider` maps the base URL to a models.dev provider id; limits and `price_for` try its `ModelCatalog::lookup_in` entry before `lookup`). `apply_fields` sets `ModelInfo.deprecated` from `status` (models.dev or `models.json`).
-The GUI pickers filter with `catalogForPicker` and `isFreeModel` (input price 0 or none) in [`lib/catalog.ts`](../../crates/z-engine-gui/ui/src/lib/catalog.ts). A new wire format would be a new adapter behind `ModelClient`.
+The GUI pickers filter with `catalogForPicker` and `isFreeModel` (input price 0 or none) in [`lib/catalog.ts`](../../crates/hyperform-gui/ui/src/lib/catalog.ts). A new wire format would be a new adapter behind `ModelClient`.
 
 ## Settings layers and workspace trust
 
@@ -334,15 +334,15 @@ flowchart LR
 ```
 
 **For developers.** Layering is
-[`config/src/loader.rs`](../../crates/z-engine-config/src/loader.rs)
-(`EnvOverrides`) and [`merge.rs`](../../crates/z-engine-config/src/merge.rs);
-`TrustStore` is in [`config/src/trust.rs`](../../crates/z-engine-config/src/trust.rs).
-Per session, [`settings/effective.rs`](../../crates/z-engine-engine/src/settings/effective.rs)
+[`config/src/loader.rs`](../../crates/hyperform-config/src/loader.rs)
+(`EnvOverrides`) and [`merge.rs`](../../crates/hyperform-config/src/merge.rs);
+`TrustStore` is in [`config/src/trust.rs`](../../crates/hyperform-config/src/trust.rs).
+Per session, [`settings/effective.rs`](../../crates/hyperform-engine/src/settings/effective.rs)
 loads the layers; when untrusted, `restrict_to_user_level` swaps in the
 user layer's sections and lists what differed. `child_mode` in
-[`orchestration/blueprint.rs`](../../crates/z-engine-engine/src/orchestration/blueprint.rs)
-caps agents, `trusted_grants` in [`commands/expand.rs`](../../crates/z-engine-engine/src/commands/expand.rs)
-caps commands, and [`session/trust.rs`](../../crates/z-engine-engine/src/session/trust.rs)
+[`orchestration/blueprint.rs`](../../crates/hyperform-engine/src/orchestration/blueprint.rs)
+caps agents, `trusted_grants` in [`commands/expand.rs`](../../crates/hyperform-engine/src/commands/expand.rs)
+caps commands, and [`session/trust.rs`](../../crates/hyperform-engine/src/session/trust.rs)
 emits `trustRequired` and handles `trustWorkspace { trusted }`. A new
 setting that runs code or loosens permissions belongs in
 `restrict_to_user_level`, with a test.
@@ -381,12 +381,12 @@ the internet.
    and hook scripts are never sandboxed.
 
 **For developers.**
-[`host/src/sandbox/`](../../crates/z-engine-host/src/sandbox/):
+[`host/src/sandbox/`](../../crates/hyperform-host/src/sandbox/):
 `profile.rs` (`SandboxProfile`), `seatbelt.rs` and `bubblewrap.rs`,
 `backend.rs` (detection by running one trivial sandboxed command) and
 `wrap.rs` (wraps the shell). The engine derives it in
-[`settings/sandbox.rs`](../../crates/z-engine-engine/src/settings/sandbox.rs);
-auto-allow is [`policy/src/decide/sandbox.rs`](../../crates/z-engine-policy/src/decide/sandbox.rs).
+[`settings/sandbox.rs`](../../crates/hyperform-engine/src/settings/sandbox.rs);
+auto-allow is [`policy/src/decide/sandbox.rs`](../../crates/hyperform-policy/src/decide/sandbox.rs).
 A new platform is a backend module plus a case in `backend.rs`.
 
 See also: [Core features](features-core.md) ·

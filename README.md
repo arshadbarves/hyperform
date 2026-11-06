@@ -42,7 +42,7 @@ Download the desktop installer for your operating system from
 The app updates itself in place (**Update & Restart**) from signed release
 artifacts. Push or merge to `release` (or run **Actions → release**) to build
 installers and updater artifacts for the version in
-`crates/z-engine-gui/src-tauri/tauri.conf.json`; this needs the
+`crates/hyperform-gui/src-tauri/tauri.conf.json`; this needs the
 `TAURI_SIGNING_PRIVATE_KEY` secrets.
 
 Optional tools: `git` (code checkpoints, rewind, diffs, worktrees), `ripgrep`
@@ -69,7 +69,7 @@ Requirements: Rust stable (≥1.85), Node.js LTS and npm, and the
 [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/) for your OS.
 
 ```bash
-npm ci --prefix crates/z-engine-gui/ui
+npm ci --prefix crates/hyperform-gui/ui
 ./scripts/dev-gui.sh              # Tauri dev with Vite hot reload (macOS/Linux)
 # On Windows: run .\scripts\dev-gui.cmd (or double-click dev-gui.cmd in Explorer)
 ```
@@ -77,8 +77,8 @@ npm ci --prefix crates/z-engine-gui/ui
 Installers for the current OS:
 
 ```bash
-npm run build --prefix crates/z-engine-gui/ui
-cd crates/z-engine-gui && node ui/node_modules/@tauri-apps/cli/tauri.js build
+npm run build --prefix crates/hyperform-gui/ui
+cd crates/hyperform-gui && node ui/node_modules/@tauri-apps/cli/tauri.js build
 ```
 
 Checks (all required before a commit; see [AGENTS.md](AGENTS.md)):
@@ -87,13 +87,13 @@ Checks (all required before a commit; see [AGENTS.md](AGENTS.md)):
 cargo fmt --all
 cargo clippy --workspace --all-targets -- -D warnings
 cargo test --workspace
-npm test --prefix crates/z-engine-gui/ui
-npm run check --prefix crates/z-engine-gui/ui
-npm run lint --prefix crates/z-engine-gui/ui
+npm test --prefix crates/hyperform-gui/ui
+npm run check --prefix crates/hyperform-gui/ui
+npm run lint --prefix crates/hyperform-gui/ui
 ```
 
-`cargo test -p z-engine-protocol` (and `-p z-engine-config`) regenerate the
-TypeScript mirror in `crates/z-engine-gui/ui/src/lib/protocol/`; commit it.
+`cargo test -p hyperform-protocol` (and `-p hyperform-config`) regenerate the
+TypeScript mirror in `crates/hyperform-gui/ui/src/lib/protocol/`; commit it.
 
 ## Configuration
 

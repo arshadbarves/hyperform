@@ -48,9 +48,9 @@ flowchart TD
 - Commands `steer`, `interrupt { text }`, `cancel` and `editQueue { queued }`
   (replaces the whole queue); `submit` during a turn is queued as steering.
   Event `queueChanged`.
-- [session/control.rs](../../crates/z-engine-engine/src/session/control.rs)
+- [session/control.rs](../../crates/hyperform-engine/src/session/control.rs)
   handles the quick commands (approvals, questions, plans, mode, model,
-  effort, the queue, job kills); [run/reminders.rs](../../crates/z-engine-engine/src/run/reminders.rs)
+  effort, the queue, job kills); [run/reminders.rs](../../crates/hyperform-engine/src/run/reminders.rs)
   hands queued steering to the main agent; `run/stop.rs` lets steering
   continue a run; `session/prompt.rs` carries leftover steering and the
   interruption reminder into the next turn.
@@ -109,17 +109,17 @@ visible checklist.
 
 **For developers**
 
-- Tools [exit_plan_mode.rs](../../crates/z-engine-tools/src/builtin/exit_plan_mode.rs),
-  [ask_user_question.rs](../../crates/z-engine-tools/src/builtin/ask_user_question.rs)
-  and [todo_write.rs](../../crates/z-engine-tools/src/builtin/todo_write.rs)
+- Tools [exit_plan_mode.rs](../../crates/hyperform-tools/src/builtin/exit_plan_mode.rs),
+  [ask_user_question.rs](../../crates/hyperform-tools/src/builtin/ask_user_question.rs)
+  and [todo_write.rs](../../crates/hyperform-tools/src/builtin/todo_write.rs)
   are not concurrency-safe, so each runs alone in its batch.
 - They reach the engine through `InteractionPort`
-  ([tools side](../../crates/z-engine-tools/src/ports/interaction.rs),
-  [engine side](../../crates/z-engine-engine/src/ports/interaction.rs)),
-  which waits on the [broker](../../crates/z-engine-engine/src/broker/exchange.rs);
+  ([tools side](../../crates/hyperform-tools/src/ports/interaction.rs),
+  [engine side](../../crates/hyperform-engine/src/ports/interaction.rs)),
+  which waits on the [broker](../../crates/hyperform-engine/src/broker/exchange.rs);
   `reviews.rs` persists questions and plan reviews, and in `pending.rs` an
   entry removed without a reply resolves as denied or dismissed.
-- Protocol ([interaction.rs](../../crates/z-engine-protocol/src/interaction.rs),
+- Protocol ([interaction.rs](../../crates/hyperform-protocol/src/interaction.rs),
   Claude Code field names): `PlanDecision::Approve { mode, edited_plan, handoff }`
   (`mode` is an optional level override; the GUI's Build sends none) or
   `Revise { feedback }`; commands `resolvePlan`, `answerQuestion` (no
@@ -188,12 +188,12 @@ timeout_secs = 60                     # the default
 
 **For developers**
 
-- Event names: `HOOK_EVENTS` in [settings/hooks.rs](../../crates/z-engine-config/src/settings/hooks.rs).
-- [hooks/](../../crates/z-engine-engine/src/hooks/mod.rs): `event.rs`
+- Event names: `HOOK_EVENTS` in [settings/hooks.rs](../../crates/hyperform-config/src/settings/hooks.rs).
+- [hooks/](../../crates/hyperform-engine/src/hooks/mod.rs): `event.rs`
   (payloads with Claude Code field names), `runner.rs` (order, `hookRan`
   events, first block ends the chain), `outcome.rs` (exit codes and JSON),
   `notify.rs` (`Notification`).
-- Call sites: `PreToolUse` in [batch/gate.rs](../../crates/z-engine-engine/src/batch/gate.rs),
+- Call sites: `PreToolUse` in [batch/gate.rs](../../crates/hyperform-engine/src/batch/gate.rs),
   whose `with_override` never lifts a denial; `PostToolUse` in
   `batch/call.rs`; `Stop` and `SubagentStop` in `run/stop.rs`;
   `UserPromptSubmit` in `session/turn.rs`.
@@ -247,24 +247,24 @@ open and otherwise goes to the engine built-in.
 
 **For developers**
 
-- [commands/catalog.rs](../../crates/z-engine-engine/src/commands/catalog.rs)
+- [commands/catalog.rs](../../crates/hyperform-engine/src/commands/catalog.rs)
   orders the sources; its neighbours `args.rs`, `expand.rs`, `include.rs`,
   `inline.rs`, `mentions.rs`, `mcp_prompt.rs` and `suggest.rs` fill in and
   check templates.
-- [session/slash.rs](../../crates/z-engine-engine/src/session/slash.rs)
-  dispatches; [session/command_turn.rs](../../crates/z-engine-engine/src/session/command_turn.rs)
+- [session/slash.rs](../../crates/hyperform-engine/src/session/slash.rs)
+  dispatches; [session/command_turn.rs](../../crates/hyperform-engine/src/session/command_turn.rs)
   runs a prompt command's turn with grants from `session/grants.rs`. The
   model sees two text blocks: the visible `/name args`, then the body in
   `<command name="name">…</command>`.
-- Prompt built-ins: [prompts/commands/](../../crates/z-engine-prompts/prompts/commands/)
-  plus `BUILTIN` in [commands.rs](../../crates/z-engine-prompts/src/commands.rs);
-  app commands: [uiCommands.ts](../../crates/z-engine-gui/ui/src/lib/stores/uiCommands.ts).
-- Discovery: [extensions/discover.rs](../../crates/z-engine-config/src/extensions/discover.rs)
+- Prompt built-ins: [prompts/commands/](../../crates/hyperform-prompts/prompts/commands/)
+  plus `BUILTIN` in [commands.rs](../../crates/hyperform-prompts/src/commands.rs);
+  app commands: [uiCommands.ts](../../crates/hyperform-gui/ui/src/lib/stores/uiCommands.ts).
+- Discovery: [extensions/discover.rs](../../crates/hyperform-config/src/extensions/discover.rs)
   with `command.rs` and `skill.rs` (project files resolving outside the
   project are skipped). At run time, `SkillPort` in
-  [ports/skills.rs](../../crates/z-engine-engine/src/ports/skills.rs), the
-  [Skill tool](../../crates/z-engine-tools/src/builtin/skill.rs) and the
-  skills section of the [system prompt](../../crates/z-engine-context/src/system.rs).
+  [ports/skills.rs](../../crates/hyperform-engine/src/ports/skills.rs), the
+  [Skill tool](../../crates/hyperform-tools/src/builtin/skill.rs) and the
+  skills section of the [system prompt](../../crates/hyperform-context/src/system.rs).
 - Protocol: command `runCommand { name, args }`; event
   `commandOutput { name, markdown }` for informational built-ins.
 

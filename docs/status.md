@@ -70,7 +70,7 @@ gone; they remain in git history.
 
 | Item | Status |
 |---|---|
-| Phase 1: the feature registry and `[experimental]` (Off, Shadow, On), **Settings → Experimental**; `[decisions]` with the sidecar, **Test connection**, trust gating and the opt-in dataset; the `z-engine-decisions` crate (rules, SystemOne and hybrid providers, calibration, cache, trace); the engine's decision service and seams; the Context tab's **Decisions** section | done |
+| Phase 1: the feature registry and `[experimental]` (Off, Shadow, On), **Settings → Experimental**; `[decisions]` with the sidecar, **Test connection**, trust gating and the opt-in dataset; the `hyperform-decisions` crate (rules, SystemOne and hybrid providers, calibration, cache, trace); the engine's decision service and seams; the Context tab's **Decisions** section | done |
 | Context and cost uses: relevance-aware compaction, task-scoped history (the `TaskView` log record, the divider, **Include full history**), first-request context, file prefetch (`[decisions.prefetch]`), output trimming and search ranking (the Relevance seam) | done |
 | Per-task routing: effort per task, the fast model with `[decisions.routing] allow_model_switch`, subagents that inherit their model, the route chip | done |
 | Safety uses: risk review (gate and injection notes), secret screening (the request seam, placeholders), custom decision rules (`[[decisions.rules]]`), loop guard (`[decisions.loop_guard]`) | done |
@@ -79,14 +79,14 @@ gone; they remain in git history.
 | The app: pet mood from turn tone (`TurnToneJudged`), inbox priority (`UrgencyScored`, gating `Notification` hooks) | done |
 | Native runtime: `decisions.runtime = "native"` behind the `onnx` Cargo feature; pinned `english`, `multilingual` and `typed-decisions` checkpoints; resumable, SHA-256-checked download in **Settings → Experimental** | done |
 | SystemOne wire fixes: the request carries `model` and `max_len`; scale scores given as a choice index are normalized; choices keep their order; `max_len` is part of the cache key | done |
-| End-to-end tests (`crates/z-engine-engine/tests/decisions_*.rs`, below) | done |
+| End-to-end tests (`crates/hyperform-engine/tests/decisions_*.rs`, below) | done |
 | Release builds with the native runtime (`--features onnx` in the release workflow) | pending |
 | The live A/B test and the offline benchmark against a real model | pending: not run, no credentials |
 
 ### Graduation criteria
 
 Each feature graduates when it meets its criteria in
-`crates/z-engine-config/src/features/registry.rs`; results are recorded
+`crates/hyperform-config/src/features/registry.rs`; results are recorded
 here. Every feature is Experimental and Off by default; every decision
 feature supports Shadow, and work plans and parallel tasks are Off or On
 only (parallel tasks also need work plans).
@@ -119,7 +119,7 @@ only (parallel tasks also need work plans).
 
 ### Decision layer tests and benchmarks
 
-End-to-end tests in `crates/z-engine-engine/tests/` (run by
+End-to-end tests in `crates/hyperform-engine/tests/` (run by
 `cargo test --workspace`):
 
 - `decisions_all_on.rs`: every feature On against a decision model that
@@ -145,14 +145,14 @@ credentials here).
 
 ```bash
 HYPERFORM_MODEL=... HYPERFORM_API_KEY=... HYPERFORM_DECISIONS_URL=... \
-  cargo test -p z-engine-engine --test decisions_ab_live -- --ignored --nocapture
+  cargo test -p hyperform-engine --test decisions_ab_live -- --ignored --nocapture
 ```
 
 Optional: `HYPERFORM_PROVIDER`, `HYPERFORM_BASE_URL`, `HYPERFORM_DECISIONS_KEY`,
 `HYPERFORM_DECISIONS_ALLOW_REMOTE=1` and `HYPERFORM_AB_FEATURES`
 (comma-separated ids; default every available feature).
 
-The offline benchmark (`crates/z-engine-decisions/tests/eval.rs`)
+The offline benchmark (`crates/hyperform-decisions/tests/eval.rs`)
 always validates the hand-labeled fixtures; with `HYPERFORM_DECISIONS_URL`
 pointing at a laya-serve, its ignored run compares rules, the raw model
 and the hybrid gate per question kind, and prints a fitted
@@ -161,7 +161,7 @@ and the hybrid gate per question kind, and prints a fitted
 
 ```bash
 HYPERFORM_DECISIONS_URL=http://127.0.0.1:8000 \
-  cargo test -p z-engine-decisions --test eval -- --ignored --nocapture
+  cargo test -p hyperform-decisions --test eval -- --ignored --nocapture
 ```
 
 Optional: `HYPERFORM_DECISIONS_KEY`, `HYPERFORM_DECISIONS_CHECKPOINT`,
@@ -191,8 +191,8 @@ Optional: `HYPERFORM_DECISIONS_KEY`, `HYPERFORM_DECISIONS_CHECKPOINT`,
 
 | Item | Status |
 |---|---|
-| OpenAI Responses adapter (`z-engine-llm/src/responses/`), used only by Copilot | done |
-| Copilot client (`z-engine-llm/src/copilot/`): GitHub device sign-in with OpenCode's OAuth app, `/models` routing to Messages, Responses or chat completions with a by-name fallback, Copilot headers, sign-in-again hint on 401/403 | done |
+| OpenAI Responses adapter (`hyperform-llm/src/responses/`), used only by Copilot | done |
+| Copilot client (`hyperform-llm/src/copilot/`): GitHub device sign-in with OpenCode's OAuth app, `/models` routing to Messages, Responses or chat completions with a by-name fallback, Copilot headers, sign-in-again hint on 401/403 | done |
 | `github-copilot` credential bucket (Enterprise: `custom:copilot-api.<domain>`), no provider environment variable | done |
 | Sign-in in **Settings → Providers** and the setup guide (`CopilotSignIn`), `copilot_login_start` / `copilot_login_poll` commands | done |
 | Integration tests on the mock server (`tests/copilot_client.rs`, `tests/copilot_login.rs`) | done |
@@ -221,7 +221,7 @@ Behind `work_plans` (Experimental, Off or On). How it works:
 
 | Item | Status |
 |---|---|
-| `z-engine-work`: task graph, state machines, authority (`decide`), completion gate, propagation, packet selection, reconciliation; no I/O | done |
+| `hyperform-work`: task graph, state machines, authority (`decide`), completion gate, propagation, packet selection, reconciliation; no I/O | done |
 | Plan logs `plans/<project key>/<plan id>/` (`PlanStore`, schema 1); `PlanHub` with one writer per plan; read-only after a failed write | done |
 | Protocol: `workUpdated`, `taskPacketSent`, `editWork`, `attachPlan`, `detachPlan`, `PlanDecision::Approve { handoff }`, `PlanAttached`/`PlanDetached` log records | done |
 | Tools `TaskCreate`, `TaskUpdate`, `TaskGet`, `TaskList`, `PlanRecord` (only while On); evidence linked from recorded checks; attempt limit | done |
@@ -261,7 +261,7 @@ Pausing, resuming and moving plans, behind `work_plans`. How it works:
 | One chat drives a plan: attaching moves it, "This plan moved to another chat."; `PlanSummary` `blocked`, `needsYou`, `running`, `lastSessionId`, `attachedTo` | done |
 | "Needs you" counts high-severity audit findings only (`needs.rs`) | done |
 | GUI: the state banner, task holds and interrupted notes, the **Continue a plan** picker (Plan tab, composer **+**, palette, plan menu), the home card, one Inbox item per plan, per-plan view state, interrupted helpers in the Agents tab, the **Plan resumed** row | done |
-| Browser QA against a mocked backend: `npm run dev --prefix crates/z-engine-gui/ui` outside Tauri installs `lib/runtime/dev/` (dev builds only) | done |
+| Browser QA against a mocked backend: `npm run dev --prefix crates/hyperform-gui/ui` outside Tauri installs `lib/runtime/dev/` (dev builds only) | done |
 | Engine integration tests: `work_restart.rs` (interrupted helper, outside edit, quiet reopen, `Agent { task_id, resume }`), `work_pause.rs` (pause, resume, hold, release, stop), `work_keep_running.rs` (a failure holds only its dependents), `work_attach.rs` (moving a live or closed chat's plan, `attachedTo`, needs-you) | done |
 | Helpers in one batch are admitted one at a time under a per-plan lock, so the parallel approval, `max_parallel` and overlap checks see the helpers admitted before them (fixed a race where two could pass together) | done |
 | A scope path that doesn't exist yet (a file its task will create) is no longer reported as deleted; deletions come only from the checkpoint diff | done |
@@ -332,12 +332,12 @@ Open findings from the user-guide review:
 ## Decisions and notes
 
 - Protocol and config TypeScript is generated by `ts-rs` into
-  `crates/z-engine-gui/ui/src/lib/protocol/` via `.cargo/config.toml`;
-  regenerate with `cargo test -p z-engine-protocol -p z-engine-config -p z-engine-llm`.
-- `z-engine-tools` depends on `z-engine-policy` for the `Action` type used
+  `crates/hyperform-gui/ui/src/lib/protocol/` via `.cargo/config.toml`;
+  regenerate with `cargo test -p hyperform-protocol -p hyperform-config -p hyperform-llm`.
+- `hyperform-tools` depends on `hyperform-policy` for the `Action` type used
   in permission decisions (documented in AGENTS.md).
-- The Tauri shell depends only on `z-engine-engine`, `z-engine-protocol` and
-  `z-engine-config`; GUI-only queries live in `z-engine-engine/src/engine/queries/`.
+- The Tauri shell depends only on `hyperform-engine`, `hyperform-protocol` and
+  `hyperform-config`; GUI-only queries live in `hyperform-engine/src/engine/queries/`.
 - v2 never modifies v1 `config.toml` files; it reads `settings.toml` and
   imports v1 settings. Spent cost stays in session totals after rewinds.
 - The v1 design documents have been removed; git history keeps them.

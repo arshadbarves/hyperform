@@ -58,19 +58,19 @@ flowchart TD
 
 **For developers**
 
-- [session/actor.rs](../../crates/z-engine-engine/src/session/actor.rs)
+- [session/actor.rs](../../crates/hyperform-engine/src/session/actor.rs)
   owns the command channel and runs each turn in its own task;
-  [session/turn.rs](../../crates/z-engine-engine/src/session/turn.rs) runs
-  one turn and [session/prompt.rs](../../crates/z-engine-engine/src/session/prompt.rs)
+  [session/turn.rs](../../crates/hyperform-engine/src/session/turn.rs) runs
+  one turn and [session/prompt.rs](../../crates/hyperform-engine/src/session/prompt.rs)
   builds its opening message.
-- `AgentRun` in [run/agent.rs](../../crates/z-engine-engine/src/run/agent.rs)
+- `AgentRun` in [run/agent.rs](../../crates/hyperform-engine/src/run/agent.rs)
   drives the rounds with its neighbours in `run/`: `budget.rs`,
   `pressure.rs` and `compact.rs`, `request.rs`, `stream.rs` (a
   context-overflow error forces compaction and one retry), `usage.rs` and
   `stop.rs`.
-- [session/journal.rs](../../crates/z-engine-engine/src/session/journal.rs)
+- [session/journal.rs](../../crates/hyperform-engine/src/session/journal.rs)
   appends each record before its event is published;
-  [replay.rs](../../crates/z-engine-store/src/replay.rs) rebuilds the state
+  [replay.rs](../../crates/hyperform-store/src/replay.rs) rebuilds the state
   from the log without repeating side effects.
 - Protocol: command `submit`; events `turnStarted`, `usageUpdated`,
   `retrying` and `turnFinished` (outcome, usage, cost and badge).
@@ -158,22 +158,22 @@ The tools also protect you:
 
 **For developers**
 
-- The `Tool` trait in [tool.rs](../../crates/z-engine-tools/src/tool.rs):
+- The `Tool` trait in [tool.rs](../../crates/hyperform-tools/src/tool.rs):
   `is_read_only`, `is_concurrency_safe` (defaults to read-only; `Agent`
   opts in, `TodoWrite`, `AskUserQuestion`, `ExitPlanMode`, `TaskCreate`,
   `TaskUpdate` and `PlanRecord` opt out),
   `action` (what the policy decides on), `title`, `preview` (the approval
   card's diff or command) and `call`.
-- Names in [names.rs](../../crates/z-engine-tools/src/names.rs); stable
-  order in [registry.rs](../../crates/z-engine-tools/src/registry.rs) so the
+- Names in [names.rs](../../crates/hyperform-tools/src/names.rs); stable
+  order in [registry.rs](../../crates/hyperform-tools/src/registry.rs) so the
   [prompt cache](glossary.md#prompt-cache) holds; one file per tool in
-  [builtin/](../../crates/z-engine-tools/src/builtin/mod.rs); descriptions in
-  [prompts/tools/](../../crates/z-engine-prompts/prompts/tools/). Each call
-  gets a `ToolCtx` ([ctx.rs](../../crates/z-engine-tools/src/context/ctx.rs))
-  and reaches the engine only through [ports](../../crates/z-engine-tools/src/ports/mod.rs).
-- The engine's batch lives in [batch/](../../crates/z-engine-engine/src/batch/mod.rs):
+  [builtin/](../../crates/hyperform-tools/src/builtin/mod.rs); descriptions in
+  [prompts/tools/](../../crates/hyperform-prompts/prompts/tools/). Each call
+  gets a `ToolCtx` ([ctx.rs](../../crates/hyperform-tools/src/context/ctx.rs))
+  and reaches the engine only through [ports](../../crates/hyperform-tools/src/ports/mod.rs).
+- The engine's batch lives in [batch/](../../crates/hyperform-engine/src/batch/mod.rs):
   `toolset.rs` (the offered list), `schema.rs`, `gate.rs`, `approval.rs`,
-  [execute.rs](../../crates/z-engine-engine/src/batch/execute.rs) (ordering),
+  [execute.rs](../../crates/hyperform-engine/src/batch/execute.rs) (ordering),
   `call.rs` and `progress.rs` (at most about twenty progress events a second).
 - Events: `toolStarted`, `toolProgress` and `toolFinished`, whose
   `ToolStatus` is `ok`, `error`, `denied` or `cancelled`.
@@ -248,22 +248,22 @@ flowchart TD
 
 **For developers**
 
-- `z-engine-policy` does no I/O. [action.rs](../../crates/z-engine-policy/src/action.rs)
-  defines `Action`; [decide/pipeline.rs](../../crates/z-engine-policy/src/decide/pipeline.rs)
+- `hyperform-policy` does no I/O. [action.rs](../../crates/hyperform-policy/src/action.rs)
+  defines `Action`; [decide/pipeline.rs](../../crates/hyperform-policy/src/decide/pipeline.rs)
   holds the order above, with `files.rs` (paths, protected paths),
   `execute.rs` (shell rules, read-only and Auto-accept defaults, the
   suggested `Bash(<prefix>:*)` rule) and `sandbox.rs` beside it;
-  [rules/](../../crates/z-engine-policy/src/rules/mod.rs) parses rules and
-  gitignore-style paths; [shell/](../../crates/z-engine-policy/src/shell/mod.rs)
+  [rules/](../../crates/hyperform-policy/src/rules/mod.rs) parses rules and
+  gitignore-style paths; [shell/](../../crates/hyperform-policy/src/shell/mod.rs)
   lexes command lines and proves them read-only.
-- [settings/policy.rs](../../crates/z-engine-engine/src/settings/policy.rs)
+- [settings/policy.rs](../../crates/hyperform-engine/src/settings/policy.rs)
   builds a session's policy (a rebuild keeps session rules and `/add-dir`
-  folders); [broker/approvals.rs](../../crates/z-engine-engine/src/broker/approvals.rs)
+  folders); [broker/approvals.rs](../../crates/hyperform-engine/src/broker/approvals.rs)
   announces a batch's approvals together and audits each answer.
 - `Policy::decide(tool, action, planning, mode)` takes plan mode and the
   level separately; callers pass `RunContext::planning()` (the agent's
   inherited planning or the session's switch) and `mode()`.
-- Protocol ([permission.rs](../../crates/z-engine-protocol/src/permission.rs)):
+- Protocol ([permission.rs](../../crates/hyperform-protocol/src/permission.rs)):
   `PermissionMode` (`default`, `acceptEdits`, `bypass`), `ModeName` (a
   level or the old `plan`, read from older logs, settings and agent
   frontmatter), `ApprovalRequest` and `ApprovalDecision` (`AllowOnce`,

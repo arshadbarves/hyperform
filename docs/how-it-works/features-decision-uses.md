@@ -55,18 +55,18 @@ files you will need are already on the table.
    first so they survive the cut. No answer keeps today's cut.
 
 **For developers**
-- Uses in [`decisions/uses/`](../../crates/z-engine-engine/src/decisions/uses/):
+- Uses in [`decisions/uses/`](../../crates/hyperform-engine/src/decisions/uses/):
   `compaction/` (`advise.rs`, `reread.rs`, `memory.rs`),
   `session_context/` (`candidates.rs`, `first_request.rs`, `preload.rs`),
   `prefetch/` (`candidates.rs`, `pick.rs`, `attach.rs`, `metrics.rs`),
   `output_trim.rs`, `search_rank.rs` and their shared `relevance.rs`.
   `digest.rs` builds the small digests sent as state.
-- Pure planning in [`z-engine-context`](crates.md#z-engine-context):
+- Pure planning in [`hyperform-context`](crates.md#hyperform-context):
   `compaction/ranked.rs` (relevance-aware microcompaction), `keeps.rs`
   (hard keeps), `touch.rs` (what a call touched, the files a request
   names); the seeded map ranking in `repo_map/`.
 - Tools ask through the `RankRequest` port in
-  `z-engine-tools/src/ports/relevance.rs`, served by the engine's
+  `hyperform-tools/src/ports/relevance.rs`, served by the engine's
   `ports/relevance.rs` (`rank_items`).
 
 ## Task-scoped history and its record
@@ -105,17 +105,17 @@ and your own copy of the conversation never loses a page.
    `restored` set and no ids, and traces the click with provider `user`.
 
 **For developers**
-- [`decisions/uses/task_view/`](../../crates/z-engine-engine/src/decisions/uses/task_view/):
+- [`decisions/uses/task_view/`](../../crates/hyperform-engine/src/decisions/uses/task_view/):
   `plan.rs` (the use), `ask.rs`, `history.rs`, `readback.rs`,
   `memory.rs` (`TaskViewMemory`: the pending plan, the cache clock) and
   `apply.rs` (`apply_task_view_for`, called from `session/turn.rs`;
   `include_full_history`, from `session/actor.rs`).
 - Pure planning: `compaction/exchanges.rs` and `compaction/task_view.rs`
-  in `z-engine-context`.
+  in `hyperform-context`.
 - The record: `LogRecord::TaskView { view, working, index }` in
-  [`store/src/record.rs`](../../crates/z-engine-store/src/record.rs),
+  [`store/src/record.rs`](../../crates/hyperform-store/src/record.rs),
   replayed in `store/src/replay.rs`; `TaskViewInfo` in
-  `z-engine-protocol` (`decisions`).
+  `hyperform-protocol` (`decisions`).
 - Tested end to end in `tests/decisions_task_view.rs`.
 
 ## Per-task routing
@@ -141,7 +141,7 @@ switching mid-job.
 4. Each applied route emits `RouteChosen`, which the GUI shows as a chip.
 
 **For developers**
-- [`decisions/uses/routing/`](../../crates/z-engine-engine/src/decisions/uses/routing/):
+- [`decisions/uses/routing/`](../../crates/hyperform-engine/src/decisions/uses/routing/):
   `decide.rs`, `signals.rs` (size, follow-up), `memory.rs`
   (`RouteMemory`), `start.rs` (`route_new_task`); the seam is
   `seams/route.rs`, called from `session/turn.rs` and
@@ -183,7 +183,7 @@ the permission rules keep closed, nor close one you opened.
 - `uses/risk/` (`gate.rs`, `injection.rs`), `uses/secret_screen/`
   (`detect.rs`, `screen.rs`, `ledger.rs`; the seam is `seams/request.rs`,
   called from `run/agent.rs`), `uses/custom_rules/` (`judge.rs`,
-  `prompt.rs`, `tool.rs`; rules validated in `z-engine-config`
+  `prompt.rs`, `tool.rs`; rules validated in `hyperform-config`
   `settings/decisions_rules.rs`) and `uses/loop_guard/` (`detect.rs`,
   `steps.rs`, `watch.rs`, `guard.rs`).
 - Escalation is `escalate` in `seams/tool_gate.rs`: only an Allow becomes
@@ -213,7 +213,7 @@ that can't be affected.
 **For developers**
 - `uses/completion_check.rs` (seam called from `verify/claims.rs`) and
   `uses/check_select.rs` (from `verify/modes.rs`); the path mapping and
-  `skip_checks` are in `z-engine-verify/src/narrow.rs`.
+  `skip_checks` are in `hyperform-verify/src/narrow.rs`.
 
 ## Suggestions, guidance and the app
 
@@ -264,7 +264,7 @@ model misbehaves, and the whole set is tested together.
 **How it works**
 1. Each use's own tests run against a scripted model that answers by
    question name, and check that Off and Shadow change nothing.
-2. End-to-end tests in `crates/z-engine-engine/tests/`: every feature On
+2. End-to-end tests in `crates/hyperform-engine/tests/`: every feature On
    with a model that always gives the acting answer, where every safety
    rule still holds (`decisions_all_on.rs`); every feature On with a dead
    or hanging model matching Off (`decisions_fallback.rs`); every feature

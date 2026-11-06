@@ -44,20 +44,20 @@ card. Stopping calls everyone off at once, mid-step.
 
 **For developers**
 - Edits: `WorkEdit::{Pause, Resume, Stop, Abandon, Reopen, HoldTask,
-  ReleaseTask}` ([`edit.rs`](../../crates/z-engine-protocol/src/work/edit.rs))
-  become proposals in `z-engine-work/src/proposal.rs`; `Stop` is
+  ReleaseTask}` ([`edit.rs`](../../crates/hyperform-protocol/src/work/edit.rs))
+  become proposals in `hyperform-work/src/proposal.rs`; `Stop` is
   `Proposal::StopPlan` (`kernel/plan_ops.rs`), Done is
   `propagate::finished`.
-- Stopping helpers: [`work/interrupt.rs`](../../crates/z-engine-engine/src/work/interrupt.rs)
+- Stopping helpers: [`work/interrupt.rs`](../../crates/hyperform-engine/src/work/interrupt.rs)
   (`halt_for` picks the helpers an edit stops; `settle_halted` runs when
-  one ends) and [`work/bound.rs`](../../crates/z-engine-engine/src/work/bound.rs)
+  one ends) and [`work/bound.rs`](../../crates/hyperform-engine/src/work/bound.rs)
   (`BoundHelpers`; `Halt::Interrupt(note)` is a soft stop,
   `Halt::Stopped` a cancel). A soft stop is `AgentTracker::request_stop`
   (`orchestration/tracker.rs`), checked at each round in `run/agent.rs`.
 - `Proposal::InterruptTask` (engine only, `kernel/run_ops.rs`) records
   `taskTransitioned` to Pending, `taskReleased` and
   `WorkEvent::TaskInterrupted { taskId, resume }`; `state/run.rs` folds
-  `Task.resume` and `run.forgiven_attempts`. [`work/kept.rs`](../../crates/z-engine-engine/src/work/kept.rs)
+  `Task.resume` and `run.forgiven_attempts`. [`work/kept.rs`](../../crates/hyperform-engine/src/work/kept.rs)
   refuses applying such a helper's worktree by hand (`foreign_apply`)
   and, on Discard, submits `Proposal::DiscardResumeWorktree`, recorded as
   `resumeWorktreeDiscarded`: the pointer keeps its agent and note, and
@@ -110,17 +110,17 @@ instead of starting over.
    pointer.
 
 **For developers**
-- Kernel: [`z-engine-work/src/resume.rs`](../../crates/z-engine-work/src/resume.rs)
+- Kernel: [`hyperform-work/src/resume.rs`](../../crates/hyperform-work/src/resume.rs)
   (`interrupted`, `Alive`, the notes `STOPPED`, `UNAPPLIED`,
   `OTHER_MAIN`) and `dispatch::resume_check`.
-- Engine: [`work/resume.rs`](../../crates/z-engine-engine/src/work/resume.rs)
+- Engine: [`work/resume.rs`](../../crates/hyperform-engine/src/work/resume.rs)
   (`resume`, called from `attach::reattach` and `attach_command`;
   `remind` at the turn start) and
-  [`work/checkpoint.rs`](../../crates/z-engine-engine/src/work/checkpoint.rs)
+  [`work/checkpoint.rs`](../../crates/hyperform-engine/src/work/checkpoint.rs)
   (`link` after each turn and each applied change, `recorded_fingerprint`,
   `last_checkpoint`), with `facts::diff_since`. The causes are
   `WorkCause::Resume` and `ChangeCause::Resume`.
-- The reminder: `z-engine-context/src/work/resume.rs` (`work_resume`,
+- The reminder: `hyperform-context/src/work/resume.rs` (`work_resume`,
   `ResumeBrief`) and `prompts/reminders/work-resume.md`. It is due after
   every resume, also when nothing was found.
 - GUI: `lib/domain/work/resume.ts` (the task's note), `trace.ts` (**Plan
@@ -152,7 +152,7 @@ the old desk stops.
    that still exists. Attaching a paused plan only attaches it.
 
 **For developers**
-- [`work/driver.rs`](../../crates/z-engine-engine/src/work/driver.rs)
+- [`work/driver.rs`](../../crates/hyperform-engine/src/work/driver.rs)
   (`Driver`, `drive`, `moved_away`, `may_reattach`, `MOVED_NOTICE`) and
   `work/attach.rs` (`attach_command`, `reattach`, `ensure`).
 - GUI: `lib/runtime/planFlow.ts` (`attachPlanHere`, `takePlanInNewChat`)
@@ -193,7 +193,7 @@ opening every folder.
    active project's settings.
 
 **For developers**
-- Kernel: [`z-engine-work/src/needs.rs`](../../crates/z-engine-work/src/needs.rs)
+- Kernel: [`hyperform-work/src/needs.rs`](../../crates/hyperform-work/src/needs.rs)
   (`needs_you`, `needs_recheck`); the summary in `state/mod.rs`
   (`PlanState::summary`), written by `PlanHandle::save_meta`.
 - GUI: `lib/runtime/plans.svelte.ts` (`projectPlans`), and in

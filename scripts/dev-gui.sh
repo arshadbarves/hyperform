@@ -4,11 +4,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-UI=crates/z-engine-gui/ui
+UI=crates/hyperform-gui/ui
 if [[ ! -d "$UI/node_modules" ]]; then
   (cd "$UI" && npm install)
 fi
 
 # CLI must start from a folder that *contains* src-tauri/ (not from ui/).
-cd crates/z-engine-gui
+cd crates/hyperform-gui
 exec ./ui/node_modules/.bin/tauri dev "$@"

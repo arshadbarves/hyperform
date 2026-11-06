@@ -18,8 +18,8 @@ describe("githubLink", () => {
   });
 
   it("sends source files to GitHub", () => {
-    expect(githubLink(PAGE, "../../crates/z-engine-llm/src/client.rs")).toBe(
-      `${BLOB}/crates/z-engine-llm/src/client.rs`,
+    expect(githubLink(PAGE, "../../crates/hyperform-llm/src/client.rs")).toBe(
+      `${BLOB}/crates/hyperform-llm/src/client.rs`,
     );
     expect(githubLink("AGENTS.md", "scripts/check_docs_links.py")).toBe(`${BLOB}/scripts/check_docs_links.py`);
     expect(githubLink("docs/how-it-works/features-desktop-app.md", "../../.github/workflows/release.yml")).toBe(
@@ -31,31 +31,31 @@ describe("githubLink", () => {
     expect(githubLink("AGENTS.md", ".claude/agents/docs-maintainer.md")).toBe(
       `${BLOB}/.claude/agents/docs-maintainer.md`,
     );
-    expect(githubLink(PAGE, "../../crates/z-engine-prompts/prompts/auxiliary/compact.md")).toBe(
-      `${BLOB}/crates/z-engine-prompts/prompts/auxiliary/compact.md`,
+    expect(githubLink(PAGE, "../../crates/hyperform-prompts/prompts/auxiliary/compact.md")).toBe(
+      `${BLOB}/crates/hyperform-prompts/prompts/auxiliary/compact.md`,
     );
   });
 
   it("keeps anchors and queries on GitHub links", () => {
-    expect(githubLink(PAGE, "../../crates/z-engine-tools/src/names.rs#L10")).toBe(
-      `${BLOB}/crates/z-engine-tools/src/names.rs#L10`,
+    expect(githubLink(PAGE, "../../crates/hyperform-tools/src/names.rs#L10")).toBe(
+      `${BLOB}/crates/hyperform-tools/src/names.rs#L10`,
     );
     expect(githubLink(PAGE, "../../scripts/dev-gui.sh?plain=1#L2")).toBe(`${BLOB}/scripts/dev-gui.sh?plain=1#L2`);
   });
 
   it("links folders as trees", () => {
-    expect(githubLink(PAGE, "../../crates/z-engine-llm/src/")).toBe(`${TREE}/crates/z-engine-llm/src`);
-    expect(githubLink(PAGE, "../../crates/z-engine-llm/src/#readme")).toBe(`${TREE}/crates/z-engine-llm/src#readme`);
+    expect(githubLink(PAGE, "../../crates/hyperform-llm/src/")).toBe(`${TREE}/crates/hyperform-llm/src`);
+    expect(githubLink(PAGE, "../../crates/hyperform-llm/src/#readme")).toBe(`${TREE}/crates/hyperform-llm/src#readme`);
     expect(githubLink(PAGE, "../../")).toBe(TREE);
   });
 
   it("asks the folder check about links without a trailing slash", () => {
-    const isFolder = (path: string) => path === "crates/z-engine-prompts/prompts";
-    expect(githubLink(PAGE, "../../crates/z-engine-prompts/prompts", isFolder)).toBe(
-      `${TREE}/crates/z-engine-prompts/prompts`,
+    const isFolder = (path: string) => path === "crates/hyperform-prompts/prompts";
+    expect(githubLink(PAGE, "../../crates/hyperform-prompts/prompts", isFolder)).toBe(
+      `${TREE}/crates/hyperform-prompts/prompts`,
     );
-    expect(githubLink(PAGE, "../../crates/z-engine-llm/src/client.rs", isFolder)).toBe(
-      `${BLOB}/crates/z-engine-llm/src/client.rs`,
+    expect(githubLink(PAGE, "../../crates/hyperform-llm/src/client.rs", isFolder)).toBe(
+      `${BLOB}/crates/hyperform-llm/src/client.rs`,
     );
   });
 
@@ -88,9 +88,9 @@ describe("githubLinks", () => {
       relativePath: PAGE,
       cleanUrls: true,
     };
-    const html = md.render("[a](../../crates/z-engine-llm/src/client.rs) [b](../../crates) [c](glossary.md#model)", env);
+    const html = md.render("[a](../../crates/hyperform-llm/src/client.rs) [b](../../crates) [c](glossary.md#model)", env);
 
-    expect(html).toContain(`href="${BLOB}/crates/z-engine-llm/src/client.rs" target="_blank" rel="noreferrer"`);
+    expect(html).toContain(`href="${BLOB}/crates/hyperform-llm/src/client.rs" target="_blank" rel="noreferrer"`);
     expect(html).toContain(`href="${TREE}/crates" target="_blank"`);
     expect(html).toContain(`href="./glossary#model"`);
     expect(env.links).toEqual(["./glossary#model"]);

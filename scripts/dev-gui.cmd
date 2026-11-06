@@ -16,7 +16,7 @@ if exist "%USERPROFILE%\.cargo\bin\cargo.exe" (
     set "PATH=%USERPROFILE%\.cargo\bin;%PATH%"
 )
 
-set "UI_DIR=crates\z-engine-gui\ui"
+set "UI_DIR=crates\hyperform-gui\ui"
 if not exist "%UI_DIR%\node_modules" (
     echo [1/2] Installing UI dependencies...
     pushd "%UI_DIR%"
@@ -25,7 +25,7 @@ if not exist "%UI_DIR%\node_modules" (
 )
 
 echo [2/2] Launching Tauri Dev Server with Vite HMR...
-cd /d "crates\z-engine-gui"
+cd /d "crates\hyperform-gui"
 
 call ".\ui\node_modules\.bin\tauri.cmd" dev %*
 if %ERRORLEVEL% NEQ 0 (
