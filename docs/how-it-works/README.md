@@ -1,6 +1,6 @@
 # How HyperForm works
 
-These pages explain HyperForm 2.0 for everyone: people who just use the app,
+These pages explain HyperForm AI for everyone: people who just use the app,
 people who are curious about what happens behind the screen, and people who
 want to change the code. Every section starts in plain words and goes
 deeper step by step, so you can stop reading as soon as you know enough.

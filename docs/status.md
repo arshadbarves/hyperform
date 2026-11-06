@@ -1,4 +1,4 @@
-# v2 rewrite status
+# Release status
 
 The v2 rewrite was built on the `v2` branch in phases and merged into
 `release` as version 2.0.0. Since the cutover (phase 5) the v1 crates are

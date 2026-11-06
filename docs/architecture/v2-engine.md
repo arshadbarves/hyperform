@@ -1,6 +1,6 @@
-# v2 engine architecture
+# Engine architecture
 
-Status: implemented (v2.0). The crate layout and
+Status: active (v1.0.0). The crate layout and
 dependency rules are in [AGENTS.md](../../AGENTS.md#crates); phase progress
 is in [status](../status.md).
 

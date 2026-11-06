@@ -28,14 +28,12 @@ Updates → Files & storage** shows the actual paths with copy buttons.
 | `AGENTS.md` | Your instructions for every project. |
 | `agents/`, `commands/`, `skills/`, `rules/`, `output-styles/` | Your extensions for every project. |
 | `models.json` | Optional model catalog additions. |
-| `config.toml` | A v1 settings file, if any (read for import only, never changed). |
 
 **Data folder:**
 
 | Path | Contents |
 |---|---|
 | `sessions/<chat id>/` | One folder per chat (see below). |
-| `sessions/<id>.jsonl` | v1 chat files not imported yet. |
 | `checkpoints/` | Shadow git repositories for code checkpoints, one per project. |
 | `plans/<project key>/<plan id>/` | One folder per [work plan](18-work-plans.md) (empty unless you use them), under the same project key as the project's checkpoints. `events.jsonl` holds every change to the plan in order, including refused ones; `meta.json` its summary (goal, status, progress, what needs you, and the chat it was last in), which the plan list, the home card and the Inbox read. |
 | `cache/models-dev.json` | The cached model catalog. |
@@ -117,15 +115,6 @@ chat's first checkpoint.
 
 > **Warning:** Rewind can't undo effects outside your project files:
 > installed packages, database changes, network calls, `git push`.
-
-## Importing v1 chats
-
-v1 kept each chat as a single `<id>.jsonl` file in the sessions folder.
-HyperForm 2.0 lists those chats in the sidebar with a **v1** tag. The first
-time you open one, it is converted into a chat folder with the same id; the
-original file is left untouched, and opening it again doesn't import it
-twice. v1 settings are covered in
-[Settings reference](12-settings-reference.md#importing-v1-settings).
 
 ## Privacy: what leaves your computer
 

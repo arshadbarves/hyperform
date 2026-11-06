@@ -1,4 +1,4 @@
-# v2 engine architecture: work plans
+# Engine architecture: work plans
 
 The runtime contract for the experimental work plans (`work_plans`) and
 parallel tasks (`work_parallel`): the kernel, plan storage, the inputs and

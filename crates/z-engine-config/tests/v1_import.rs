@@ -158,7 +158,7 @@ fn project_v1_files_are_imported_in_memory_only() {
     assert!(loaded.warnings.contains(&note));
 
     assert_eq!(read(&legacy), V1_PROJECT);
-    assert_eq!(names_in(&f.project.join(".z-engine")), ["config.toml"]);
+    assert_eq!(names_in(&f.project.join(".hyperform")), ["config.toml"]);
     assert_eq!(f.load().settings, loaded.settings);
 }
 

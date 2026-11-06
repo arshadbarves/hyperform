@@ -1,4 +1,4 @@
-# HyperForm 2.0 user guide
+# HyperForm AI user guide
 
 HyperForm is a desktop app that works on your code with you. You describe a
 task in plain language ("fix the failing login test", "explain how billing
@@ -88,7 +88,7 @@ menu lists what `@`, `/`, `#` and `!` do.
     pause, hold or stop a plan, pick it back up after a restart or in
     another chat, and what "needs you" means.
 
-> **Note:** HyperForm 2.0 is a desktop app only. There is no separate
+> **Note:** HyperForm AI is a desktop app only. There is no separate
 > command-line version.
 
 See also: [Getting started](01-getting-started.md)

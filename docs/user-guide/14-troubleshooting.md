@@ -350,9 +350,6 @@ Studio), yes. Web tools, catalog download and update checks need a network.
 read `.claude/settings.json`; put permissions and hooks in
 `.hyperform/settings.toml`.
 
-**Does HyperForm 2.0 change my v1 settings or chats?** No. v1 files are only
-read. See [Settings reference](12-settings-reference.md#importing-v1-settings).
-
 **Can the agent push to my remote?** Only if you allow the command. The
 agent is instructed never to push unless you ask; add
 `ask = ["Bash(git push:*)"]` to be sure.
@@ -370,6 +367,6 @@ prompt** in the context card), and the Now card is the island's card
 (click the island in the title bar). The agents panel is the **Agents**
 tab, and a plan is reviewed in the **Plan** tab.
 
-**Is there a command-line version?** No. HyperForm 2.0 is a desktop app.
+**Is there a command-line version?** No. HyperForm AI is a desktop app.
 
 See also: [Getting started](01-getting-started.md) · [Settings reference](12-settings-reference.md) · [Sessions and data](13-sessions-and-data.md) · [Experimental features](15-experimental-features.md)

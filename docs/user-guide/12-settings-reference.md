@@ -355,26 +355,17 @@ and `CLAUDE_PROJECT_DIR` for hooks, and the `LAYA_*` variables above for
 the decision model's sidecar. `decisions.api_key_env` names a variable of
 your choice.
 
-## Importing v1 settings
+## Settings files initialization
 
-HyperForm 2.0 never changes v1 `config.toml` files, so a v1 installation
-keeps working next to it.
+When HyperForm AI starts for the first time:
 
-- **User settings:** if `settings.toml` doesn't exist yet, the v1
-  `~/.config/hyperform/config.toml` is converted once into a new
-  `settings.toml` (with a comment saying so). Otherwise a commented default
-  file is created.
-- **Project settings:** a v1 `.hyperform/config.toml` is read and converted
-  in memory while no `.hyperform/settings.toml` exists; the first change you
-  make in Settings writes `settings.toml`.
+- **User settings:** if `settings.toml` does not exist yet, a commented
+  default `settings.toml` file is created with `schema = 2`.
+- **Project settings:** personal overrides live in
+  `<project>/.hyperform/settings.local.toml` (git-ignored), while shared team
+  settings live in `<project>/.hyperform/settings.toml`.
 
-The conversion moves `model`, `base_url`, `max_context_tokens`,
-`max_output_tokens`, `compact_at_percent`, `max_task_continuations`,
-`task_report_view` and `shell_path` to their v2 keys; turns v1 shell allow
-entries such as `cargo test*` into `Bash(cargo test:*)`; maps the v1 hooks
-`session_start` and `turn_completed` to `SessionStart` and `Stop`; and moves
-`cost.overrides` to `[pricing]`. Anything it drops (such as `review`) is
-reported. API keys in `auth.json` keep working; keys for custom endpoints
-may need to be entered again because they are now stored per host.
+API keys are stored securely per-host in `auth.json` next to your user settings,
+never in the settings file itself.
 
 See also: [Permissions and safety](03-permissions-and-safety.md) · [Sessions and data](13-sessions-and-data.md) · [Troubleshooting](14-troubleshooting.md) · [Experimental features](15-experimental-features.md) · [Decision settings reference](17-decision-settings.md)

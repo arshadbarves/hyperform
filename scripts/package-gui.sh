@@ -25,7 +25,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <dict>
     <key>CFBundleName</key>              <string>HyperForm AI</string>
     <key>CFBundleDisplayName</key>       <string>HyperForm AI</string>
-    <key>CFBundleIdentifier</key>        <string>dev.zengine.gui</string>
+    <key>CFBundleIdentifier</key>        <string>ai.hyperform.gui</string>
     <key>CFBundleExecutable</key>        <string>zengine-gui</string>
     <key>CFBundleIconFile</key>          <string>icon</string>
     <key>CFBundlePackageType</key>       <string>APPL</string>

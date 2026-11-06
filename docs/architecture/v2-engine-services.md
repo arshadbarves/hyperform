@@ -1,4 +1,4 @@
-# v2 engine architecture: servers, verification and sandbox
+# Engine architecture: servers, verification and sandbox
 
 The services a session runs around its agent: MCP and language servers,
 check verification, and the shell sandbox. The runtime, the tool gate,
