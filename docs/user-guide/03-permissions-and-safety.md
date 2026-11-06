@@ -91,7 +91,7 @@ behind **Show all N lines**).
 |---|---|---|
 | **Allow once** | `y` | Runs this action only. |
 | **Always allow…** → **In this chat** | `s` | Runs it and adds the suggested rule for the rest of this chat. |
-| **Always allow…** → **In this project** | `p` | Also saves the rule to `.z-engine/settings.local.toml` (your personal, git-ignored project settings). |
+| **Always allow…** → **In this project** | `p` | Also saves the rule to `.hyperform/settings.local.toml` (your personal, git-ignored project settings). |
 | **Deny…** | `n` | Opens a box for optional feedback; Enter or **Deny** sends it, Esc or **Cancel** goes back. The agent receives "The user denied this action" plus your feedback. |
 
 The keys work while the card has keyboard focus, and their hints appear on
@@ -241,14 +241,14 @@ and even when an allow rule matches, because writing them could run code
 or change permissions:
 
 - any `.git` folder, at any depth;
-- the `.z-engine/` folder at the project root (settings, agents, commands);
+- the `.hyperform/` folder at the project root (settings, agents, commands);
 - `.claude/settings.json`, `.claude/settings.local.json` and `.mcp.json`.
 
 Bypass mode allows them; only a deny rule stops them there.
 
 ## Workspace trust
 
-A project can ship its own settings (`.z-engine/settings.toml` or
+A project can ship its own settings (`.hyperform/settings.toml` or
 `settings.local.toml`), agents, and commands. Some of those could run
 programs on your machine or loosen your permissions, so until you trust the
 workspace an untrusted project can only make things **stricter**. When you
@@ -317,8 +317,8 @@ verification checks) may **write only** to:
   project).
 
 Everything else stays readable but not writable. Inside the project,
-`.git/hooks`, `.git/config`, `.z-engine/settings.toml`,
-`.z-engine/settings.local.toml`, `.claude/settings.json`,
+`.git/hooks`, `.git/config`, `.hyperform/settings.toml`,
+`.hyperform/settings.local.toml`, `.claude/settings.json`,
 `.claude/settings.local.json` and `.mcp.json` stay read-only.
 
 - **Network:** with `allow_network = false`, all connections except to

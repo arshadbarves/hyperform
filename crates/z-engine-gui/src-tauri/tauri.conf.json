@@ -31,7 +31,7 @@
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://github.com/arshadbarves/z-engine/releases/latest/download/latest.json"
+        "https://github.com/arshadbarves/hyperform/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDcwM0UxNDY4NUQ1OEU3NjUKUldSbDUxaGRhQlErY0NSRlRYaUFVTG9LYnRZOGIveU5ER2R2MjRFZ1JRZEFpV2cxZld6d0NOcFkK"
     }

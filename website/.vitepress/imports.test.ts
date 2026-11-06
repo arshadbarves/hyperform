@@ -19,7 +19,7 @@ describe("includedIds", () => {
 
 describe("packagesFromWebsite", () => {
   const root = fileURLToPath(new URL("../../", import.meta.url));
-  const website = fileURLToPath(new URL("../", import.meta.url));
+  const website = fileURLToPath(new URL("../", import.meta.url)).replace(/\\/g, "/");
   const vue = `${website}node_modules/vue/dist/vue.runtime.esm-bundler.js`;
 
   it("lets the dev optimizer resolve optimizeDeps.include from the repo root", async () => {

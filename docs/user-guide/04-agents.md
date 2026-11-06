@@ -141,7 +141,7 @@ With worktree isolation, a subagent works in its own copy of your
 repository instead of your project folder, so its edits don't touch your
 files until you decide.
 
-- The worktree is created at `.z-engine/worktrees/<agent-id>` on a new
+- The worktree is created at `.hyperform/worktrees/<agent-id>` on a new
   branch `zengine/<agent-id>`, starting from your current commit.
 - The agent may read your main project but may change files only inside
   its worktree.
@@ -180,7 +180,7 @@ worktree is kept until its change is applied, discarded or
 > right-click a project in the sidebar) is different. A dialog asks **What
 > is it for?** (and which project, when you have several); a short name
 > such as `fix auth redirect` becomes the branch `zengine/fix-auth-redirect`
-> in `.z-engine/worktrees/fix-auth-redirect`. **Create and start** adds that
+> in `.hyperform/worktrees/fix-auth-redirect`. **Create and start** adds that
 > folder as its own project and starts a new chat in it.
 
 ## Custom agents
@@ -208,15 +208,15 @@ Report the files you added and the test results.
 Later locations override earlier ones when names match:
 
 1. `~/.claude/agents/` (read when Claude compatibility is on)
-2. `~/.config/z-engine/agents/` (your user folder; on Windows
-   `%APPDATA%\z-engine\agents\`)
+2. `~/.config/hyperform/agents/` (your user folder; on Windows
+   `%APPDATA%\hyperform\agents\`)
 3. `<project>/.claude/agents/`
-4. `<project>/.z-engine/agents/`
+4. `<project>/.hyperform/agents/`
 
 A custom agent with the name of a built-in (for example `explore`)
 replaces it. You can also create and edit agents in **Settings → Agents &
 Commands → Agents** (saved to your user folder or the project's
-`.z-engine/`). `.claude` files are read, never written; editing one there
+`.hyperform/`). `.claude` files are read, never written; editing one there
 saves a copy in HyperForm's folder that takes precedence.
 
 ### Frontmatter fields

@@ -24,7 +24,7 @@ they disagree):
 
 | Scope | Files |
 |---|---|
-| **User** (all projects) | `~/.claude/CLAUDE.md`, then `AGENTS.md` in your config folder (`~/.config/z-engine/AGENTS.md`; Windows: `%APPDATA%\z-engine\AGENTS.md`) |
+| **User** (all projects) | `~/.claude/CLAUDE.md`, then `AGENTS.md` in your config folder (`~/.config/hyperform/AGENTS.md`; Windows: `%APPDATA%\hyperform\AGENTS.md`) |
 | **Project** | In each folder from the repository root down to the project folder: `CLAUDE.md`, then `AGENTS.md` |
 | **Local** (just you) | `CLAUDE.local.md`, then `AGENTS.local.md` in the project folder |
 | **Nested** | `CLAUDE.md` and `AGENTS.md` in subfolders of the project |
@@ -63,7 +63,7 @@ the chat's instructions reload. `/memory` starts such a note;
 
 Rules attach guidance to specific files, so it's only in context when
 relevant. Put markdown files under `rules/` (subfolders allowed) in
-`<project>/.z-engine/rules/` or `~/.config/z-engine/rules/`, or create them
+`<project>/.hyperform/rules/` or `~/.config/hyperform/rules/`, or create them
 in **Settings → Agents & Commands → Rules**.
 
 ```markdown
@@ -93,7 +93,7 @@ folders.
 
 An output style changes how the agent writes its answers (tone, structure,
 length). Put a markdown file in `output-styles/` in your config folder or
-the project's `.z-engine/` folder:
+the project's `.hyperform/` folder:
 
 ```markdown
 ---

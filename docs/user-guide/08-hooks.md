@@ -32,7 +32,7 @@ them in a settings file:
 ```toml
 [[hooks.PreToolUse]]
 matcher = "Bash"
-command = "~/.config/z-engine/hooks/check-command.sh"
+command = "~/.config/hyperform/hooks/check-command.sh"
 timeout_secs = 30
 
 [[hooks.PostToolUse]]
@@ -65,7 +65,7 @@ The hook gets one JSON object on its standard input:
 ```json
 {
   "session_id": "01K5ZQ8X1B2C3D4E5F6G7H8J9K",
-  "transcript_path": "/Users/me/Library/Application Support/z-engine/sessions/01K5ZQ8X1B2C3D4E5F6G7H8J9K/log.jsonl",
+  "transcript_path": "/Users/me/Library/Application Support/hyperform/sessions/01K5ZQ8X1B2C3D4E5F6G7H8J9K/log.jsonl",
   "cwd": "/Users/me/code/shop",
   "hook_event_name": "PreToolUse",
   "permission_mode": "default",
@@ -134,7 +134,7 @@ Python.
 
 ```bash
 #!/usr/bin/env bash
-# ~/.config/z-engine/hooks/check-command.sh
+# ~/.config/hyperform/hooks/check-command.sh
 cmd=$(jq -r '.tool_input.command // empty')
 if printf '%s' "$cmd" | grep -Eq 'rm -rf /|git push --force|DROP TABLE'; then
   echo "Blocked by policy: $cmd" >&2
@@ -146,7 +146,7 @@ exit 0
 ```toml
 [[hooks.PreToolUse]]
 matcher = "Bash"
-command = "~/.config/z-engine/hooks/check-command.sh"
+command = "~/.config/hyperform/hooks/check-command.sh"
 ```
 
 The agent receives "A PreToolUse hook blocked this call: Blocked by policy:
@@ -207,7 +207,7 @@ timeout_secs = 10
 
 - Hooks run with your user account's permissions, outside the sandbox, and
   without approval prompts. Only use scripts you understand.
-- Hooks defined in a project's `.z-engine/settings.toml` or
+- Hooks defined in a project's `.hyperform/settings.toml` or
   `settings.local.toml` run only after you [trust the workspace](03-permissions-and-safety.md#workspace-trust).
   Hooks in your user settings always run.
 - A hook's output is limited to 256 KiB.

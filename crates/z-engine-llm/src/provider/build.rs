@@ -16,7 +16,7 @@ use crate::retry::RetryPolicy;
 use crate::transport::Endpoint;
 use crate::zen;
 
-const OPENROUTER_REFERER: &str = "https://github.com/arshadbarves/z-engine";
+const OPENROUTER_REFERER: &str = "https://github.com/arshadbarves/hyperform";
 const OPENROUTER_TITLE: &str = "HyperForm AI";
 
 /// Build the adapter for `config`: validates the base URL, credentials and

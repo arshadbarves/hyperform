@@ -66,8 +66,8 @@ skipped with a warning. A server in a higher settings file replaces a
 server of the same name entirely.
 
 > **Warning:** Settings files are plain text. Put tokens in your user
-> settings or in `.z-engine/settings.local.toml`, never in the shared
-> `.z-engine/settings.toml`.
+> settings or in `.hyperform/settings.local.toml`, never in the shared
+> `.hyperform/settings.toml`.
 
 > **Note:** A stdio server does not get your full environment. It gets
 > basics (such as `PATH` and `HOME`), common toolchain and proxy variables

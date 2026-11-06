@@ -24,9 +24,9 @@ servers and context use.
 
 The log is `hyperform.log` in the data folder:
 
-- macOS: `~/Library/Application Support/z-engine/hyperform.log`
-- Linux: `~/.local/share/z-engine/hyperform.log`
-- Windows: `%APPDATA%\z-engine\hyperform.log`
+- macOS: `~/Library/Application Support/hyperform/hyperform.log`
+- Linux: `~/.local/share/hyperform/hyperform.log`
+- Windows: `%APPDATA%\hyperform\hyperform.log`
 
 For more detail, start HyperForm with the environment variable
 `RUST_LOG=debug`. Notices appear briefly in the island at the top of the
@@ -348,7 +348,7 @@ Studio), yes. Web tools, catalog download and update checks need a network.
 **Does it use my Claude Code setup?** It reads `.claude/agents`,
 `.claude/commands`, `.claude/skills` and `CLAUDE.md` files. It does **not**
 read `.claude/settings.json`; put permissions and hooks in
-`.z-engine/settings.toml`.
+`.hyperform/settings.toml`.
 
 **Does HyperForm 2.0 change my v1 settings or chats?** No. v1 files are only
 read. See [Settings reference](12-settings-reference.md#importing-v1-settings).

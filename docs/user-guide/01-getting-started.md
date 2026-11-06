@@ -7,7 +7,7 @@ opening a project folder, and approving the agent's first actions.
 ## Install HyperForm
 
 Download the installer for your system from
-[GitHub Releases](https://github.com/arshadbarves/z-engine/releases).
+[GitHub Releases](https://github.com/arshadbarves/hyperform/releases).
 
 - **macOS:** choose the Apple Silicon or Intel `.dmg`, open it, and drag
   **HyperForm** to your Applications folder.

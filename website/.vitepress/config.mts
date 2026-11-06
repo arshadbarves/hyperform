@@ -7,7 +7,7 @@ import { sidebar } from "./sidebar";
 import { githubSlug } from "./slug";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
-const base = "/z-engine/";
+const base = "/hyperform/";
 
 export default withMermaid(
   defineConfig({
@@ -31,10 +31,10 @@ export default withMermaid(
     appearance: "dark",
     head: [
       ["link", { rel: "icon", type: "image/svg+xml", href: `${base}favicon.svg` }],
-      ["meta", { property: "og:image", content: "https://arshadbarves.github.io/z-engine/og.png" }],
+      ["meta", { property: "og:image", content: "https://arshadbarves.github.io/hyperform/og.png" }],
       ["meta", { property: "og:image:alt", content: "HyperForm AI" }],
       ["meta", { name: "twitter:card", content: "summary" }],
-      ["meta", { name: "twitter:image", content: "https://arshadbarves.github.io/z-engine/og.png" }],
+      ["meta", { name: "twitter:image", content: "https://arshadbarves.github.io/hyperform/og.png" }],
     ],
     markdown: { anchor: { slugify: githubSlug }, config: (md) => githubLinks(md, root) },
     mermaid: { theme: "neutral" },

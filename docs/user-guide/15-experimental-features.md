@@ -55,7 +55,7 @@ writes these lines for you; every decision feature's id is listed in
 work plans is `work_plans` and parallel tasks is `work_parallel`.
 
 ```toml
-# ~/.config/z-engine/settings.toml
+# ~/.config/hyperform/settings.toml
 [experimental]
 decisions_compaction = "shadow"
 decisions_risk = "on"

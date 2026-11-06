@@ -2,7 +2,7 @@ import { statSync } from "node:fs";
 import { join, posix } from "node:path";
 import type { MarkdownRenderer } from "vitepress";
 
-export const REPO_URL = "https://github.com/arshadbarves/z-engine";
+export const REPO_URL = "https://github.com/arshadbarves/hyperform";
 export const BRANCH = "release";
 
 const ROOT_PAGES = new Set(["README.md", "AGENTS.md", "CHANGELOG.md"]);

@@ -15,7 +15,7 @@ hero:
       link: /docs/how-it-works/README
     - theme: alt
       text: Download
-      link: https://github.com/arshadbarves/z-engine/releases
+      link: https://github.com/arshadbarves/hyperform/releases
 
 features:
   - title: One permission gate

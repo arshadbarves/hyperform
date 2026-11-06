@@ -97,9 +97,9 @@ it in a `commands/` folder:
 
 | Location | Scope |
 |---|---|
-| `<project>/.z-engine/commands/` | This project (highest precedence) |
+| `<project>/.hyperform/commands/` | This project (highest precedence) |
 | `<project>/.claude/commands/` | This project, Claude Code format |
-| `~/.config/z-engine/commands/` (Windows: `%APPDATA%\z-engine\commands\`) | All your projects |
+| `~/.config/hyperform/commands/` (Windows: `%APPDATA%\hyperform\commands\`) | All your projects |
 | `~/.claude/commands/` | All your projects, Claude Code format |
 
 The file name becomes the command: `commands/changelog.md` is `/changelog`,
@@ -110,7 +110,7 @@ commands in **Settings → Agents & Commands → Commands**.
 
 ### Example
 
-`.z-engine/commands/fix-issue.md`:
+`.hyperform/commands/fix-issue.md`:
 
 ```markdown
 ---
@@ -178,8 +178,8 @@ when a request matches, the agent loads the full instructions with the
 `Skill` tool and follows them.
 
 Create `skills/<name>/SKILL.md` in any of these folders:
-`<project>/.z-engine/skills/`, `<project>/.claude/skills/`,
-`~/.config/z-engine/skills/`, or `~/.claude/skills/`.
+`<project>/.hyperform/skills/`, `<project>/.claude/skills/`,
+`~/.config/hyperform/skills/`, or `~/.claude/skills/`.
 
 ```markdown
 ---

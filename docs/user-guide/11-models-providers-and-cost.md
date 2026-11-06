@@ -46,7 +46,7 @@ to open **Settings → Providers**.
 ### Where keys are stored
 
 Keys you enter in Settings go to `auth.json` in your config folder
-(`~/.config/z-engine/auth.json`; Windows `%APPDATA%\z-engine\auth.json`),
+(`~/.config/hyperform/auth.json`; Windows `%APPDATA%\hyperform\auth.json`),
 readable only by your user account on macOS and Linux. They are never
 written to settings files. The Providers page shows the last four
 characters of a stored key; **Remove key** deletes it.

@@ -2,7 +2,7 @@ use tauri::Emitter;
 use tauri_plugin_opener::OpenerExt;
 use tauri_plugin_updater::UpdaterExt;
 
-const GITHUB_RELEASES: &str = "https://api.github.com/repos/arshadbarves/z-engine/releases/latest";
+const GITHUB_RELEASES: &str = "https://api.github.com/repos/arshadbarves/hyperform/releases/latest";
 
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "camelCase")]

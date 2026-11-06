@@ -9,7 +9,7 @@ use super::cache::PageCache;
 use super::guard::PublicOnlyResolver;
 use crate::HostError;
 
-pub const USER_AGENT: &str = "ZEngine/2 (+https://github.com/arshadbarves/z-engine)";
+pub const USER_AGENT: &str = "HyperForm/1 (+https://github.com/arshadbarves/hyperform)";
 const TIMEOUT: Duration = Duration::from_secs(30);
 
 #[derive(Debug, Clone)]

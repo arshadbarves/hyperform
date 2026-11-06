@@ -12,9 +12,9 @@ Settings are read in layers, lowest precedence first. A later layer wins.
 | Layer | File | Use it for |
 |---|---|---|
 | Defaults | built in | – |
-| **User** | `~/.config/z-engine/settings.toml` (Windows: `%APPDATA%\z-engine\settings.toml`) | Your preferences for every project. |
-| **Project** | `<project>/.z-engine/settings.toml` | Settings shared with your team through git. |
-| **Personal (local)** | `<project>/.z-engine/settings.local.toml` | Your own overrides for this project. HyperForm adds it to `.z-engine/.gitignore` when it writes the file. |
+| **User** | `~/.config/hyperform/settings.toml` (Windows: `%APPDATA%\hyperform\settings.toml`) | Your preferences for every project. |
+| **Project** | `<project>/.hyperform/settings.toml` | Settings shared with your team through git. |
+| **Personal (local)** | `<project>/.hyperform/settings.local.toml` | Your own overrides for this project. HyperForm adds it to `.hyperform/.gitignore` when it writes the file. |
 | **Environment** | `ZENGINE_MODEL`, `ZENGINE_BASE_URL`, `ZENGINE_PROVIDER`, `ZENGINE_SHELL` | Overriding everything, for example in scripts. |
 
 How values combine:
@@ -72,7 +72,7 @@ starts with one line saying what it is for:
 | Agent | Permissions | `permissions.*` |
 | | Memory | `AGENTS.md` files |
 | | Verification | `verification.*` |
-| | Agents & Commands | files in `agents/`, `commands/`, `skills/`, `rules/`, `output-styles/` (user folder or project `.z-engine/`) |
+| | Agents & Commands | files in `agents/`, `commands/`, `skills/`, `rules/`, `output-styles/` (user folder or project `.hyperform/`) |
 | Integrations | MCP | `mcp.servers.*` |
 | | Hooks | `hooks.*` |
 | System | Advanced | `context.*`, `agents.*`, `web.*`, `shell.*`, `lsp.*`, `compat.claude`, workspace trust |
@@ -308,7 +308,7 @@ The default `serial_paths` are `**/Cargo.lock`, `**/Cargo.toml`,
 `**/poetry.lock`, `**/uv.lock`, `**/Pipfile.lock`, `**/pyproject.toml`,
 `**/go.mod`, `**/go.sum`, `**/Gemfile`, `**/Gemfile.lock`,
 `**/composer.json`, `**/composer.lock`, `**/generated/**`,
-`**/__generated__/**` and `crates/z-engine-gui/ui/src/lib/protocol/**`. A
+`**/__generated__/**` and `crates/hyperform-gui/ui/src/lib/protocol/**`. A
 list you set replaces them, so repeat the ones you want to keep; an
 untrusted project can only add to yours.
 
@@ -361,11 +361,11 @@ HyperForm 2.0 never changes v1 `config.toml` files, so a v1 installation
 keeps working next to it.
 
 - **User settings:** if `settings.toml` doesn't exist yet, the v1
-  `~/.config/z-engine/config.toml` is converted once into a new
+  `~/.config/hyperform/config.toml` is converted once into a new
   `settings.toml` (with a comment saying so). Otherwise a commented default
   file is created.
-- **Project settings:** a v1 `.z-engine/config.toml` is read and converted
-  in memory while no `.z-engine/settings.toml` exists; the first change you
+- **Project settings:** a v1 `.hyperform/config.toml` is read and converted
+  in memory while no `.hyperform/settings.toml` exists; the first change you
   make in Settings writes `settings.toml`.
 
 The conversion moves `model`, `base_url`, `max_context_tokens`,

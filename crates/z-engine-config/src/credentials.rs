@@ -262,7 +262,8 @@ mod tests {
             resolve_api_key_with(&creds, url, github_token).as_deref(),
             Some("gho_saved")
         );
-        let override_hyperform = |name: &str| (name == "HYPERFORM_API_KEY").then(|| "hk".to_string());
+        let override_hyperform =
+            |name: &str| (name == "HYPERFORM_API_KEY").then(|| "hk".to_string());
         assert_eq!(
             resolve_api_key_with(&creds, url, override_hyperform).as_deref(),
             Some("hk")

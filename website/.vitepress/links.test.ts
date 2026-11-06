@@ -3,8 +3,8 @@ import { createMarkdownRenderer } from "vitepress";
 import { describe, expect, it } from "vitest";
 import { githubLink, githubLinks } from "./links";
 
-const BLOB = "https://github.com/arshadbarves/z-engine/blob/release";
-const TREE = "https://github.com/arshadbarves/z-engine/tree/release";
+const BLOB = "https://github.com/arshadbarves/hyperform/blob/release";
+const TREE = "https://github.com/arshadbarves/hyperform/tree/release";
 const PAGE = "docs/how-it-works/README.md";
 
 describe("githubLink", () => {

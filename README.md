@@ -1,7 +1,7 @@
 # HyperForm AI
 
 <p align="center">
-  <img src="./docs/assets/z-engine.png" alt="HyperForm AI" width="128" height="128">
+  <img src="./docs/assets/hyperform.png" alt="HyperForm AI" width="128" height="128">
 </p>
 
 > **Think Beyond. Build Beyond.**  
@@ -9,7 +9,7 @@
 
 An intelligent development environment that helps developers understand, plan, build, modify, and evolve software through AI agents, tools, and controlled execution. You describe a task ("fix this failing test"); HyperForm reads files, runs commands, edits code, and asks for approval before gated operations. The model supplies judgment; the engine supplies authority, execution, evidence and durability: every tool, hook and check goes through one permission gate, and every observable change is a typed event the desktop GUI renders.
 
-The desktop app is the primary product interface. Built upon a local-first, modular architecture (detailed in [Architecture](docs/architecture/v2-engine.md)), HyperForm maintains full backward compatibility with previous Z-Engine setups.
+The desktop app is the primary product interface. Built upon a local-first, modular architecture (detailed in [Architecture](docs/architecture/v2-engine.md)).
 
 Highlights:
 
@@ -32,11 +32,11 @@ Highlights:
 ## Install
 
 Download the desktop installer for your operating system from
-[GitHub Releases](https://github.com/arshadbarves/z-engine/releases):
+[GitHub Releases](https://github.com/arshadbarves/hyperform/releases):
 
 - **macOS:** choose Apple Silicon or Intel, open the `.dmg`, and move HyperForm
   to Applications.
-- **Windows:** run the `.exe` or `.msi` installer.
+- **Windows:** run the `.exe` or `.msi` installer (supports both x64 and ARM64).
 - **Linux:** install the `.deb`/`.rpm` package or make the AppImage executable.
 
 The app updates itself in place (**Update & Restart**) from signed release
@@ -100,10 +100,10 @@ TypeScript mirror in `crates/z-engine-gui/ui/src/lib/protocol/`; commit it.
 Settings are TOML files layered lowest first:
 
 1. built-in defaults
-2. `~/.config/hyperform/settings.toml` (user; `HYPERFORM_CONFIG_DIR` or legacy `ZENGINE_CONFIG_DIR` overrides the folder)
-3. `<project>/.hyperform/settings.toml` (or legacy `<project>/.z-engine/settings.toml`)
+2. `~/.config/hyperform/settings.toml` (user; `HYPERFORM_CONFIG_DIR` overrides the folder)
+3. `<project>/.hyperform/settings.toml`
 4. `<project>/.hyperform/settings.local.toml` (personal, gitignored)
-5. environment: `HYPERFORM_MODEL`, `HYPERFORM_BASE_URL`, `HYPERFORM_PROVIDER`, `HYPERFORM_SHELL` (with `ZENGINE_*` fallback)
+5. environment: `HYPERFORM_MODEL`, `HYPERFORM_BASE_URL`, `HYPERFORM_PROVIDER`, `HYPERFORM_SHELL`
 
 ```toml
 schema = 2
@@ -135,12 +135,9 @@ timeout_secs = 60
 ```
 
 Everything is also editable in Settings, which writes the layer you choose.
-Legacy Z-Engine installations and project folders (`.z-engine/`) are automatically
-detected and supported with non-destructive fallback.
 
-API keys live in `~/.config/hyperform/auth.json` (with automatic migration from
-`~/.config/z-engine/auth.json`), set from Settings or through `HYPERFORM_API_KEY` /
-`ZENGINE_API_KEY` / the provider's own variable (`OPENROUTER_API_KEY`,
+API keys live in `~/.config/hyperform/auth.json`, set from Settings or through
+`HYPERFORM_API_KEY` or the provider's own variable (`OPENROUTER_API_KEY`,
 `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `OPENCODE_API_KEY`). OpenCode Zen
 (`https://opencode.ai/zen/v1`) serves its free models without a key.
 
@@ -168,10 +165,10 @@ permission gate.
 Built-in agents: `general`, `explore`, `plan`, `review`, `verify`, and
 `audit` while work plans are on. Custom
 agents, commands, skills, rules and output styles are markdown files with YAML
-frontmatter in `~/.config/hyperform/` (or `<project>/.hyperform/`, with `.z-engine/`
-fallback) (`agents/`, `commands/`, `skills/<name>/SKILL.md`, `rules/`,
-`output-styles/`); `.claude/` folders and `CLAUDE.md` are read too. Agents run
-in the foreground or background, optionally in their own git worktree.
+frontmatter in `~/.config/hyperform/` (or `<project>/.hyperform/`) (`agents/`,
+`commands/`, `skills/<name>/SKILL.md`, `rules/`, `output-styles/`); `.claude/`
+folders and `CLAUDE.md` are read too. Agents run in the foreground or background,
+optionally in their own git worktree.
 
 Hooks (`SessionStart`, `UserPromptSubmit`, `PreToolUse`, `PostToolUse`,
 `Stop`, `SubagentStop`, `PreCompact`, `Notification`, `SessionEnd`) receive
@@ -220,16 +217,16 @@ feeds failures back, `strict` keeps going until they pass (bounded by
 
 Each chat is a folder under the data directory's `sessions/`
 (`~/Library/Application Support/hyperform` on macOS, `~/.local/share/hyperform`
-on Linux, `%APPDATA%\hyperform` on Windows; `HYPERFORM_DATA_DIR` or legacy
-`ZENGINE_DATA_DIR` overrides it): `log.jsonl`, `meta.json`, subagent transcripts,
-and spilled artifacts. Before each prompt the working tree is snapshotted into
-a shadow git repository outside the project, so a chat can rewind code,
-conversation, or both. The app log is `hyperform.log` in the same data directory.
+on Linux, `%APPDATA%\hyperform` on Windows; `HYPERFORM_DATA_DIR` overrides it):
+`log.jsonl`, `meta.json`, subagent transcripts, and spilled artifacts. Before each
+prompt the working tree is snapshotted into a shadow git repository outside the project,
+so a chat can rewind code, conversation, or both. The app log is `hyperform.log` in
+the same data directory.
 
 ## Documentation
 
 Read it on the documentation website,
-[arshadbarves.github.io/z-engine](https://arshadbarves.github.io/z-engine/),
+[arshadbarves.github.io/hyperform](https://arshadbarves.github.io/hyperform/),
 or here in the repository:
 
 - [User guide](docs/user-guide/README.md): everything about using the app,

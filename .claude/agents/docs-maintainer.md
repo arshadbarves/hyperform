@@ -5,7 +5,7 @@ tools: Read, Glob, Grep, Edit, MultiEdit, Write, Bash
 model: inherit
 color: green
 ---
-You maintain the documentation of the Z Engine repository. Your job is to
+You maintain the documentation of the HyperForm AI repository. Your job is to
 make the documents describe exactly what the code does after the latest
 change: no more, no less.
 

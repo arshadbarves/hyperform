@@ -288,7 +288,7 @@ which also says what counts as
 > **Note:** Plans are stored on this computer, in `plans/` in the data
 > folder ([where that is](13-sessions-and-data.md#where-things-live)), and
 > are kept when you delete a chat. A task's worktree, an interrupted
-> task's too, stays in `.z-engine/worktrees/` until its change is applied,
+> task's too, stays in `.hyperform/worktrees/` until its change is applied,
 > discarded or retried serially. The packets, task lists and the plan the audit reads go to
 > your model provider like the rest of the conversation.
 

@@ -11,11 +11,11 @@ own extensions, and a **data folder** for chats, checkpoints and logs.
 
 | | Config folder | Data folder |
 |---|---|---|
-| macOS | `~/.config/z-engine` | `~/Library/Application Support/z-engine` |
-| Linux | `~/.config/z-engine` | `~/.local/share/z-engine` (or `$XDG_DATA_HOME/z-engine`) |
-| Windows | `%APPDATA%\z-engine` | `%APPDATA%\z-engine` |
+| macOS | `~/.config/hyperform` | `~/Library/Application Support/hyperform` |
+| Linux | `~/.config/hyperform` | `~/.local/share/hyperform` (or `$XDG_DATA_HOME/hyperform`) |
+| Windows | `%APPDATA%\hyperform` | `%APPDATA%\hyperform` |
 
-`ZENGINE_CONFIG_DIR` and `ZENGINE_DATA_DIR` move them. **Settings → About &
+`HYPERFORM_CONFIG_DIR` and `HYPERFORM_DATA_DIR` move them. **Settings → About &
 Updates → Files & storage** shows the actual paths with copy buttons.
 
 **Config folder:**
@@ -50,9 +50,9 @@ Updates → Files & storage** shows the actual paths with copy buttons.
 | Path | Contents |
 |---|---|
 | `AGENTS.md`, `AGENTS.local.md` (and `CLAUDE.md`, `CLAUDE.local.md`) | Instructions. |
-| `.z-engine/settings.toml`, `.z-engine/settings.local.toml` | Project and personal settings. |
-| `.z-engine/agents/`, `commands/`, `skills/`, `rules/`, `output-styles/` | Project extensions. |
-| `.z-engine/worktrees/` | Worktrees of isolated agents and of chats started with **New chat in a worktree…**. A plan task's worktree, an [interrupted](19-pausing-and-continuing-plans.md#after-a-restart-or-when-a-chat-opens) task's too, stays until its change is applied, discarded or [retried serially](18-work-plans.md#when-a-change-conflicts); opening a chat never deletes one. |
+| `.hyperform/settings.toml`, `.hyperform/settings.local.toml` | Project and personal settings. |
+| `.hyperform/agents/`, `commands/`, `skills/`, `rules/`, `output-styles/` | Project extensions. |
+| `.hyperform/worktrees/` | Worktrees of isolated agents and of chats started with **New chat in a worktree…**. A plan task's worktree, an [interrupted](19-pausing-and-continuing-plans.md#after-a-restart-or-when-a-chat-opens) task's too, stays until its change is applied, discarded or [retried serially](18-work-plans.md#when-a-change-conflicts); opening a chat never deletes one. |
 
 The [Inbox](02-everyday-use.md#the-inbox) is not saved anywhere: it lives
 in memory while the app runs, keeps up to 200 notices, and starts empty the
@@ -90,7 +90,7 @@ files changed, so it can tell later what changed outside the plan.
 
 What a checkpoint leaves out:
 
-- `.git` folders and `.z-engine/worktrees/`;
+- `.git` folders and `.hyperform/worktrees/`;
 - everything your repository ignores (`.gitignore` and similar);
 - files larger than 8 MiB.
 

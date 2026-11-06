@@ -90,7 +90,6 @@ pub(super) fn render(git_dir: &Path, work_tree: &Path, exclusions: &Exclusions) 
         "# Managed by HyperForm checkpoints; rewritten on every snapshot.".to_string(),
         ".git".to_string(),
         format!("/{WORKTREES}/"),
-        format!("/{LEGACY_WORKTREES}/"),
     ];
     if let Ok(rel) = git_dir.strip_prefix(work_tree) {
         lines.push(format!("/{}/", escape(&slashed(rel))));
@@ -166,7 +165,6 @@ mod tests {
             [
                 ".git",
                 "/.hyperform/worktrees/",
-                "/.z-engine/worktrees/",
                 "/.hyperform/checkpoints/abc.git/",
                 "/node_modules/",
                 "/big.bin"
