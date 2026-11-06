@@ -1,0 +1,12 @@
+data: {"id":"gen-1","choices":[{"index":0,"delta":{"role":"assistant","content":"","reasoning":"Weighing options."},"finish_reason":null}]}
+
+data: {"id":"gen-1","choices":[{"index":0,"delta":{"reasoning_content":" Picking one."},"finish_reason":null}]}
+
+data: {"id":"gen-1","choices":[{"index":0,"delta":{"content":"Use a map."},"finish_reason":null}]}
+
+data: {"id":"gen-1","choices":[{"index":0,"delta":{},"finish_reason":"stop"}],"usage":null}
+
+data: {"id":"gen-1","choices":[],"usage":{"prompt_tokens":1200,"completion_tokens":90,"total_tokens":1290,"prompt_tokens_details":{"cached_tokens":1000,"cache_write_tokens":150},"completion_tokens_details":{"reasoning_tokens":40}}}
+
+data: [DONE]
+

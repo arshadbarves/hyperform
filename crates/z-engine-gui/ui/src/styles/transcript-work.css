@@ -1,0 +1,160 @@
+/* A finished turn's work folded into one line ("Worked for 1m 12s · …"),
+   the turn's actions after its answer, and the "Plan ready · Review" row. */
+
+.work {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.work-summary {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: calc(100% + 6px);
+  height: 24px;
+  margin-left: -6px;
+  padding: 0 8px 0 6px;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: transparent;
+  color: var(--label-3);
+  font: inherit;
+  font-size: 12.5px;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.work-summary:hover {
+  background: var(--fill-quiet);
+  color: var(--label-2);
+}
+.work-summary-line {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.work-summary-chevron {
+  display: inline-flex;
+  flex: none;
+  color: var(--label-4);
+  transition: rotate var(--dur-spring-snappy) var(--ease-spring-snappy);
+}
+.work-summary.is-open .work-summary-chevron {
+  rotate: 90deg;
+}
+.work-flag {
+  flex: none;
+  padding: 0 6px;
+  border-radius: var(--r-full);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  line-height: 17px;
+}
+.work-flag.is-failed {
+  background: var(--red-soft);
+  color: var(--red-label);
+}
+.work-flag.is-denied {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.work-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.work-body.is-open {
+  padding-left: 12px;
+  border-left: 1px solid var(--separator);
+  animation: disclosure-in var(--dur-fast) var(--ease-out) both;
+}
+
+/* After the answer: copy, open changes, rewind, then the receipt. */
+.turn-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px 10px;
+  margin-top: -8px;
+}
+.turn-end:not(:has(*)) {
+  display: none;
+}
+.turn-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: -5px;
+}
+.turn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: transparent;
+  color: var(--label-3);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+  -webkit-app-region: no-drag;
+}
+.turn-action:hover:not(:disabled),
+.turn-action[data-state="open"] {
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.turn-action.is-copied {
+  color: var(--green);
+}
+.turn-action:disabled {
+  opacity: 0.35;
+}
+.turn-end .turn-receipt {
+  padding-top: 2px;
+}
+
+.plan-ready {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--label-2);
+  font-size: 13px;
+  animation: msg-rise var(--dur-spring-smooth) var(--ease-spring-smooth) backwards;
+}
+.plan-ready > :first-child {
+  color: var(--accent);
+}
+.plan-ready-label {
+  color: var(--label);
+  font-weight: var(--weight-medium);
+}
+.plan-ready-agent {
+  overflow: hidden;
+  color: var(--label-3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-ready-dot {
+  color: var(--label-4);
+}
+.plan-ready-review {
+  height: 24px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: var(--accent-soft);
+  color: var(--link);
+  font: inherit;
+  font-weight: var(--weight-medium);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.plan-ready-review:hover {
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+}

@@ -1,0 +1,16 @@
+[package]
+name = "z-engine-prompts"
+description = "All LLM prompt text as markdown data with an include_str registry"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+
+[dev-dependencies]
+serde_yaml_ng.workspace = true
+
+[lints]
+workspace = true

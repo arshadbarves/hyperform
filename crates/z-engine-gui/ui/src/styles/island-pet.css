@@ -1,0 +1,57 @@
+/* The island's pet slot (IslandCapsule): the pet at home (IslandPet), a
+   live portrait of it while it roams (IslandPortrait), and a dot when the
+   pet is off. Each fits the slot, so the island keeps its width. */
+
+.island-pet-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--island-h);
+  height: var(--island-h);
+}
+.island-pet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* A round window on the pet's face, ringed in the status tone as the dot
+   is: working breathes, needing you is amber. */
+.island-portrait {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+  background: var(--fill-quiet);
+}
+.island-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1.25px var(--island-tone, var(--separator-strong));
+  pointer-events: none;
+}
+.island-portrait.tone-working::after {
+  box-shadow: inset 0 0 0 1.25px var(--label);
+  animation: live-breathe var(--live-period) var(--ease-inout) infinite;
+}
+.island-portrait.tone-attention::after {
+  box-shadow: inset 0 0 0 1.25px var(--amber);
+}
+
+.island-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--r-full);
+  background: var(--island-tone, var(--label-3));
+}
+.island-dot.tone-working {
+  background: var(--label);
+  animation: live-breathe var(--live-period) var(--ease-inout) infinite;
+}

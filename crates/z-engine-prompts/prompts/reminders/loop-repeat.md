@@ -1,0 +1,1 @@
+You have called {{tool}} with the same input {{count}} times, with the same result each time and nothing changed in between. Calling it again will give the same result. Use what you already have, or try a different approach; if you are stuck, say what is blocking you.

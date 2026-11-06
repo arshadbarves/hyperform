@@ -1,0 +1,36 @@
+/* Kit overlays that float above everything: tooltips. */
+
+.tip-anchor {
+  display: inline-flex;
+}
+
+.tip {
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 9px;
+  border-radius: var(--r-s);
+  background: var(--l3-bg);
+  -webkit-backdrop-filter: var(--l3-filter);
+  backdrop-filter: var(--l3-filter);
+  border: 1px solid var(--l3-edge);
+  box-shadow: var(--l3-highlight), var(--elev-2);
+  color: var(--label);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  pointer-events: none;
+  transform-origin: var(--bits-floating-transform-origin, center);
+  animation: pop-in var(--dur-spring-snappy) var(--ease-spring-snappy) both;
+}
+
+.tip .kbd,
+.tip-key {
+  padding: 0 4px;
+  border: 0;
+  background: var(--fill-press);
+  color: var(--label-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+}

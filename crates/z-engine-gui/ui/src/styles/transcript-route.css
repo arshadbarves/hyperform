@@ -1,0 +1,28 @@
+/* Route chip: the effort or model a task was routed to, and why, as one
+   quiet line where the task starts. */
+.route-chip {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 2px 0 2px 12px;
+  border-left: 1px solid var(--separator-strong);
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+.route-chip-icon {
+  align-self: center;
+  flex: none;
+}
+.route-chip-lead {
+  color: var(--label-2);
+  font-weight: var(--weight-semibold);
+}
+.route-chip-choice {
+  color: var(--label-2);
+}
+.route-chip-reason::before {
+  content: "·";
+  margin-right: 6px;
+}

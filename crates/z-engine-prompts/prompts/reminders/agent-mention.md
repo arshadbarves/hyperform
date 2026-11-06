@@ -1,0 +1,1 @@
+The user mentioned @agent-{{agent}}: they want the {{agent}} agent to handle this request. Use the Agent tool with subagent_type "{{agent}}", and give it a self-contained prompt with everything it needs from this conversation.

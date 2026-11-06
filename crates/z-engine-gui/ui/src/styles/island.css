@@ -1,0 +1,267 @@
+/* The title bar's island: one glass surface that springs between a capsule
+   (rest, live, alert) and the card (island-card.css), with two droplet
+   satellites riding its edges (island-satellites.css). Island.svelte sets
+   the surface's width, height and radius; the stylesheet springs them, on a
+   contained layer. */
+
+@keyframes island-text-in {
+  from {
+    opacity: 0;
+    translate: 0 4px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes island-sweep {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 250% 0;
+  }
+}
+@keyframes island-ring {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* The slot holds the capsule's width in the title bar; the surface floats in
+   it. Opening springs snappier than settling back. */
+.island {
+  --island-dur: var(--dur-spring-smooth);
+  --island-ease: var(--ease-spring-smooth);
+  position: relative;
+  flex: 0 1 auto;
+  min-width: var(--island-h);
+  max-width: var(--island-max);
+  height: var(--island-h);
+}
+.island-spacer {
+  visibility: hidden;
+  overflow: hidden;
+}
+.island .island-spacer > * {
+  flex: none;
+}
+.island-pet-space {
+  width: var(--island-h);
+  height: var(--island-h);
+}
+
+.island-surface {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  translate: -50% 0;
+  contain: layout paint;
+  overflow: hidden;
+  background: var(--l2-bg);
+  -webkit-backdrop-filter: var(--l2-filter);
+  backdrop-filter: var(--l2-filter);
+  box-shadow:
+    inset 0 0 0 1px var(--l2-edge),
+    var(--l2-highlight),
+    var(--elev-1);
+  color: var(--label);
+  font-size: var(--text-s);
+  pointer-events: auto;
+  -webkit-app-region: no-drag;
+}
+.island.is-ready .island-surface {
+  transition:
+    width var(--island-dur) var(--island-ease),
+    height var(--island-dur) var(--island-ease),
+    border-radius var(--island-dur) var(--island-ease),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+}
+.island[data-mode="expanded"] {
+  --island-dur: var(--dur-spring-snappy);
+  --island-ease: var(--ease-spring-snappy);
+}
+.island[data-mode="expanded"] .island-surface {
+  background: var(--l3-bg);
+  -webkit-backdrop-filter: var(--l3-filter);
+  backdrop-filter: var(--l3-filter);
+  box-shadow:
+    inset 0 0 0 1px var(--l3-edge),
+    var(--l3-highlight),
+    var(--l3-shadow);
+}
+.island-surface:has(.island-toggle:hover) {
+  background-color: var(--l3-bg);
+}
+.island-surface:has(:is(.island-toggle, .island-action):focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Alert: an amber tint and ring that breathes. */
+.island-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--amber-soft);
+  box-shadow: inset 0 0 0 1px var(--amber-ring);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+.island[data-mode="alert"] .island-surface::before {
+  opacity: 1;
+  animation: island-ring 1.8s var(--ease-inout) infinite;
+}
+
+/* The capsule row (and its hidden copy in the slot). */
+.island-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--island-h);
+  white-space: nowrap;
+}
+.island.has-text .island-row {
+  min-width: var(--island-min);
+  padding-right: 14px;
+}
+.island.has-action .island-row {
+  padding-right: 3px;
+}
+.island-surface > .island-row {
+  z-index: 1;
+  transition:
+    translate var(--island-dur) var(--island-ease),
+    padding var(--island-dur) var(--island-ease);
+}
+/* Opened, the row is the card's header, inset so the corners clear the pet. */
+.island[data-mode="expanded"] .island-surface > .island-row {
+  translate: 0 7px;
+  padding: 0 16px 0 9px;
+}
+.island.has-action[data-mode="expanded"] .island-surface > .island-row {
+  padding-right: 10px;
+}
+.island-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+.island-toggle:focus-visible,
+.island-action:focus-visible {
+  outline: none;
+}
+.island-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--weight-medium);
+  animation: island-text-in var(--dur-spring-smooth) var(--ease-spring-smooth) backwards;
+}
+.island[data-tone="attention"] {
+  --island-tone: var(--amber);
+}
+.island[data-tone="danger"] {
+  --island-tone: var(--red-label);
+}
+.island[data-tone="ok"] {
+  --island-tone: var(--green);
+}
+.island-surface .island-text {
+  color: var(--island-tone, var(--label));
+}
+.island[data-mode="rest"] .island-text {
+  color: var(--label-2);
+}
+.island[data-mode="expanded"] .island-text {
+  color: var(--label-3);
+}
+.island-metric {
+  flex: none;
+  min-width: 5ch;
+  margin-left: auto;
+  color: var(--label-3);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.island-unseen {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--amber);
+}
+.island-action {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  height: 24px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: var(--amber);
+  color: var(--l0-bg);
+  font: inherit;
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+  transition: scale var(--dur-spring-snappy) var(--ease-spring-snappy);
+}
+.island-action:hover {
+  background: #ffb340;
+}
+.island-action:active {
+  scale: 0.95;
+}
+
+/* Progress fills the capsule from the left; compacting sweeps across it. */
+.island-fill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--tone-working-soft);
+  transform-origin: left center;
+  pointer-events: none;
+  transition:
+    scale var(--dur-spring-smooth) var(--ease-spring-smooth),
+    opacity var(--dur-fast) var(--ease-out);
+}
+.island-fill.is-sweep {
+  right: auto;
+  width: 40%;
+  animation: island-sweep 1.6s var(--ease-inout) infinite;
+}
+.island[data-mode="expanded"] .island-fill {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island-fill.is-sweep {
+    width: 100%;
+    opacity: 0.6;
+    animation: none;
+  }
+  .island[data-mode="alert"] .island-surface::before {
+    animation: none;
+  }
+}

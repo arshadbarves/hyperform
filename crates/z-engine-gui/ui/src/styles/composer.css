@@ -1,0 +1,268 @@
+/* The composer: one floating L2 glass card over the bottom of the sheet
+   (queued steering, attachments, the draft), then one row: + and the mode
+   on the left, the model and a round Send / Stop on the right. On the
+   project home it sits in the middle, a little larger. */
+
+.composer-wrap {
+  position: relative;
+  flex-shrink: 0;
+  padding: 2px var(--gutter-chat) 16px;
+}
+.composer-wrap.is-hero {
+  padding-bottom: 0;
+}
+.composer {
+  position: relative;
+  max-width: var(--measure-chat);
+  margin: 0 auto;
+  border-radius: var(--composer-radius);
+  transition:
+    border-color var(--dur-med) var(--ease-out),
+    box-shadow var(--dur-med) var(--ease-out);
+}
+.composer:focus-within {
+  border-color: var(--separator-hover);
+}
+.composer.shell {
+  border-color: var(--blue-ring);
+}
+.composer.is-dropping {
+  border-color: var(--label-2);
+}
+.composer-input-area {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+.composer textarea {
+  display: block;
+  width: 100%;
+  padding: 15px 18px 6px;
+  border: 0;
+  background: transparent;
+  color: var(--label);
+  font: inherit;
+  font-size: 14.5px;
+  line-height: 1.55;
+  resize: none;
+}
+.composer-wrap.is-hero textarea {
+  padding-top: 17px;
+  font-size: 15px;
+}
+.composer textarea:focus {
+  outline: none;
+}
+.composer textarea::placeholder {
+  color: var(--label-3);
+}
+.composer textarea.shell-textarea {
+  padding-left: 12px;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+}
+
+.composer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 4px 10px 10px;
+}
+.composer-controls-left,
+.composer-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+.composer-actions-right {
+  margin-left: auto;
+}
+.composer-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--label-2);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.composer-icon-btn:hover,
+.composer-icon-btn[data-state="open"] {
+  background: var(--fill-press);
+  color: var(--label);
+}
+.composer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 240px;
+  height: 30px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-s);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.composer-chip > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.composer-chip:hover,
+.composer-chip[data-state="open"] {
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.composer-chip.is-danger {
+  color: var(--red-label);
+}
+.composer-chip-sub {
+  flex: none;
+  color: var(--label-3);
+  font-weight: normal;
+}
+/* plan mode is on: a removable chip beside the permission level */
+.composer-plan-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  height: 26px;
+  padding: 0 4px 0 9px;
+  border-radius: var(--r-full);
+  background: var(--accent-soft);
+  color: var(--link);
+  font-size: var(--text-s);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+}
+.composer-plan-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: inherit;
+}
+.composer-plan-chip-remove:hover {
+  background: var(--fill-press);
+  color: var(--label);
+}
+.composer-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-full);
+  background: var(--accent);
+  color: var(--on-accent);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    scale var(--dur-spring-snappy) var(--ease-spring-snappy);
+}
+.composer-send:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.composer-send:active:not(:disabled) {
+  scale: 0.92;
+}
+.composer-send:disabled {
+  background: var(--fill-press);
+  color: var(--label-4);
+  cursor: default;
+}
+.composer-send.is-stop {
+  background: var(--fill-press);
+  color: var(--label);
+}
+.composer-send.is-stop:hover {
+  background: var(--red-hover);
+  color: var(--on-color);
+}
+/* Send and Stop are one button; the glyph swaps with a short pop. */
+.composer-send-glyph {
+  display: inline-flex;
+  animation: pop-in var(--dur-spring-snappy) var(--ease-spring-snappy) both;
+}
+.composer-send.is-run {
+  width: auto;
+  padding: 0 12px;
+  background: var(--blue);
+  color: var(--on-color);
+  font: inherit;
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+}
+.composer-hint {
+  overflow: hidden;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.composer-hint-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--separator-hover);
+}
+.composer-hint-btn:hover {
+  color: var(--label);
+}
+.shell-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 24px;
+  padding: 0 9px;
+  border: 1px solid var(--blue-ring);
+  border-radius: var(--r-full);
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+/* An approval or a question docked in place of the draft. */
+.composer-waiting {
+  max-height: min(60vh, 520px);
+  padding: 14px 16px 2px;
+  overflow-y: auto;
+  animation: disclosure-in var(--dur-med) var(--ease-out) both;
+}
+.composer.is-docked .composer-bar {
+  padding-top: 8px;
+}
+.dock-more {
+  margin: 10px 0 0;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}

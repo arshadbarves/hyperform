@@ -1,0 +1,65 @@
+/* Settings: the Experimental tab's Decision model card. */
+
+.decision-test {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.decision-test-result {
+  margin: 0;
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+
+.decision-test-result.tone-ok {
+  color: var(--green);
+}
+
+.decision-test-result.tone-warn {
+  color: var(--amber);
+}
+
+.decision-test-result.tone-error {
+  color: var(--tone-danger-text);
+}
+
+/* The native model row: status line with a progress ring, then its one action. */
+
+.native-model {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.native-model-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.native-model-text {
+  margin: 0;
+  font-size: var(--text-s);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.native-model-text.tone-quiet,
+.native-model-text.tone-working {
+  color: var(--label-3);
+}
+
+.native-model-text.tone-ok {
+  color: var(--green);
+}
+
+.native-model-text.tone-warn {
+  color: var(--amber);
+}
+
+.native-model-text.tone-danger {
+  color: var(--tone-danger-text);
+}

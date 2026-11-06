@@ -1,0 +1,176 @@
+/* What floats above the pet (PetBubble): a small bubble with a glyph
+   (? ! … or an idea), loose zzz, hearts and notes, and bursts of sparkles,
+   confetti or stars circling a dizzy head. Only transforms and opacity
+   animate; loops end where they started. */
+
+.pet-bubble {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both;
+}
+.bubble-body,
+.bubble-tail {
+  fill: var(--pet-light);
+  stroke: color-mix(in srgb, var(--pet-shade) 50%, transparent);
+  stroke-width: 0.35;
+}
+.bubble-glyph {
+  fill: none;
+  stroke: var(--pet-eye);
+  stroke-width: 0.85;
+  stroke-linecap: round;
+}
+.bubble-dot {
+  fill: var(--pet-eye);
+}
+.bubble-dot.is-typing {
+  animation: pet-typing 1.2s var(--ease-inout) infinite;
+}
+.bubble-dot.is-typing:nth-of-type(2) {
+  animation-delay: 0.15s;
+}
+.bubble-dot.is-typing:nth-of-type(3) {
+  animation-delay: 0.3s;
+}
+.bubble-exclaim .bubble-body {
+  fill: color-mix(in srgb, var(--amber) 30%, var(--pet-light));
+}
+.bubble-bulb {
+  fill: var(--pet-gold);
+  animation: pet-glow 1.6s var(--ease-inout) infinite;
+}
+.bubble-base {
+  fill: var(--pet-shade);
+}
+
+/* Loose floats: zzz, hearts, notes. */
+.pet-float > * {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pet-float 2.4s var(--ease-out) infinite;
+}
+.pet-float .is-late {
+  animation-delay: 0.6s;
+}
+.pet-float .is-later {
+  animation-delay: 1.2s;
+}
+.pet-zzz text {
+  fill: var(--label-3);
+  font: 600 5px var(--font-rounded);
+}
+.pet-hearts path {
+  fill: var(--pet-heart);
+}
+.pet-notes {
+  fill: var(--label-2);
+  stroke: var(--label-2);
+  stroke-width: 0.5;
+}
+.pet-notes path {
+  fill: none;
+}
+
+/* Bursts. */
+.pet-fx > * {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.pet-sparkles path {
+  fill: var(--green);
+  animation: pet-sparkle 0.9s var(--ease-out) both;
+}
+.pet-sparkles path:nth-child(2) {
+  animation-delay: 80ms;
+}
+.pet-sparkles path:nth-child(3) {
+  animation-delay: 160ms;
+}
+.pet-confetti rect {
+  animation: pet-confetti 1.4s var(--ease-out) both;
+}
+.pet-confetti rect:nth-child(odd) {
+  fill: var(--pet-gold);
+}
+.pet-confetti rect:nth-child(even) {
+  fill: var(--pet-mint);
+  animation-duration: 1.2s;
+}
+.pet-confetti rect:nth-child(3n) {
+  fill: var(--pet-blush);
+  animation-delay: 90ms;
+}
+/* Dizzy stars circle its head on a flattened orbit. */
+.pet-stars {
+  fill: var(--pet-gold);
+  transform-box: view-box;
+  transform-origin: 16px 7px;
+  transform: scaleY(0.4);
+  animation: pet-dizzy-orbit 1.2s linear infinite;
+}
+
+@keyframes pet-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    translate: 0 0;
+  }
+  30% {
+    opacity: 1;
+    translate: 0 -0.6px;
+  }
+}
+@keyframes pet-float {
+  0% {
+    opacity: 0;
+    translate: 0 2px;
+    scale: 0.6;
+  }
+  30% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: 1px -5px;
+  }
+}
+@keyframes pet-sparkle {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  40% {
+    opacity: 1;
+    scale: 1.2;
+  }
+  100% {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+@keyframes pet-confetti {
+  0% {
+    opacity: 0;
+    translate: 0 3px;
+    rotate: 0deg;
+  }
+  25% {
+    opacity: 1;
+    translate: 0 -2px;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 4px;
+    rotate: 200deg;
+  }
+}
+@keyframes pet-dizzy-orbit {
+  from {
+    transform: scaleY(0.4) rotate(0deg);
+  }
+  to {
+    transform: scaleY(0.4) rotate(360deg);
+  }
+}

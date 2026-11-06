@@ -1,0 +1,217 @@
+/* ── Settings: setting rows, their fields and the switch ──────────────── */
+
+.setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-row-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.setting-row.inline .setting-row-head {
+  align-items: center;
+}
+
+.setting-row-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.setting-row .form-label-title,
+.settings-form-field > span,
+.extension-editor-head strong {
+  color: var(--label);
+  font-size: var(--text-m);
+  font-weight: var(--weight-medium);
+}
+
+.setting-row .form-label-desc,
+.setting-choice-desc {
+  color: var(--label-3);
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+
+.setting-choice-desc {
+  margin: 0;
+}
+
+.setting-row-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.setting-reset {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.setting-reset:hover:not(:disabled) {
+  color: var(--label);
+  text-decoration: underline;
+}
+
+.setting-note,
+.setting-error {
+  margin: 0;
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+
+.setting-note {
+  color: var(--label-3);
+}
+
+.setting-error {
+  color: var(--tone-danger-text);
+}
+
+/* Fields: the kit's text-field look (fields.css) with its accent ring. */
+.setting-input,
+.setting-textarea {
+  width: 100%;
+  min-height: 30px;
+  padding: 6px 10px;
+  background: var(--field);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  color: var(--label);
+  font: inherit;
+  font-size: var(--text-m);
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.setting-textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.setting-input::placeholder,
+.setting-textarea::placeholder {
+  color: var(--label-3);
+}
+
+.setting-input:hover:not(:disabled, :focus),
+.setting-textarea:hover:not(:disabled, :focus) {
+  border-color: var(--separator-strong);
+}
+
+.setting-input:focus,
+.setting-textarea:focus {
+  border-color: var(--accent-ring);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.setting-input:focus-visible,
+.setting-textarea:focus-visible {
+  outline: none;
+}
+
+.setting-input[aria-invalid="true"] {
+  border-color: var(--tone-danger-ring-hover);
+}
+
+.setting-input:disabled {
+  opacity: 0.5;
+}
+
+.setting-input.mono,
+.setting-textarea.mono,
+.setting-chip.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-s);
+}
+
+.setting-number {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 260px;
+}
+
+.setting-unit {
+  color: var(--label-3);
+  font-size: var(--text-s);
+  white-space: nowrap;
+}
+
+/* ── The switch: accent when on, the knob slides on transform ─────────── */
+
+.switch-toggle {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 34px;
+  height: 20px;
+}
+
+.switch-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: var(--fill-press);
+  border-radius: var(--r-full);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.switch-slider::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--label);
+  border-radius: var(--r-full);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  transition: translate var(--dur-spring-snappy) var(--ease-spring-snappy);
+}
+
+.switch-toggle input:checked + .switch-slider {
+  background: var(--accent);
+}
+
+.switch-toggle input:checked + .switch-slider::before {
+  translate: 14px 0;
+}
+
+.switch-toggle input:focus-visible + .switch-slider {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+.switch-toggle input:disabled + .switch-slider {
+  opacity: 0.5;
+  cursor: default;
+}

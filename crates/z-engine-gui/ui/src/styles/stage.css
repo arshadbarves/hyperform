@@ -1,0 +1,68 @@
+/* The stage on the content sheet (MainStage.svelte). Content scrolls under
+   the transparent title zone at the top and, in a chat, under the composer,
+   which floats over the bottom of the sheet; --dock-h is the dock's height.
+   Edge blurs soften both edges. On the home screen the composer is the
+   hero, in the flow between the question and the cards. */
+
+.stage-scroll {
+  padding-top: var(--titlebar-h);
+  scroll-padding-top: var(--titlebar-h);
+}
+.canvas-pane[data-stage="chat"] .stage-scroll {
+  padding-bottom: var(--dock-h, 0px);
+  scroll-padding-bottom: var(--dock-h, 0px);
+}
+.canvas-pane > .edge-blur-top {
+  --edge-blur-size: calc(var(--titlebar-h) + 12px);
+}
+.canvas-pane > .edge-blur-bottom {
+  --edge-blur-size: calc(var(--dock-h, 0px) + 12px);
+}
+
+.canvas-pane[data-stage="home"] {
+  overflow-y: auto;
+  padding: calc(var(--titlebar-h) + 12px) 0 20px;
+}
+.home-top,
+.home-bottom {
+  width: 100%;
+  max-width: var(--column-chat);
+  margin-inline: auto;
+  padding: 0 var(--gutter-chat);
+}
+.home-top {
+  margin-top: auto;
+}
+.home-bottom,
+.home-top:last-child {
+  margin-bottom: auto;
+}
+
+.composer-dock {
+  position: relative;
+  z-index: 4;
+  flex: none;
+}
+.composer-dock.is-hero {
+  width: 100%;
+  max-width: var(--column-chat);
+  margin: 18px auto 14px;
+}
+/* The composer-wrap inside keeps the composer ~16px off the sheet's bottom. */
+.canvas-pane[data-stage="chat"] > .composer-dock {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: var(--column-chat);
+  margin-inline: auto;
+}
+/* Jump to latest sits just above the floating composer. */
+.jump-slot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--dock-h, 0px);
+  z-index: 5;
+  height: 0;
+}

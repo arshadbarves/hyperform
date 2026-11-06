@@ -1,0 +1,235 @@
+/* ── Changes tab: fills the side panel's body ────────────────────────────
+ * The file list sits on the left, the reviewed file on the right; color
+ * only marks added and removed lines. */
+
+.diff-panel {
+  flex: 1;
+  min-height: 0;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+}
+
+.diff-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 40px;
+  padding: 0 8px 0 10px;
+  border-bottom: 1px solid var(--separator);
+  flex-shrink: 0;
+}
+
+.diff-head-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.diff-head-sub {
+  display: inline-flex;
+  gap: 6px;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  color: var(--label-3);
+  white-space: nowrap;
+}
+
+.diff-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.diff-head-actions .segmented-choice {
+  margin-right: 4px;
+}
+
+/* A narrow dock keeps the essentials: which changes and refresh. */
+@container (max-width: 640px) {
+  .diff-head-actions .diff-layout-choice,
+  .diff-head-sub {
+    display: none;
+  }
+}
+
+.diff-add-text {
+  color: var(--diff-add-text);
+  font-family: var(--font-mono);
+}
+
+.diff-del-text {
+  color: var(--diff-del-text);
+  font-family: var(--font-mono);
+}
+
+.diff-loading {
+  margin: 0;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--label-3);
+}
+
+.diff-body {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.diff-body.has-files {
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+}
+
+.diff-viewer {
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* ── file list ────────────────────────────────────────────────────────── */
+
+.diff-files {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--separator);
+}
+
+/* After the base rules, which would otherwise win. A narrow list first;
+   the default dock is too narrow for two columns, so the list goes on top. */
+@container (max-width: 640px) {
+  .diff-body.has-files {
+    grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+  }
+}
+@container (max-width: 560px) {
+  .diff-body.has-files {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .diff-files {
+    max-height: 168px;
+    border-right: none;
+    border-bottom: 1px solid var(--separator);
+  }
+}
+
+.diff-files-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px;
+  padding: 0 8px;
+  height: 28px;
+  color: var(--label-3);
+  background: var(--fill-hover);
+  border: 1px solid var(--separator);
+  border-radius: 7px;
+}
+
+.diff-files-filter input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--label);
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.diff-files-clear {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  color: var(--label-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.diff-files-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.diff-files-empty {
+  margin: 0;
+  padding: 12px 8px;
+  font-size: 11.5px;
+  color: var(--label-3);
+}
+
+.diff-tree-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 26px;
+  padding: 0 8px 0 calc(8px + var(--depth, 0) * 12px);
+  font-size: 12px;
+  text-align: left;
+  color: var(--label-2);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.diff-tree-row:hover {
+  color: var(--label);
+  background: var(--fill-hover);
+}
+
+.diff-tree-row.is-selected {
+  color: var(--label);
+  background: var(--fill-press);
+}
+
+.diff-tree-row.is-dir {
+  color: var(--label-3);
+}
+
+.diff-tree-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.diff-tree-letter {
+  width: 12px;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--label-3);
+}
+
+.status-added .diff-tree-letter {
+  color: var(--diff-add-text);
+}
+
+.status-deleted .diff-tree-letter {
+  color: var(--diff-del-text);
+}
+
+.status-deleted .diff-tree-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--label-4);
+}
+
+.diff-tree-stat {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 10.5px;
+}

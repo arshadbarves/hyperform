@@ -1,0 +1,206 @@
+/* ── Settings: provider rows, the model in use, model suggestions, rule
+   hints. Tags on these rows are kit pills (lib/ui/Pill.svelte). ────────── */
+
+.provider-table-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.provider-table-row:last-child {
+  border-bottom: none;
+}
+
+.provider-table-row:hover {
+  background: var(--fill-quiet);
+}
+
+.provider-row-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.provider-row-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  background: var(--fill-quiet);
+}
+
+.provider-row-name {
+  font-size: var(--text-m);
+  font-weight: var(--weight-medium);
+  color: var(--label);
+}
+
+.provider-row-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.provider-key-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.provider-remove-key:hover:not(:disabled) {
+  color: var(--tone-danger-text);
+}
+
+/* The endpoint and model new sessions use. */
+.active-model-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+}
+
+.active-model-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.active-model-label {
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+  color: var(--label);
+}
+
+.active-model-val {
+  padding: 1px 6px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-xs);
+  background: var(--fill-quiet);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label);
+}
+
+.active-model-hint {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+/* ── Model field suggestions ────────────────────────────────────────────── */
+
+.model-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.model-field-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 280px;
+  padding: var(--space-1);
+  overflow-y: auto;
+  background: var(--raised-2);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+}
+
+.model-field-list .model-picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 6px var(--space-2);
+  border-radius: var(--r-xs);
+  color: var(--label-2);
+  cursor: pointer;
+}
+
+.model-field-list .model-picker-row:hover,
+.model-field-list .model-picker-row.active {
+  background: var(--fill-press);
+  color: var(--label);
+}
+
+.model-row-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.model-row-name-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.model-row-name {
+  font-size: var(--text-s);
+  font-weight: var(--weight-medium);
+  color: var(--label);
+}
+
+.model-row-id,
+.model-chip-spec {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+.model-chip-spec {
+  flex-shrink: 0;
+}
+
+.model-chip-reasoning {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+/* ── Rule hints under the add field ─────────────────────────────────────── */
+
+.rule-hint {
+  margin: var(--space-2) 0 0;
+  color: var(--label-3);
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+
+.rule-hint.ok {
+  color: var(--green);
+}
+
+.rule-hint.warn {
+  color: var(--amber);
+}
+
+.rule-hint.error {
+  color: var(--tone-danger-text);
+}

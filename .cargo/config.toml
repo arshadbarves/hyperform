@@ -1,0 +1,6 @@
+[env]
+# ts-rs writes the generated TypeScript protocol here (run `cargo test -p z-engine-protocol`).
+TS_RS_EXPORT_DIR = { value = "crates/z-engine-gui/ui/src/lib/protocol", relative = true }
+
+[target.aarch64-pc-windows-gnullvm]
+rustflags = ["-C", "linker=rust-lld"]

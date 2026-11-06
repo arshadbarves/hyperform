@@ -1,0 +1,158 @@
+/* Cards that wait for you. Approvals and questions dock in the composer in
+   place of the draft, so the composer's glass is their card; the trust
+   banner is a card of its own. Question parts and todo lists are in
+   interaction-planning.css. */
+
+.approval-card,
+.question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  outline: none;
+}
+.question-card {
+  gap: 10px;
+}
+.interaction-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-l);
+  background: var(--fill-quiet);
+}
+.approval-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.approval-icon {
+  display: inline-flex;
+  flex: none;
+  margin-top: 2px;
+  color: var(--amber);
+}
+.approval-titles {
+  min-width: 0;
+}
+.approval-question {
+  margin: 0;
+  color: var(--label);
+  font-size: var(--text-l);
+  font-weight: var(--weight-semibold);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.approval-why {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0 0;
+  color: var(--label-3);
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+.interaction-agent {
+  padding: 0 7px;
+  border: 1px solid var(--blue-ring);
+  border-radius: var(--r-full);
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  line-height: 16px;
+}
+.approval-preview {
+  position: relative;
+  max-height: 300px;
+  overflow: auto;
+  border-radius: var(--r-s);
+}
+.approval-preview.is-folded {
+  max-height: calc(6 * 1.55em + 20px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
+.approval-code {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  background: var(--code-bg);
+  color: var(--label);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.approval-code code {
+  font: inherit;
+}
+.approval-note {
+  margin: -4px 0 0;
+  color: var(--label-3);
+  font-size: var(--text-s);
+}
+.approval-more {
+  align-self: flex-start;
+  margin-top: -6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-xs);
+}
+.approval-more:hover {
+  color: var(--label);
+  text-decoration: underline;
+}
+.approval-actions,
+.interaction-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.approval-deny:hover:not(:disabled) {
+  color: var(--red-label);
+}
+.approval-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.approval-card:focus-within .approval-keys {
+  opacity: 1;
+}
+.approval-feedback {
+  display: flex;
+  gap: 8px;
+}
+.approval-feedback input,
+.question-other-input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--separator-strong);
+  border-radius: var(--r-s);
+  background: var(--field);
+  color: var(--label);
+  font: inherit;
+  font-size: var(--text-s);
+}
+.approval-feedback input:focus,
+.question-other-input:focus {
+  outline: none;
+  border-color: var(--separator-hover);
+}

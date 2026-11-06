@@ -1,0 +1,45 @@
+[package]
+name = "z-engine-integrations"
+description = "MCP (stdio and streamable HTTP) and multi-server LSP clients over a shared JSON-RPC core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+z-engine-protocol.workspace = true
+z-engine-host.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+reqwest.workspace = true
+futures.workspace = true
+async-trait.workspace = true
+which.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+axum.workspace = true
+
+# Test-only fake servers; integration tests reach them via
+# env!("CARGO_BIN_EXE_zengine-fake-mcp") / env!("CARGO_BIN_EXE_zengine-fake-lsp").
+[[bin]]
+name = "zengine-fake-mcp"
+path = "tests/fake/mcp_server.rs"
+test = false
+bench = false
+doc = false
+
+[[bin]]
+name = "zengine-fake-lsp"
+path = "tests/fake/lsp_server.rs"
+test = false
+bench = false
+doc = false
+
+[lints]
+workspace = true

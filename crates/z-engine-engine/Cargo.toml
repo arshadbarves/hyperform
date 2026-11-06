@@ -1,0 +1,46 @@
+[package]
+name = "z-engine-engine"
+description = "Orchestrator: session actors, agent runs, gating, hooks, subagents, jobs, verification modes, commands"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[features]
+# The decision model's native runtime (Laya through ONNX Runtime).
+onnx = ["z-engine-decisions/onnx"]
+
+[dependencies]
+z-engine-protocol.workspace = true
+z-engine-prompts.workspace = true
+z-engine-llm.workspace = true
+z-engine-config.workspace = true
+z-engine-policy.workspace = true
+z-engine-host.workspace = true
+z-engine-integrations.workspace = true
+z-engine-verify.workspace = true
+z-engine-context.workspace = true
+z-engine-store.workspace = true
+z-engine-decisions.workspace = true
+z-engine-work.workspace = true
+z-engine-tools.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+futures.workspace = true
+ulid.workspace = true
+regex.workspace = true
+globset.workspace = true
+reqwest.workspace = true
+
+[dev-dependencies]
+z-engine-testkit.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

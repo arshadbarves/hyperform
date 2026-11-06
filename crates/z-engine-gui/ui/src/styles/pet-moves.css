@@ -1,0 +1,161 @@
+/* How the pet moves inside its own box. The roaming layer moves the whole
+   pet (pet-ui.css) and passes its facing, steps and bob down as
+   --pet-face, --pet-lf/--pet-rf and --pet-bob; here the mood's body motion
+   (body-*, from lib/domain/pet/emotions.ts) and an idle routine
+   (routine-*) play. Static poses use `transform`, loops the individual
+   scale/translate/rotate properties, so both compose. Every loop ends at
+   rest, so Reduce Motion (each animation once, instantly) leaves a still
+   pose. Nesting: pet-breath > svg.pet > pet-turn > pet-rig > pet-stride >
+   pet-body. */
+
+/* Breathing, the resting loop, scales the whole pet from its feet on the
+   HTML wrapper. The compositor runs it there; on an SVG group it would
+   restyle and repaint every frame, even in an idle window. It animates
+   `transform`, so a `scale` set where the pet is placed still applies. */
+.pet-breath {
+  display: block;
+  width: fit-content;
+  transform-origin: 50% 87.5%;
+}
+.pet-breath > .pet {
+  display: block;
+}
+.breath-breathe {
+  animation: pet-breathe 4.2s var(--ease-inout) infinite;
+}
+.breath-lean {
+  animation: pet-breathe 3s var(--ease-inout) infinite;
+}
+.breath-tilt {
+  animation: pet-breathe 3.6s var(--ease-inout) infinite;
+}
+.breath-slump {
+  animation: pet-breathe 5s var(--ease-inout) infinite;
+}
+.breath-sleep {
+  animation: pet-breathe 6s var(--ease-inout) infinite;
+}
+
+.pet-turn,
+.pet-rig,
+.pet-stride,
+.pet-body {
+  transform-box: view-box;
+  transform-origin: 16px 28px;
+}
+.pet-turn {
+  transform: scale(var(--pet-face, 1), 1);
+}
+.pet.stage-seed .pet-turn {
+  transform: scale(calc(var(--pet-face, 1) * 0.86), 0.86);
+}
+.pet-rig {
+  transition: transform var(--dur-spring-smooth) var(--ease-spring-smooth);
+}
+.pet-stride {
+  transform: translateY(calc(var(--pet-bob, 0) * 1px));
+}
+.pet-body {
+  transition: transform var(--dur-spring-bouncy) var(--ease-spring-bouncy);
+}
+
+/* Feet stay planted as the body bobs, each lifting in its turn. */
+.pet-foot.is-left {
+  transform: translateY(calc((var(--pet-bob, 0) + var(--pet-lf, 0)) * -1px));
+}
+.pet-foot.is-right {
+  transform: translateY(calc((var(--pet-bob, 0) + var(--pet-rf, 0)) * -1px));
+}
+
+/* The body for each mood (the breathing ones breathe on the wrapper). */
+.body-bob .pet-body {
+  animation: pet-bob 1.1s var(--ease-inout) infinite;
+}
+.body-sway .pet-body {
+  animation: pet-sway 3s var(--ease-inout) infinite;
+}
+.body-nod .pet-body {
+  animation: pet-nod 2.4s var(--ease-inout) infinite;
+}
+.body-lean .pet-body {
+  transform: translateX(0.6px) rotate(7deg);
+}
+.body-type .pet-body {
+  animation: pet-type 0.32s var(--ease-inout) infinite;
+}
+.body-tilt .pet-body {
+  transform: rotate(-9deg);
+}
+.body-sweep .pet-body {
+  animation: pet-sway 0.9s var(--ease-inout) infinite;
+}
+.body-bounce .pet-body {
+  animation: pet-bounce 1.5s var(--ease-out) infinite;
+}
+.body-puff .pet-body {
+  transform: scale(1.05, 1.03);
+  animation: pet-puff 2.8s var(--ease-inout) infinite;
+}
+.body-sigh .pet-body {
+  animation: pet-sigh 3.2s var(--ease-inout) infinite;
+}
+.body-slump .pet-body {
+  transform: translateY(1px) scale(1.05, 0.92);
+}
+.body-tremble .pet-body {
+  transform: translateY(0.6px) scale(1, 0.96);
+  animation: pet-tremble 1.8s linear infinite;
+}
+.body-squish .pet-body {
+  animation: pet-squish 1.3s var(--ease-inout) infinite;
+}
+.body-wiggle .pet-body {
+  animation: pet-wiggle 0.8s var(--ease-inout) infinite;
+}
+.body-wave .pet-body {
+  animation: pet-wave 1.2s var(--ease-inout) 2;
+}
+.body-sink .pet-body {
+  transform: translateY(5px);
+}
+.body-yawn .pet-body {
+  animation: pet-yawn 1.9s var(--ease-inout) both;
+}
+.body-doze .pet-body {
+  animation: pet-doze 4.4s var(--ease-inout) infinite;
+}
+.body-sleep .pet-body {
+  transform: translateY(1.2px) scale(1.06, 0.9);
+}
+
+/* A brighter aura for the big feelings. */
+.mood-excited .pet-aura,
+.mood-proud .pet-aura,
+.mood-love .pet-aura {
+  animation: pet-glow 1.2s var(--ease-inout) infinite;
+}
+
+/* Idle routines and the tricks it unlocks as it grows (a hop is the
+   roaming layer's own). */
+.routine-stretch .pet-rig {
+  animation: pet-stretch 1.4s var(--ease-spring-bouncy) both;
+}
+.routine-spin .pet-rig {
+  transform-origin: 16px 18px;
+  animation: pet-spin 1s var(--ease-spring-gentle) both;
+}
+.routine-sparkle .pet-aura {
+  animation: pet-glow 1.4s var(--ease-inout) both;
+}
+.routine-lookAround .pet-rig {
+  animation: pet-look-around 2.6s var(--ease-inout) both;
+}
+.routine-sit .pet-rig {
+  transform: translateY(0.8px) scale(1.05, 0.94);
+}
+.routine-lieDown .pet-rig {
+  transform: translateY(2.2px) scale(1.14, 0.8);
+}
+.routine-tap .pet-foot.is-right {
+  animation: pet-tap 0.45s var(--ease-inout) 4;
+}

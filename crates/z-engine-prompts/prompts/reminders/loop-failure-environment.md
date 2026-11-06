@@ -1,0 +1,1 @@
+{{tool}} keeps failing the same way ({{count}} times now), and the error points at the environment (a missing tool or dependency, a permission, a path or a service), not at the code. Editing code will not fix it. Check the setup instead: is the tool installed, is the path right, is the service running? If you cannot fix it, tell the user what is missing.

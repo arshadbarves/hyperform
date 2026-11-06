@@ -1,0 +1,286 @@
+/* The Plan tab while a plan runs: the header's coverage line, the Needs
+   you strip (PlanNeedsYou), the Now lanes (PlanNow), the audit's findings
+   (PlanCoverage, FindingRow), a task's Result (TaskResult) and the rows'
+   parallel badge. Calm by default: amber only marks what waits on you. */
+
+.plan-coverage {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 4px;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  cursor: pointer;
+}
+.plan-coverage > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-coverage.tone-attention {
+  color: var(--tone-attention);
+}
+.plan-coverage:hover > span {
+  text-decoration: underline;
+}
+
+/* ── Needs you ───────────────────────────────────────────────────────── */
+
+.plan-needs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+  max-height: 40%;
+  overflow-y: auto;
+  padding: 8px 12px 8px 10px;
+  border-bottom: 1px solid var(--separator);
+  border-left: 2px solid var(--tone-attention);
+  background: var(--tone-attention-soft);
+}
+.plan-needs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.plan-needs-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  font-size: var(--text-s);
+}
+.plan-needs-text {
+  flex: 1 1 60%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label);
+  font: inherit;
+  text-align: left;
+}
+button.plan-needs-text {
+  cursor: pointer;
+}
+button.plan-needs-text:hover {
+  text-decoration: underline;
+}
+.plan-needs-detail {
+  flex: 1 1 100%;
+  order: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.plan-needs-actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 10px;
+}
+.plan-needs-actions .task-link,
+.plan-needs-more {
+  color: var(--tone-attention);
+}
+.plan-needs-more {
+  align-self: flex-start;
+}
+
+/* ── Now ─────────────────────────────────────────────────────────────── */
+
+.plan-now {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 8px 10px;
+  border-bottom: 1px solid var(--separator);
+}
+.plan-now-lane {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.plan-now-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  font-size: var(--text-s);
+}
+.plan-now-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label);
+  font: inherit;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.plan-now-title:hover {
+  text-decoration: underline;
+}
+.plan-now-owner {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+}
+.plan-now-owner.is-link {
+  cursor: pointer;
+}
+.plan-now-owner.is-link:hover {
+  color: var(--label);
+}
+.plan-now-step {
+  margin: 0 0 0 19px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+/* ── Findings ────────────────────────────────────────────────────────── */
+
+.plan-findings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 16px 18px;
+}
+.finding-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.finding-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 0 6px 10px;
+  border-left: 2px solid var(--separator);
+}
+.finding-row + .finding-row {
+  margin-top: 6px;
+}
+.finding-row.severity-high {
+  border-left-color: var(--tone-attention);
+}
+.finding-row p {
+  margin: 0;
+}
+.finding-row-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.finding-row-text {
+  font-size: var(--text-s);
+  color: var(--label);
+}
+.finding-row-suggestion {
+  font-size: var(--text-xs);
+  color: var(--label-2);
+}
+.finding-row-refs,
+.finding-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+.finding-row-ref {
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.finding-row-actions .task-link {
+  color: var(--tone-attention);
+}
+
+/* ── a task's Result ─────────────────────────────────────────────────── */
+
+.task-result-summary,
+.task-result-line {
+  margin: 0;
+  font-size: var(--text-s);
+  color: var(--label-2);
+}
+.task-result-line.tone-attention {
+  color: var(--tone-attention);
+}
+.task-result-line.tone-ok {
+  color: var(--tone-working);
+}
+.task-result-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: var(--text-xs);
+}
+.task-result-facts dt {
+  color: var(--label-3);
+}
+.task-result-facts dd {
+  min-width: 0;
+  margin: 0;
+}
+.task-result-facts .tone-ok {
+  color: var(--tone-working);
+}
+.task-result-facts .tone-danger {
+  color: var(--tone-danger-text);
+}
+.task-result-group .notebook-entry-facts {
+  margin-left: 0;
+}
+.task-result-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: var(--text-xs);
+  font-style: italic;
+  color: var(--label-3);
+}
+.task-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ── the tree's parallel badge ───────────────────────────────────────── */
+
+.task-row-badge.is-together {
+  color: var(--tone-working);
+}

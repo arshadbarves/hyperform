@@ -1,0 +1,184 @@
+/* What the pet holds (PetProps) and wears (PetAccessory): a work prop per
+   mood (glasses, magnifier, laptop, clipboard, broom, sign, clasped paws)
+   and the accessory it unlocked. Props pop in on a spring and loop back
+   to rest; the bubble and bursts above it are in pet-bubble.css. */
+
+.pet {
+  --prop-ink: var(--pet-eye);
+  --prop-wood: #c98b5a;
+  --prop-metal: #c9ced8;
+  --prop-glass: rgba(188, 217, 255, 0.28);
+  --prop-paper: #f7f4ec;
+  --prop-board: #b07a4f;
+  --prop-straw: #f2c46b;
+  --prop-screen: #3a3f4d;
+}
+
+.pet-prop {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both;
+}
+.prop-lens {
+  fill: var(--prop-glass);
+  stroke: var(--prop-ink);
+  stroke-width: 0.55;
+}
+.prop-frame,
+.prop-handle,
+.prop-lines,
+.prop-check,
+.prop-deck,
+.prop-glint,
+.prop-band {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.prop-frame {
+  stroke: var(--prop-ink);
+  stroke-width: 0.55;
+}
+.prop-handle {
+  stroke: var(--prop-wood);
+  stroke-width: 1.2;
+}
+.prop-glass {
+  fill: var(--prop-glass);
+  stroke: var(--prop-metal);
+  stroke-width: 0.9;
+}
+.prop-glint {
+  stroke: var(--pet-light);
+  stroke-width: 0.5;
+  opacity: 0.85;
+}
+.prop-lid {
+  fill: var(--prop-screen);
+}
+.prop-logo {
+  fill: var(--blue);
+  animation: pet-glow 1.4s var(--ease-inout) infinite;
+}
+.prop-deck {
+  stroke: var(--prop-metal);
+  stroke-width: 0.8;
+}
+.prop-board {
+  fill: var(--prop-board);
+}
+.prop-paper {
+  fill: var(--prop-paper);
+}
+.prop-clip {
+  fill: var(--prop-metal);
+}
+.prop-lines {
+  stroke: var(--pet-shade);
+  stroke-width: 0.5;
+}
+.prop-check {
+  stroke: var(--green);
+  stroke-width: 0.7;
+}
+.prop-straw {
+  fill: var(--prop-straw);
+}
+.prop-band {
+  stroke: var(--pet-scarf);
+  stroke-width: 0.6;
+}
+.prop-paw {
+  fill: color-mix(in srgb, var(--pet-body) 80%, var(--pet-shade));
+}
+.prop-magnifier {
+  animation:
+    pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both,
+    pet-magnify 1.8s var(--ease-inout) infinite;
+}
+.prop-broom {
+  transform-box: view-box;
+  transform-origin: 27.2px 11.6px;
+  animation:
+    pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both,
+    pet-sweep 0.9s var(--ease-inout) infinite;
+}
+.prop-sign {
+  animation:
+    pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both,
+    pet-bob 1.3s var(--ease-inout) infinite;
+}
+.prop-paws {
+  animation:
+    pet-prop-in var(--dur-spring-bouncy) var(--ease-spring-bouncy) both,
+    pet-bob 0.8s var(--ease-inout) infinite;
+}
+
+/* What it wears. */
+.wear-stem {
+  fill: none;
+  stroke: var(--pet-stem);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+.wear-leaf {
+  fill: var(--pet-leaf);
+}
+.wear-leaf.is-small {
+  fill: var(--pet-leaf-light);
+}
+.wear-band {
+  fill: var(--pet-scarf);
+}
+.wear-tail {
+  fill: var(--pet-scarf-shade);
+}
+.wear-arc {
+  fill: none;
+  stroke: var(--pet-eye);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+.wear-cup {
+  fill: var(--pet-eye);
+}
+.wear-star-shape {
+  fill: var(--pet-gold);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pet-twinkle 3.2s var(--ease-inout) infinite;
+}
+
+@keyframes pet-prop-in {
+  from {
+    opacity: 0;
+    translate: 0 1.5px;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+@keyframes pet-magnify {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  30% {
+    translate: -1.2px -0.6px;
+  }
+  65% {
+    translate: 0.6px 0.8px;
+  }
+}
+@keyframes pet-sweep {
+  0%,
+  100% {
+    rotate: -10deg;
+  }
+  50% {
+    rotate: 12deg;
+  }
+}

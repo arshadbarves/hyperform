@@ -1,0 +1,58 @@
+/* ── Settings: permission rules. Tags are kit pills; the field is a
+   setting input (settings-rows.css); suggestions are chips (settings-chips). */
+
+.permission-rules-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.permission-rule-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+}
+
+.permission-rule-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.permission-rule-code {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-s);
+  color: var(--label);
+}
+
+.permission-rule-row.inherited .permission-rule-code {
+  color: var(--label-2);
+}
+
+.permission-add-form {
+  padding: var(--space-3) var(--space-4);
+}
+
+.permission-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.permission-input-wrap .setting-input {
+  flex: 1;
+}
+
+.permission-presets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

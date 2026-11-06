@@ -1,0 +1,130 @@
+/* ── Settings: extension, instruction and style lists. The in-card empty
+   line is shared by every settings list that can be empty. ──────────── */
+
+.extension-empty {
+  padding: var(--space-3) var(--space-4);
+  color: var(--label-3);
+  font-size: var(--text-s);
+  line-height: 1.45;
+}
+
+.extension-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+}
+
+.extension-row-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.extension-row-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--label);
+  font-size: var(--text-m);
+}
+
+.extension-row-title strong {
+  font-weight: var(--weight-medium);
+}
+
+.extension-row-desc {
+  color: var(--label-3);
+  font-size: var(--text-s);
+}
+
+.extension-row-path {
+  overflow: hidden;
+  color: var(--label-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.extension-row-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.extension-foot {
+  display: flex;
+  padding: var(--space-3) var(--space-4);
+}
+
+.extension-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.extension-editor-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.extension-editor-fields {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.extension-editor-text {
+  min-height: 240px;
+}
+
+.memory-editor {
+  margin: var(--space-2) var(--space-3);
+}
+
+/* Output styles: radio cards; the chosen one takes the quiet fill. */
+.style-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.style-option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px var(--space-3);
+  background: transparent;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-s);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.style-option strong {
+  color: var(--label);
+  font-size: var(--text-m);
+  font-weight: var(--weight-medium);
+}
+
+.style-option:hover {
+  background: var(--fill-hover);
+}
+
+.style-option[aria-checked="true"] {
+  background: var(--fill-press);
+  border-color: var(--accent-ring);
+}

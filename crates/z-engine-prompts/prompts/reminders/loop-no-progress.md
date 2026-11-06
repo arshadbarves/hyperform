@@ -1,0 +1,1 @@
+Your last {{count}} steps do not seem to get closer to the goal. Before the next call, state in one or two sentences what you have learned, what you will try now and why it should work. If it would only repeat earlier steps, choose a different approach or ask the user.

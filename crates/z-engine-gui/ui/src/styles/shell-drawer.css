@@ -1,0 +1,103 @@
+/* ── Your `!` commands: a drawer that rises from the composer's top edge ── */
+
+.shell-drawer {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  width: min(calc(var(--measure-chat) - 32px), calc(100% - 2 * var(--gutter-chat) - 32px));
+  bottom: calc(100% - 10px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: min(260px, 34vh);
+  padding-bottom: 10px;
+  background: var(--code-bg);
+  border: 1px solid var(--separator-strong);
+  border-bottom: none;
+  border-radius: var(--r-m) var(--r-m) 0 0;
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: drawer-rise var(--dur-med) var(--ease-out) both;
+}
+
+.shell-drawer.is-tall {
+  max-height: min(560px, 62vh);
+}
+
+.composer-wrap:has(.shell-drawer) .composer {
+  z-index: 2;
+}
+
+.shell-drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 6px 0 12px;
+  flex-shrink: 0;
+  color: var(--label-3);
+  border-bottom: 1px solid var(--separator);
+}
+
+.shell-drawer-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--label-2);
+}
+
+.shell-drawer-cmd {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--label-3);
+}
+
+.shell-drawer-spacer {
+  flex: 1;
+}
+
+.shell-drawer-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 12px 4px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--code-text);
+}
+
+.shell-drawer-line {
+  margin: 6px 0 2px;
+  color: var(--label);
+}
+
+.shell-drawer-line:first-child {
+  margin-top: 0;
+}
+
+.shell-drawer-line span {
+  color: var(--tone-shell);
+}
+
+.shell-drawer-out {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font: inherit;
+  color: var(--label-2);
+}
+
+@keyframes drawer-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

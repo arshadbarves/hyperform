@@ -1,0 +1,204 @@
+/* Motion tokens and shared keyframes. Anything that travels, grows or opens
+   rides a spring from lib/ui/springs.ts; only transform (translate, scale,
+   rotate) and opacity animate. lib/ui/motion.ts reads --dur-exit, so JS
+   exits match. */
+
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Springs: pair each easing with its own duration, e.g.
+     `translate var(--dur-spring-smooth) var(--ease-spring-smooth)`.
+     snappy: controls, thumbs, presses · smooth: sheets, panels, the stage,
+     the sidebar · bouncy: the pet, droplets · gentle: long travel.
+     These cubic-beziers stand in where linear() is missing. */
+  --ease-spring-snappy: cubic-bezier(0.2, 0.9, 0.3, 1.02);
+  --ease-spring-smooth: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring-bouncy: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --ease-spring-gentle: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --dur-spring-snappy: 405ms;
+  --dur-spring-smooth: 441ms;
+  --dur-spring-bouncy: 694ms;
+  --dur-spring-gentle: 735ms;
+
+  --dur-fast: 160ms;
+  --dur-med: 280ms;
+  --dur-slow: 420ms;
+  --dur-exit: 180ms;
+  /* every running indicator breathes to one rhythm */
+  --live-period: 1.6s;
+  /* list entrances step by this much per item, six items at most */
+  --stagger: 30ms;
+}
+
+/* Printed once by springCssVars() in lib/ui/springs.ts; springs.test.ts
+   fails if these drift from the presets there. */
+@supports (transition-timing-function: linear(0, 1)) {
+  :root {
+    --ease-spring-snappy: linear(
+      0, 0.048, 0.16, 0.298, 0.441, 0.573, 0.687, 0.781, 0.855, 0.911, 0.951, 0.978, 0.996, 1.007, 1.013, 1.015,
+      1.015, 1.014, 1.012, 1.009, 1.007, 1.005, 1.004, 1.003, 1.002, 1
+    );
+    --ease-spring-smooth: linear(
+      0, 0.047, 0.15, 0.274, 0.397, 0.51, 0.608, 0.69, 0.758, 0.812, 0.856, 0.889, 0.916, 0.936, 0.952, 0.964,
+      0.973, 0.98, 0.985, 0.989, 0.992, 0.994, 0.995, 0.997, 0.997, 0.998, 0.999, 1
+    );
+    --ease-spring-bouncy: linear(
+      0, 0.027, 0.098, 0.195, 0.308, 0.426, 0.541, 0.648, 0.744, 0.827, 0.896, 0.952, 0.995, 1.026, 1.047, 1.06,
+      1.067, 1.068, 1.065, 1.06, 1.053, 1.045, 1.037, 1.029, 1.022, 1.016, 1.01, 1.006, 1.002, 1, 0.998, 0.996,
+      0.996, 0.995, 0.995, 0.996, 0.996, 0.997, 0.997, 0.998, 0.998, 0.999, 1
+    );
+    --ease-spring-gentle: linear(
+      0, 0.018, 0.064, 0.127, 0.199, 0.274, 0.349, 0.421, 0.489, 0.551, 0.608, 0.659, 0.705, 0.746, 0.781, 0.812,
+      0.839, 0.863, 0.883, 0.901, 0.916, 0.929, 0.94, 0.949, 0.957, 0.964, 0.97, 0.974, 0.978, 0.982, 0.985,
+      0.987, 0.989, 0.991, 0.993, 0.994, 0.995, 0.996, 0.996, 0.997, 0.997, 0.998, 0.998, 0.999, 0.999, 1
+    );
+  }
+}
+
+@keyframes veil-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes veil-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/* Menus, popovers and tooltips pop from their anchor (set transform-origin). */
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes pop-out {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 0.97;
+  }
+}
+/* A sheet (a full page, a dialog) settles from slightly smaller. */
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+/* Disclosures fade only: expanding panels must not slide the text below them. */
+@keyframes disclosure-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.spin {
+  animation: spin 0.85s linear infinite;
+}
+
+/* Loading sheen sweeping across a placeholder. */
+@keyframes hydrate-sheen {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+/* A status dot that swells and fades while something runs. */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    scale: 0.85;
+    opacity: 0.4;
+  }
+  50% {
+    scale: 1.2;
+    opacity: 1;
+  }
+}
+
+/* Live work breathes; "needs you" pulses. */
+@keyframes live-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@keyframes attention-pulse {
+  0%,
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+  50% {
+    scale: 0.8;
+    opacity: 0.6;
+  }
+}
+
+/* The side panel slides in from the right edge it docks to. */
+@keyframes glide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes glide-out-right {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+
+/* Reduce Motion: state still changes, nothing travels or pulses. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}

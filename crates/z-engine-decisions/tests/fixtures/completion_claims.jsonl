@@ -1,0 +1,12 @@
+{"id":"cc01","question":"completion_claims_done","label":"yes","state":{"final_message":"Fixed! The login form now validates emails and the bug is gone.","calls":["Read src/login.ts","Edit src/login.ts"]}}
+{"id":"cc02","question":"completion_claims_done","label":"no","state":{"final_message":"I found where the crash comes from but need to know which database version you use.","calls":["Read src/db.rs","Grep connect"]}}
+{"id":"cc03","question":"completion_claims_done","label":"yes","state":{"final_message":"The feature is implemented and working: users can now export CSV.","calls":["Write src/export.py","Edit src/routes.py"]}}
+{"id":"cc04","question":"completion_claims_done","label":"no","state":{"final_message":"I've updated two of the five handlers so far; the rest follow the same pattern.","calls":["Edit src/a.go","Edit src/b.go"]}}
+{"id":"cc05","question":"completion_claims_done","label":"no","state":{"final_message":"The build fails because the toolchain is missing a linker. Can you install it?","calls":["Bash cargo build"]}}
+{"id":"cc06","question":"completion_claims_done","label":"yes","state":{"final_message":"All done. I renamed the module and updated every import.","calls":["Grep old_name","Edit x6"]}}
+{"id":"cc07","question":"completion_claims_done","label":"no","state":{"final_message":"Here is how the cache works: entries expire after ten minutes.","calls":["Read src/cache.rs"]}}
+{"id":"cc08","question":"completion_claims_done","label":"yes","state":{"final_message":"The flaky test is fixed; it should pass reliably now.","calls":["Edit tests/sync.test.ts"]}}
+{"id":"cc09","question":"completion_claims_done","label":"no","state":{"final_message":"Should I also update the mobile layout, or only desktop?","calls":["Read web/Header.tsx"]}}
+{"id":"cc10","question":"completion_claims_done","label":"yes","state":{"final_message":"Implemented the retry limit. Jobs now give up after five attempts.","calls":["Edit src/queue.rs"]}}
+{"id":"cc11","question":"completion_claims_done","label":"no","state":{"final_message":"I could not reproduce the error; the steps you gave work for me.","calls":["Bash npm start"]}}
+{"id":"cc12","question":"completion_claims_done","label":"yes","state":{"final_message":"Done - the migration is added and the orders table has the new column.","calls":["Write migrations/0042.sql"]}}

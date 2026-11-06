@@ -1,0 +1,276 @@
+{
+ "laya": "v0.3.22",
+ "runtime": "ONNXAgent",
+ "checkpoint": "multilingual",
+ "max_len": 1024,
+ "generator": "generate_answers.py",
+ "cases": [
+  {
+   "name": "greeting",
+   "state": {
+    "text": "Hello there, good morning!"
+   },
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets someone."
+     ],
+     [
+      "no",
+      "It does not greet anyone."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "a",
+    "probabilities": {
+     "a": 0.8472,
+     "b": 0.1528
+    },
+    "confidence": 0.3832,
+    "answer_confidence": 0.8472
+   }
+  },
+  {
+   "name": "not_a_greeting",
+   "state": {
+    "text": "The build failed with three type errors in parser.rs."
+   },
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets someone."
+     ],
+     [
+      "no",
+      "It does not greet anyone."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "b",
+    "probabilities": {
+     "a": 0.1394,
+     "b": 0.8606
+    },
+    "confidence": 0.4173,
+    "answer_confidence": 0.8606
+   }
+  },
+  {
+   "name": "german_greeting",
+   "state": {
+    "text": "Guten Morgen, wie geht es dir?"
+   },
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets someone."
+     ],
+     [
+      "no",
+      "It does not greet anyone."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "a",
+    "probabilities": {
+     "a": 0.8928,
+     "b": 0.1072
+    },
+    "confidence": 0.5087,
+    "answer_confidence": 0.8928
+   }
+  },
+  {
+   "name": "tool_shell",
+   "state": {
+    "request": "run the whole test suite and tell me what fails"
+   },
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool does the request need?",
+    "options": [
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "shell",
+      "Run a command in the shell."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "shell",
+    "probabilities": {
+     "edit": 0.0034,
+     "read": 0.0408,
+     "shell": 0.9558
+    },
+    "confidence": 0.8243,
+    "answer_confidence": 0.9558
+   }
+  },
+  {
+   "name": "tool_read",
+   "state": {
+    "request": "show me what src/main.rs contains"
+   },
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool does the request need?",
+    "options": [
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "shell",
+      "Run a command in the shell."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "read",
+    "probabilities": {
+     "edit": 0.0025,
+     "read": 0.9845,
+     "shell": 0.013
+    },
+    "confidence": 0.9209,
+    "answer_confidence": 0.9845
+   }
+  },
+  {
+   "name": "risk_rm",
+   "state": {
+    "command": "rm -rf ~/projects"
+   },
+   "question": {
+    "form": "score",
+    "instructions": "How risky is running this command?",
+    "options": [
+     [
+      "none",
+      "Harmless, read-only."
+     ],
+     [
+      "some",
+      "Changes files that can be restored."
+     ],
+     [
+      "high",
+      "Destroys data or cannot be undone."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "score",
+    "score": 0.6169,
+    "probabilities": {
+     "0": 0.4361,
+     "1": 0.5108,
+     "2": 0.053
+    },
+    "confidence": 0.2165,
+    "answer_confidence": 0.5108
+   }
+  },
+  {
+   "name": "risk_ls",
+   "state": {
+    "command": "ls -la"
+   },
+   "question": {
+    "form": "score",
+    "instructions": "How risky is running this command?",
+    "options": [
+     [
+      "none",
+      "Harmless, read-only."
+     ],
+     [
+      "some",
+      "Changes files that can be restored."
+     ],
+     [
+      "high",
+      "Destroys data or cannot be undone."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "score",
+    "score": 0.3523,
+    "probabilities": {
+     "0": 0.739,
+     "1": 0.1696,
+     "2": 0.0914
+    },
+    "confidence": 0.3237,
+    "answer_confidence": 0.739
+   }
+  },
+  {
+   "name": "history_list",
+   "state": [
+    "user: hi",
+    "assistant: hello, how can I help?",
+    "user: open the config file"
+   ],
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool does the request need?",
+    "options": [
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "shell",
+      "Run a command in the shell."
+     ]
+    ]
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "shell",
+    "probabilities": {
+     "edit": 0.0283,
+     "read": 0.0609,
+     "shell": 0.9109
+    },
+    "confidence": 0.6757,
+    "answer_confidence": 0.9109
+   }
+  }
+ ]
+}

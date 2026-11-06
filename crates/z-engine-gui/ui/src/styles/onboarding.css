@@ -1,0 +1,211 @@
+/* First-run setup: a quiet full-window stage with one card (an L1 sheet)
+   at a time. Choices are large, readable cards; the way forward is always
+   bottom-right, the kit's large accent button. */
+
+.onboarding {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-chrome);
+}
+.onboarding.is-entering {
+  animation: sheet-in var(--dur-spring-smooth) var(--ease-spring-smooth) backwards;
+}
+.onboarding-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  height: var(--titlebar-h);
+  -webkit-app-region: drag;
+}
+.onboarding-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  -webkit-app-region: no-drag;
+}
+.onboarding-progress {
+  display: flex;
+  gap: 6px;
+}
+.onboarding-dot {
+  width: 20px;
+  height: 4px;
+  border-radius: var(--r-full);
+  background: var(--fill-press);
+  transition: background var(--dur-med) var(--ease-out);
+}
+.onboarding-dot.is-done {
+  background: var(--label-3);
+}
+.onboarding-dot.is-current {
+  background: var(--label);
+}
+.onboarding-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 24px 40px;
+  overflow-y: auto;
+}
+/* The pet sits above the card the whole way; big while you meet it. */
+.onboarding-pet {
+  display: grid;
+  place-items: center;
+  flex: none;
+  margin-top: auto;
+  height: 72px;
+  transition: height var(--dur-spring-smooth) var(--ease-spring-smooth);
+}
+.onboarding-pet > * {
+  scale: 0.55;
+  transition: scale var(--dur-spring-smooth) var(--ease-spring-smooth);
+}
+.onboarding-pet.is-hero {
+  height: 140px;
+}
+.onboarding-pet.is-hero > * {
+  scale: 1;
+}
+.onboarding-card {
+  width: min(560px, 100%);
+  margin: 0 0 auto;
+  padding: var(--space-8);
+  border-radius: var(--r-l);
+  background: var(--sheet);
+  box-shadow: var(--sheet-shadow);
+}
+.onboarding-card.step-welcome {
+  padding: 40px var(--space-8) var(--space-8);
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.welcome-title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+.welcome-lead {
+  margin: var(--space-2) 0 var(--space-6);
+  color: var(--label-2);
+  font-size: var(--text-l);
+}
+.meet-pet {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  width: 100%;
+  margin: 0 0 var(--space-6);
+  text-align: left;
+}
+.meet-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.meet-field:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.meet-label {
+  color: var(--label);
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+}
+.welcome-promises {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+.welcome-promises li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+.welcome-icon,
+.choice-icon,
+.starter-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-s);
+  background: var(--fill-hover);
+  border: 1px solid var(--separator);
+  color: var(--label-2);
+}
+.starter-icon {
+  width: 28px;
+  height: 28px;
+}
+.welcome-promise {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.welcome-promise-title {
+  font-weight: var(--weight-semibold);
+}
+.welcome-promise-text {
+  color: var(--label-3);
+  line-height: 1.45;
+}
+.welcome-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.step-title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.015em;
+}
+.step-lead {
+  margin: var(--space-1) 0 0;
+  color: var(--label-3);
+  line-height: 1.5;
+}
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.step-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.step-error {
+  flex: 1;
+  margin: 0;
+}

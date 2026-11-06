@@ -1,0 +1,34 @@
+[package]
+name = "z-engine-decisions"
+description = "Decision layer: typed questions, rules / SystemOne (Laya, Jev) / native ONNX / hybrid providers, calibration, cache and traces"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[features]
+# Laya in-process through ONNX Runtime (downloads the ONNX Runtime library at build time).
+onnx = ["dep:ort", "dep:tokenizers"]
+
+[dependencies]
+z-engine-protocol.workspace = true
+z-engine-prompts.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+reqwest.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+futures.workspace = true
+async-trait.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+sha2.workspace = true
+ort = { workspace = true, optional = true }
+tokenizers = { workspace = true, optional = true }
+
+[dev-dependencies]
+axum.workspace = true
+
+[lints]
+workspace = true

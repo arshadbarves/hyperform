@@ -1,0 +1,164 @@
+/* The app's design tokens on VitePress variables. The dark palette mirrors
+   crates/z-engine-gui/ui/src/styles/tokens.css; keep them in step. The app
+   has no light palette, so the light one below is this site's own. */
+
+:root {
+  --zen-canvas: #f5f5f7;
+  --zen-sheet: #ffffff;
+  --zen-raised: #f5f5f7;
+  --zen-raised-2: #ebebf0;
+  --zen-raised-3: #e0e0e5;
+  --zen-elevated: #ffffff;
+  --zen-label: #1d1d1f;
+  --zen-label-2: #6e6e73;
+  --zen-label-3: #86868b;
+  --zen-label-4: #c7c7cc;
+  --zen-separator: rgba(0, 0, 0, 0.08);
+  --zen-separator-strong: rgba(0, 0, 0, 0.14);
+  --zen-fill-hover: rgba(0, 0, 0, 0.05);
+  --zen-fill-press: rgba(0, 0, 0, 0.08);
+  --zen-accent: #1d1d1f;
+  --zen-accent-hover: #333336;
+  --zen-accent-press: #48484d;
+  --zen-on-accent: #ffffff;
+  --zen-green: #34c759;
+  --zen-green-text: #248a3d;
+  --zen-green-soft: rgba(52, 199, 89, 0.14);
+  --zen-amber: #ff9500;
+  --zen-amber-text: #b25000;
+  --zen-amber-soft: rgba(255, 149, 0, 0.14);
+  --zen-red: #ff3b30;
+  --zen-red-text: #d70015;
+  --zen-red-soft: rgba(255, 59, 48, 0.12);
+  --zen-glass: rgba(255, 255, 255, 0.72);
+  --zen-glass-filter: blur(28px) saturate(170%);
+  --zen-hero-name: linear-gradient(180deg, #1d1d1f 35%, #6e6e73);
+  --zen-hero-glow: radial-gradient(circle, rgba(123, 129, 147, 0.4), transparent 68%);
+
+  /* the companion orb in its idle pearl tint */
+  --zen-orb-light: #ffffff;
+  --zen-orb-pearl: #eceef4;
+  --zen-orb-edge: #9ea3b2;
+  --zen-orb-rim: rgba(255, 255, 255, 0.6);
+  --zen-orb-eye: #14151a;
+  --zen-orb-aura: #7b8193;
+  --zen-orb-aura-opacity: 0.3;
+}
+
+.dark {
+  --zen-canvas: #08080a;
+  --zen-sheet: #111113;
+  --zen-raised: #18181b;
+  --zen-raised-2: #1f1f23;
+  --zen-raised-3: #2a2a2f;
+  --zen-elevated: #1f1f23;
+  --zen-label: #f5f5f7;
+  --zen-label-2: #a1a1a6;
+  --zen-label-3: #6e6e73;
+  --zen-label-4: #48484d;
+  --zen-separator: rgba(255, 255, 255, 0.08);
+  --zen-separator-strong: rgba(255, 255, 255, 0.14);
+  --zen-fill-hover: rgba(255, 255, 255, 0.06);
+  --zen-fill-press: rgba(255, 255, 255, 0.1);
+  --zen-accent: #f5f5f7;
+  --zen-accent-hover: #e8e8ed;
+  --zen-accent-press: #d2d2d7;
+  --zen-on-accent: #0a0a0b;
+  --zen-green: #30d158;
+  --zen-green-text: #30d158;
+  --zen-green-soft: rgba(48, 209, 88, 0.14);
+  --zen-amber: #ff9f0a;
+  --zen-amber-text: #ff9f0a;
+  --zen-amber-soft: rgba(255, 159, 10, 0.14);
+  --zen-red: #ff453a;
+  --zen-red-text: #ff8a80;
+  --zen-red-soft: rgba(255, 69, 58, 0.14);
+  --zen-glass: rgba(17, 17, 19, 0.72);
+  --zen-hero-name: linear-gradient(180deg, #ffffff 35%, #a1a1a6);
+  --zen-hero-glow: radial-gradient(circle, rgba(236, 238, 244, 0.26), transparent 68%);
+
+  --zen-orb-edge: #a6aab8;
+  --zen-orb-rim: rgba(255, 255, 255, 0.42);
+  --zen-orb-aura: #eceef4;
+  --zen-orb-aura-opacity: 0.35;
+}
+
+:root {
+  --vp-c-bg: var(--zen-sheet);
+  --vp-c-bg-alt: var(--zen-canvas);
+  --vp-c-bg-elv: var(--zen-elevated);
+  --vp-c-bg-soft: var(--zen-raised);
+  --vp-c-border: var(--zen-separator-strong);
+  --vp-c-divider: var(--zen-separator);
+  --vp-c-gutter: var(--zen-separator);
+  --vp-c-text-1: var(--zen-label);
+  --vp-c-text-2: var(--zen-label-2);
+  --vp-c-text-3: var(--zen-label-3);
+
+  --vp-c-gray-1: var(--zen-label-4);
+  --vp-c-gray-2: var(--zen-raised-3);
+  --vp-c-gray-3: var(--zen-raised-2);
+  --vp-c-gray-soft: var(--zen-fill-hover);
+
+  /* the accent is monochrome; color is reserved for status */
+  --vp-c-brand-1: var(--zen-accent);
+  --vp-c-brand-2: var(--zen-accent-hover);
+  --vp-c-brand-3: var(--zen-accent);
+  --vp-c-brand-soft: var(--zen-fill-press);
+  --vp-button-brand-bg: var(--zen-accent);
+  --vp-button-brand-hover-bg: var(--zen-accent-hover);
+  --vp-button-brand-active-bg: var(--zen-accent-press);
+  --vp-button-brand-text: var(--zen-on-accent);
+  --vp-button-brand-hover-text: var(--zen-on-accent);
+  --vp-button-brand-active-text: var(--zen-on-accent);
+
+  --vp-c-green-1: var(--zen-green-text);
+  --vp-c-green-2: var(--zen-green);
+  --vp-c-green-3: var(--zen-green);
+  --vp-c-green-soft: var(--zen-green-soft);
+  --vp-c-yellow-1: var(--zen-amber-text);
+  --vp-c-yellow-2: var(--zen-amber);
+  --vp-c-yellow-3: var(--zen-amber);
+  --vp-c-yellow-soft: var(--zen-amber-soft);
+  --vp-c-red-1: var(--zen-red-text);
+  --vp-c-red-2: var(--zen-red);
+  --vp-c-red-3: var(--zen-red);
+  --vp-c-red-soft: var(--zen-red-soft);
+
+  --vp-font-family-base:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI Variable", "Segoe UI", system-ui,
+    "Helvetica Neue", Arial, sans-serif;
+  --vp-font-family-mono: "SF Mono", ui-monospace, "Cascadia Code", Menlo, Monaco, Consolas, monospace;
+
+  --vp-nav-bg-color: var(--zen-glass);
+  --vp-local-nav-bg-color: var(--zen-glass);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: var(--zen-hero-name);
+  --vp-home-hero-image-background-image: var(--zen-hero-glow);
+  --vp-home-hero-image-filter: blur(56px);
+}
+
+/* Glass: content scrolls under the nav bars through a blur. */
+.VPNavBar,
+.VPLocalNav {
+  -webkit-backdrop-filter: var(--zen-glass-filter);
+  backdrop-filter: var(--zen-glass-filter);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --vp-nav-bg-color: var(--vp-c-bg);
+    --vp-local-nav-bg-color: var(--vp-c-bg);
+    --zen-glass-filter: none;
+  }
+}
+
+/* Links share the text color, so the underline carries them. */
+.vp-doc a {
+  text-decoration-color: var(--vp-c-text-3);
+}
+
+.vp-doc a:hover {
+  text-decoration-color: currentColor;
+}

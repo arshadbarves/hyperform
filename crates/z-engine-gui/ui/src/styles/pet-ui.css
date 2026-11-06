@@ -1,0 +1,280 @@
+/* Around the pet: the roaming layer, its card, the look swatches
+   (onboarding, Settings > Pet) and the Settings preview. */
+
+/* The layer is click-through; only the pet's own body takes the pointer.
+   The motion engine moves the actor and its rig by transform alone (feet
+   at 88.125% of the box, the pet's PET_FEET); it appears with a spring. */
+.pet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 42;
+  pointer-events: none;
+}
+.pet-actor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--pet-size);
+  height: var(--pet-size);
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+}
+.pet-rig-wrap {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 88.125%;
+  will-change: transform;
+}
+.pet-rig-wrap .pet {
+  display: block;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  transform-origin: 50% 88.125%;
+  animation: pet-appear var(--dur-spring-bouncy) var(--ease-spring-bouncy) both;
+}
+.pet-actor.is-dragging {
+  cursor: grabbing;
+}
+.pet-actor.is-dragging .pet,
+.pet-actor.is-flying .pet {
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.45));
+}
+@keyframes pet-appear {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+.pet-actor.activity-tucked {
+  opacity: 0.55;
+  translate: 0 30%;
+  transition:
+    opacity var(--dur-med) var(--ease-out),
+    translate var(--dur-spring-smooth) var(--ease-spring-smooth);
+}
+
+.pet-card {
+  z-index: 1000;
+  width: 310px;
+  max-width: calc(100vw - 24px);
+  border-radius: var(--r-l);
+  outline: none;
+  animation: pop-in var(--dur-spring-snappy) var(--ease-spring-snappy) both;
+}
+.pet-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: var(--space-4);
+}
+.pet-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pet-card-portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 76px;
+  height: 76px;
+}
+.pet-card-pet {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.pet-card-who {
+  min-width: 0;
+}
+.pet-card-who p {
+  margin: 0;
+}
+.pet-card-name {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--text-l);
+  font-weight: var(--weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pet-card-level {
+  margin-top: 2px;
+  color: var(--label);
+  font-size: var(--text-s);
+  font-weight: var(--weight-medium);
+}
+.pet-card-xp,
+.pet-card-streak {
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+.pet-card-streak {
+  color: var(--amber);
+}
+.pet-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin: 0;
+}
+.pet-card-stats > div {
+  padding: 8px 10px;
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+  box-shadow: inset 0 0 0 1px var(--separator);
+}
+.pet-card-stats dt {
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+.pet-card-stats dd {
+  margin: 2px 0 0;
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.pet-card-heading {
+  margin: 0 0 6px;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.pet-card-wear {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pet-wear-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--r-full);
+  background: var(--fill-hover);
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-xs);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.pet-wear-chip:hover:not(:disabled) {
+  background: var(--fill-press);
+  color: var(--label);
+}
+.pet-wear-chip.is-on {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pet-wear-chip:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.pet-wear-level {
+  color: var(--label-3);
+}
+.pet-card-note {
+  margin: 8px 0 0;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+.pet-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pet-preview {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 18px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+}
+.pet-preview-stage {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 120px;
+  height: 120px;
+}
+.pet-preview-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.pet-preview-copy p {
+  margin: 0;
+}
+.pet-preview-name {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.015em;
+}
+.pet-preview-sub {
+  margin-bottom: 8px;
+  color: var(--label-3);
+}
+
+.pet-looks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  outline: none;
+}
+.pet-look {
+  --pet-body: var(--pet-pearl);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--r-full);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.pet-look:hover {
+  border-color: var(--separator-hover);
+}
+.pet-look[aria-checked="true"] {
+  border-color: var(--label-2);
+}
+.pet-look.look-mint {
+  --pet-body: var(--pet-mint);
+}
+.pet-look.look-sky {
+  --pet-body: var(--pet-sky);
+}
+.pet-look.look-lilac {
+  --pet-body: var(--pet-lilac);
+}
+.pet-look.look-peach {
+  --pet-body: var(--pet-peach);
+}
+.pet-look.look-graphite {
+  --pet-body: var(--pet-graphite);
+}
+.pet-look-orb {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-full);
+  background: var(--pet-body);
+  box-shadow: inset 0 0 0 1px var(--pet-rim);
+}

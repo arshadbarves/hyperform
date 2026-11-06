@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>HyperForm AI</title>
+  <style>
+    /* First paint: this IS the splash. Replaces the old "Loading HyperForm AI…"
+       placeholder so the window never shows a bare loading string. */
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: #0e0e10;
+      color: #ededf0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
+        "Segoe UI", Roboto, sans-serif;
+    }
+  </style>
+  <link rel="stylesheet" href="/src/styles/splash.css" />
+  <script>
+    // Fatal-error surface: replaces the app only when Svelte never
+    // mounted (blank screen debugging). Runtime rejections after mount
+    // get a small non-destructive banner instead.
+    function __showFatal(label, detail) {
+      document.title = label + ": " + detail;
+      const root = document.getElementById("root");
+      if (!root) return;
+      const mounted = root.childElementCount > 0;
+      if (!mounted) {
+        const splash = document.getElementById("boot-splash");
+        if (splash) splash.remove();
+        root.innerHTML =
+          '<pre style="color:#f66;padding:20px;font-family:monospace;white-space:pre-wrap">' +
+          label + "\n" + String(detail).replace(/[<>&]/g, "") + "</pre>";
+        return;
+      }
+      let banner = document.getElementById("__rej_banner");
+      if (!banner) {
+        banner = document.createElement("div");
+        banner.id = "__rej_banner";
+        banner.style.cssText =
+          "position:fixed;bottom:12px;left:50%;transform:translateX(-50%);" +
+          "max-width:70vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" +
+          "background:#3a1d1d;color:#f66;border:1px solid #f66;border-radius:8px;" +
+          "padding:6px 12px;font:11px monospace;z-index:9999";
+        document.body.appendChild(banner);
+      }
+      banner.textContent = label + ": " + detail;
+    }
+    window.addEventListener("error", (e) => {
+      __showFatal("ERR", e.message + "\n" + (e.filename || "") + ":" + (e.lineno || ""));
+    });
+    window.addEventListener("unhandledrejection", (e) => {
+      __showFatal("REJ", (e.reason && e.reason.message) || e.reason);
+    });
+  </script>
+</head>
+
+<body>
+  <div id="boot-splash" class="splash" role="status" aria-label="Starting">
+    <div class="splash-stage">
+      <div class="splash-pet" aria-hidden="true">
+        <div class="splash-shadow"></div>
+        <svg class="splash-pet-art" width="112" height="112" viewBox="0 0 32 32">
+          <defs>
+            <radialGradient id="splash-pet-fill" cx="36%" cy="28%" r="82%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="52%" stop-color="#eff1f6" />
+              <stop offset="100%" stop-color="#c1c5cf" />
+            </radialGradient>
+            <filter id="splash-pet-aura" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="2.6" />
+            </filter>
+          </defs>
+          <g class="splash-pet-body">
+            <path
+              d="M16 8.6C22.4 8.6 26.6 13.2 26.6 19C26.6 24.2 22.2 27.2 16 27.2C9.8 27.2 5.4 24.2 5.4 19C5.4 13.2 9.6 8.6 16 8.6Z"
+              fill="#eceef4" opacity="0.3" filter="url(#splash-pet-aura)" />
+            <ellipse cx="11.8" cy="27.2" rx="2.6" ry="1.5" fill="#cacdd7" />
+            <ellipse cx="20.2" cy="27.2" rx="2.6" ry="1.5" fill="#cacdd7" />
+            <path
+              d="M16 8.6C22.4 8.6 26.6 13.2 26.6 19C26.6 24.2 22.2 27.2 16 27.2C9.8 27.2 5.4 24.2 5.4 19C5.4 13.2 9.6 8.6 16 8.6Z"
+              fill="url(#splash-pet-fill)" stroke="#ffffff" stroke-opacity="0.42" stroke-width="0.6" />
+            <ellipse cx="11.8" cy="12.9" rx="3.4" ry="1.9" transform="rotate(-28 11.8 12.9)" fill="#ffffff"
+              opacity="0.78" />
+            <ellipse cx="9.3" cy="21.7" rx="1.9" ry="1.1" fill="#ff8fa3" opacity="0.22" />
+            <ellipse cx="22.7" cy="21.7" rx="1.9" ry="1.1" fill="#ff8fa3" opacity="0.22" />
+            <g class="splash-pet-eyes" fill="#14151a">
+              <ellipse class="splash-pet-eye" cx="12.4" cy="18.4" rx="1.35" ry="2" />
+              <ellipse class="splash-pet-eye" cx="19.6" cy="18.4" rx="1.35" ry="2" />
+            </g>
+            <path class="splash-pet-mouth" d="M14.6 22.5q1.4 1.3 2.8 0" fill="none" stroke="#14151a"
+              stroke-width="0.9" stroke-linecap="round" />
+          </g>
+        </svg>
+      </div>
+      <div class="splash-progress" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div id="root"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>

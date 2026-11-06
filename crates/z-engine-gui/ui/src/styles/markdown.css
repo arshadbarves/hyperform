@@ -1,0 +1,210 @@
+/* Rendered Markdown in replies and command output, and code blocks with
+   their syntax colours (tokens in tokens.css). */
+
+.md > :first-child {
+  margin-top: 0;
+}
+.md > :last-child {
+  margin-bottom: 0;
+}
+.md p {
+  margin: 0.6em 0;
+}
+.md ul,
+.md ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+}
+.md li {
+  margin: 0.3em 0;
+  line-height: 1.62;
+}
+.md li::marker {
+  color: var(--label-3);
+}
+.md li > ul,
+.md li > ol {
+  margin: 0.2em 0;
+  padding-left: 1.2em;
+}
+.md ul > li > ul {
+  list-style-type: circle;
+}
+.md h1,
+.md h2,
+.md h3,
+.md h4 {
+  margin: 1.2em 0 0.45em;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.md h1 {
+  font-size: 1.25em;
+}
+.md h2 {
+  font-size: 1.12em;
+}
+.md h3,
+.md h4 {
+  font-size: 1em;
+}
+.md strong {
+  font-weight: var(--weight-semibold);
+}
+.md a {
+  color: var(--link);
+  text-decoration-color: var(--link-underline);
+  text-underline-offset: 2px;
+}
+.md blockquote {
+  margin: 0.7em 0;
+  padding: 0.1em 0 0.1em 0.9em;
+  border-left: 2px solid var(--separator-strong);
+  color: var(--label-2);
+}
+.md table {
+  display: block;
+  max-width: 100%;
+  margin: 0.8em 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--text-m);
+}
+.md th,
+.md td {
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--separator);
+  text-align: left;
+}
+.md th {
+  color: var(--label-2);
+  font-weight: var(--weight-semibold);
+  border-bottom-color: var(--separator-strong);
+}
+.md hr {
+  margin: 1.2em 0;
+  border: 0;
+  border-top: 1px solid var(--separator);
+}
+.msg.assistant :not(pre):not(.code-block) > code,
+.md :not(pre):not(.code-block) > code {
+  margin: 0 0.1em;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--fill-press);
+  color: var(--label);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  white-space: break-spaces;
+}
+
+.code-block {
+  margin: 14px 0;
+  overflow: hidden;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--code-bg);
+}
+.code-block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  padding: 0 6px 0 14px;
+  user-select: none;
+}
+.code-lang {
+  color: var(--label-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+.code-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: transparent;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  opacity: 0;
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.code-block:hover .code-copy-btn,
+.code-copy-btn:focus-visible,
+.code-copy-btn.is-copied {
+  opacity: 1;
+}
+.code-copy-btn:hover {
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.code-copy-btn.is-copied {
+  color: var(--green);
+}
+.code-block pre {
+  margin: 0;
+  padding: 2px 16px 14px;
+  overflow-x: auto;
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  tab-size: 2;
+}
+.code-block code {
+  color: inherit;
+  font: inherit;
+  white-space: pre;
+}
+.code-block pre,
+.code-block code {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* highlight.js tokens, shared with the diff viewer */
+:is(.code-block, .hl) .hljs-keyword,
+:is(.code-block, .hl) .hljs-selector-tag,
+:is(.code-block, .hl) .hljs-built_in {
+  color: var(--syn-keyword);
+}
+:is(.code-block, .hl) .hljs-type,
+:is(.code-block, .hl) .hljs-title.class_ {
+  color: var(--syn-type);
+}
+:is(.code-block, .hl) .hljs-string,
+:is(.code-block, .hl) .hljs-attr,
+:is(.code-block, .hl) .hljs-symbol {
+  color: var(--syn-string);
+}
+:is(.code-block, .hl) .hljs-number,
+:is(.code-block, .hl) .hljs-literal {
+  color: var(--syn-number);
+}
+:is(.code-block, .hl) .hljs-comment,
+:is(.code-block, .hl) .hljs-quote {
+  color: var(--syn-comment);
+  font-style: italic;
+}
+:is(.code-block, .hl) .hljs-title.function_ {
+  color: var(--syn-function);
+}
+:is(.code-block, .hl) .hljs-variable,
+:is(.code-block, .hl) .hljs-template-variable,
+:is(.code-block, .hl) .hljs-params {
+  color: var(--syn-variable);
+}
+:is(.code-block, .hl) .hljs-meta,
+:is(.code-block, .hl) .hljs-punctuation,
+:is(.code-block, .hl) .hljs-operator {
+  color: var(--syn-meta);
+}

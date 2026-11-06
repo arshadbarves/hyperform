@@ -1,0 +1,619 @@
+{
+ "laya": "v0.3.22",
+ "generator": "generate.py",
+ "cases": [
+  {
+   "name": "yes_no_flat",
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets."
+     ],
+     [
+      "no",
+      "It does not greet."
+     ]
+    ]
+   },
+   "logits": [
+    0.30000001192092896,
+    2.0999999046325684,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 2,
+   "temperature": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "temperature_by_options": {},
+   "answer": {
+    "type": "choice",
+    "choice": "b",
+    "probabilities": {
+     "a": 0.1419,
+     "b": 0.8581
+    },
+    "confidence": 0.4109,
+    "answer_confidence": 0.8581,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "tool_flat_ties_take_first",
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool fits the request?",
+    "options": [
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "shell",
+      "Run a command."
+     ]
+    ]
+   },
+   "logits": [
+    1.0,
+    1.0,
+    0.5,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 3,
+   "temperature": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "temperature_by_options": {},
+   "answer": {
+    "type": "choice",
+    "choice": "read",
+    "probabilities": {
+     "read": 0.3837,
+     "edit": 0.3837,
+     "shell": 0.2327
+    },
+    "confidence": 0.0221,
+    "answer_confidence": 0.3837,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "tool_odd_bucket",
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool fits the request?",
+    "options": [
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "shell",
+      "Run a command."
+     ]
+    ]
+   },
+   "logits": [
+    0.20000000298023224,
+    1.399999976158142,
+    -0.699999988079071,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 3,
+   "temperature": [
+    9.0,
+    "x",
+    0.1
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7,
+    "choice:11+": 0.1006
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "edit",
+    "probabilities": {
+     "read": 0.2767,
+     "edit": 0.5604,
+     "shell": 0.1629
+    },
+    "confidence": 0.1119,
+    "answer_confidence": 0.5604,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "score_odd_type",
+   "question": {
+    "form": "score",
+    "instructions": "How risky is the command?",
+    "options": [
+     [
+      "none",
+      "Harmless."
+     ],
+     [
+      "low",
+      "Small risk."
+     ],
+     [
+      "mid",
+      "Some risk."
+     ],
+     [
+      "high",
+      "Large risk."
+     ],
+     [
+      "severe",
+      "Destructive."
+     ]
+    ]
+   },
+   "logits": [
+    -1.0,
+    0.5,
+    2.0,
+    0.10000000149011612,
+    -3.0,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 5,
+   "temperature": [
+    9.0,
+    "x",
+    0.1
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7,
+    "choice:11+": 0.1006
+   },
+   "answer": {
+    "type": "score",
+    "score": 1.8883,
+    "legend": {
+     "0": "Harmless.",
+     "1": "Small risk.",
+     "2": "Some risk.",
+     "3": "Large risk.",
+     "4": "Destructive."
+    },
+    "probabilities": {
+     "0": 0.0348,
+     "1": 0.1561,
+     "2": 0.6997,
+     "3": 0.1047,
+     "4": 0.0047
+    },
+    "confidence": 0.4295,
+    "answer_confidence": 0.6997,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "score_flat",
+   "question": {
+    "form": "score",
+    "instructions": "How risky is the command?",
+    "options": [
+     [
+      "none",
+      "Harmless."
+     ],
+     [
+      "low",
+      "Small risk."
+     ],
+     [
+      "mid",
+      "Some risk."
+     ],
+     [
+      "high",
+      "Large risk."
+     ],
+     [
+      "severe",
+      "Destructive."
+     ]
+    ]
+   },
+   "logits": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 5,
+   "temperature": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "temperature_by_options": {},
+   "answer": {
+    "type": "score",
+    "score": 2.0,
+    "legend": {
+     "0": "Harmless.",
+     "1": "Small risk.",
+     "2": "Some risk.",
+     "3": "Large risk.",
+     "4": "Destructive."
+    },
+    "probabilities": {
+     "0": 0.2,
+     "1": 0.2,
+     "2": 0.2,
+     "3": 0.2,
+     "4": 0.2
+    },
+    "confidence": 0.0,
+    "answer_confidence": 0.2,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "many_options_clamped_sharpener",
+   "question": {
+    "form": "choice",
+    "instructions": "Many?",
+    "options": [
+     [
+      "k0",
+      ""
+     ],
+     [
+      "k1",
+      ""
+     ],
+     [
+      "k2",
+      ""
+     ],
+     [
+      "k3",
+      ""
+     ],
+     [
+      "k4",
+      ""
+     ],
+     [
+      "k5",
+      ""
+     ],
+     [
+      "k6",
+      ""
+     ],
+     [
+      "k7",
+      ""
+     ],
+     [
+      "k8",
+      ""
+     ],
+     [
+      "k9",
+      ""
+     ],
+     [
+      "k10",
+      ""
+     ],
+     [
+      "k11",
+      ""
+     ]
+    ]
+   },
+   "logits": [
+    0.0,
+    0.10000000149011612,
+    0.20000000298023224,
+    0.30000001192092896,
+    0.4000000059604645,
+    0.5,
+    0.6000000238418579,
+    0.699999988079071,
+    0.800000011920929,
+    0.8999999761581421,
+    1.0,
+    1.100000023841858,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 12,
+   "temperature": [
+    9.0,
+    "x",
+    0.1
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7,
+    "choice:11+": 0.1006
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "k11",
+    "probabilities": {
+     "k0": 0.0221,
+     "k1": 0.027,
+     "k2": 0.033,
+     "k3": 0.0402,
+     "k4": 0.0492,
+     "k5": 0.06,
+     "k6": 0.0733,
+     "k7": 0.0896,
+     "k8": 0.1094,
+     "k9": 0.1336,
+     "k10": 0.1632,
+     "k11": 0.1994
+    },
+    "confidence": 0.0838,
+    "answer_confidence": 0.1994,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "yes_no_large_logits",
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets."
+     ],
+     [
+      "no",
+      "It does not greet."
+     ]
+    ]
+   },
+   "logits": [
+    12.5,
+    -8.25,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 2,
+   "temperature": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "temperature_by_options": {},
+   "answer": {
+    "type": "choice",
+    "choice": "a",
+    "probabilities": {
+     "a": 1.0,
+     "b": 0.0
+    },
+    "confidence": 1.0,
+    "answer_confidence": 1.0,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "tool_english_temps",
+   "question": {
+    "form": "choice",
+    "instructions": "Which tool fits the request?",
+    "options": [
+     [
+      "read",
+      "Read a file."
+     ],
+     [
+      "edit",
+      "Change a file."
+     ],
+     [
+      "shell",
+      "Run a command."
+     ]
+    ]
+   },
+   "logits": [
+    0.8999999761581421,
+    -0.4000000059604645,
+    0.20000000298023224,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 3,
+   "temperature": [
+    1.6369030475616455,
+    1.2514300346374512,
+    1.983399510383606
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7601518630981445,
+    "choice:6-10": 1.0000158548355103,
+    "score:3-5": 1.2514300346374512,
+    "noul:2": 1.983399510383606,
+    "choice:11+": 0.10058280825614929,
+    "choice:2": 1.9063563346862793
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "read",
+    "probabilities": {
+     "read": 0.4652,
+     "edit": 0.2223,
+     "shell": 0.3125
+    },
+    "confidence": 0.0408,
+    "answer_confidence": 0.4652,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "score_english_temps",
+   "question": {
+    "form": "score",
+    "instructions": "How risky is the command?",
+    "options": [
+     [
+      "none",
+      "Harmless."
+     ],
+     [
+      "low",
+      "Small risk."
+     ],
+     [
+      "mid",
+      "Some risk."
+     ],
+     [
+      "high",
+      "Large risk."
+     ],
+     [
+      "severe",
+      "Destructive."
+     ]
+    ]
+   },
+   "logits": [
+    0.10000000149011612,
+    0.8999999761581421,
+    1.7000000476837158,
+    0.30000001192092896,
+    -0.5,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 5,
+   "temperature": [
+    1.6369030475616455,
+    1.2514300346374512,
+    1.983399510383606
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7601518630981445,
+    "choice:6-10": 1.0000158548355103,
+    "score:3-5": 1.2514300346374512,
+    "noul:2": 1.983399510383606,
+    "choice:11+": 0.10058280825614929,
+    "choice:2": 1.9063563346862793
+   },
+   "answer": {
+    "type": "score",
+    "score": 1.8208,
+    "legend": {
+     "0": "Harmless.",
+     "1": "Small risk.",
+     "2": "Some risk.",
+     "3": "Large risk.",
+     "4": "Destructive."
+    },
+    "probabilities": {
+     "0": 0.1208,
+     "1": 0.2289,
+     "2": 0.4338,
+     "3": 0.1417,
+     "4": 0.0748
+    },
+    "confidence": 0.114,
+    "answer_confidence": 0.4338,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  },
+  {
+   "name": "yes_no_english_temps",
+   "question": {
+    "form": "yes_no",
+    "instructions": "Is the message a greeting?",
+    "options": [
+     [
+      "yes",
+      "It greets."
+     ],
+     [
+      "no",
+      "It does not greet."
+     ]
+    ]
+   },
+   "logits": [
+    -0.6000000238418579,
+    0.4000000059604645,
+    -10000.0,
+    -10000.0
+   ],
+   "markers": 2,
+   "temperature": [
+    1.6369030475616455,
+    1.2514300346374512,
+    1.983399510383606
+   ],
+   "temperature_by_options": {
+    "choice:3-5": 1.7601518630981445,
+    "choice:6-10": 1.0000158548355103,
+    "score:3-5": 1.2514300346374512,
+    "noul:2": 1.983399510383606,
+    "choice:11+": 0.10058280825614929,
+    "choice:2": 1.9063563346862793
+   },
+   "answer": {
+    "type": "choice",
+    "choice": "b",
+    "probabilities": {
+     "a": 0.3718,
+     "b": 0.6282
+    },
+    "confidence": 0.048,
+    "answer_confidence": 0.6282,
+    "action": {
+     "act_probability": 0.0
+    }
+   }
+  }
+ ]
+}

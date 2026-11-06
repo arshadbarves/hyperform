@@ -1,0 +1,188 @@
+/* Settings, inside a full-window page (panels.css): a floating L2 glass
+   card at the left with search and the pages grouped by topic, and one
+   page on the L1 content sheet at the right, its head and body sharing
+   the app's reading column. */
+
+/* ── navigation: the glass card ───────────────────────────────────────── */
+
+.settings-nav {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  overflow: hidden;
+}
+
+.settings-nav-list {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.settings-nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.settings-nav-section h3 {
+  margin: 0 0 var(--space-1);
+  padding: 0 10px;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--label-3);
+}
+
+/* Rows sit above the selection capsule (kit-parts.css) that slides to the
+   current page. */
+.settings-nav-item,
+.settings-result {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 30px;
+  padding: 0 10px;
+  font-size: var(--text-m);
+  text-align: left;
+  color: var(--label-2);
+  background: none;
+  border: none;
+  border-radius: var(--r-s);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.settings-nav-item > svg {
+  flex: none;
+  color: var(--label-3);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.settings-nav-item:hover,
+.settings-result:hover,
+.settings-result.is-active {
+  color: var(--label);
+  background: var(--fill-hover);
+}
+
+.settings-nav-item[aria-current="page"] {
+  color: var(--label);
+  font-weight: var(--weight-medium);
+  background: none;
+}
+
+.settings-nav-item[aria-current="page"] > svg {
+  color: var(--accent);
+}
+
+.settings-nav-item .update-dot {
+  margin-left: auto;
+}
+
+.settings-result {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 10px;
+}
+
+.settings-result-tab {
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+.settings-results-empty {
+  margin: 0;
+  padding: var(--space-2) 10px;
+  font-size: var(--text-s);
+  color: var(--label-3);
+}
+
+.settings-nav-foot {
+  margin: 0;
+  padding: 0 10px var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+/* ── the page: the content sheet ──────────────────────────────────────── */
+
+.settings-pane {
+  /* the page's head and body share one centred column */
+  --settings-inline: max(var(--gutter-chat), calc((100% - var(--measure-chat)) / 2));
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.settings-pane-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--settings-inline) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+  flex-shrink: 0;
+}
+
+.settings-pane-copy {
+  min-width: 0;
+}
+
+.settings-pane-copy h2 {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.015em;
+  color: var(--label);
+}
+
+.settings-pane-copy p {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-s);
+  color: var(--label-3);
+}
+
+.settings-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.settings-content-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--settings-inline) 56px;
+  animation: veil-in var(--dur-med) var(--ease-out) both;
+}
+
+.settings-loading {
+  margin: 0;
+  padding: var(--space-8) 0;
+  text-align: center;
+  font-size: var(--text-m);
+  color: var(--label-3);
+}
+
+.full-page .tab-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}

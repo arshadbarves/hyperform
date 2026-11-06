@@ -1,0 +1,228 @@
+/* ── Settings: hook, check and server rows; inline editors ─────────────── */
+
+.hook-help {
+  padding: var(--space-3) var(--space-4);
+  color: var(--label-2);
+  font-size: var(--text-s);
+  line-height: 1.55;
+}
+
+.hook-help p,
+.hook-help ul {
+  margin: 0 0 var(--space-2);
+}
+
+.hook-help p:last-child {
+  margin-bottom: 0;
+}
+
+.hook-help ul {
+  padding-left: 18px;
+}
+
+.hook-help code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.hook-events {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* One hook event: a settings card with its hooks listed inside. */
+.hook-event {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--raised);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+}
+
+.hook-event-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.hook-event-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.hook-event-copy strong {
+  color: var(--label);
+  font-family: var(--font-mono);
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+}
+
+.hook-event-copy span {
+  color: var(--label-3);
+  font-size: var(--text-s);
+}
+
+.hook-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hook-row,
+.entry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 6px 6px 10px;
+  background: var(--fill-quiet);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+}
+
+.entry-row {
+  margin: var(--space-2) var(--space-3);
+}
+
+.hook-row.inherited {
+  background: transparent;
+}
+
+.hook-row.skipped,
+.entry-row.is-overridden,
+.mcp-server-item.is-overridden,
+.mcp-server-item.is-disabled {
+  opacity: 0.6;
+}
+
+.hook-row-main,
+.entry-row-copy {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.entry-row-copy {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.entry-row-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--label);
+  font-size: var(--text-m);
+}
+
+.hook-matcher,
+.entry-id {
+  flex-shrink: 0;
+  padding: 0 6px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-xs);
+  color: var(--label-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 16px;
+}
+
+.hook-command,
+.entry-command {
+  overflow: hidden;
+  color: var(--label);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.entry-command {
+  max-width: 100%;
+  color: var(--label-3);
+}
+
+.hook-timeout,
+.hook-skipped {
+  flex-shrink: 0;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+
+.hook-skipped {
+  color: var(--tone-attention);
+}
+
+.hook-row-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.mcp-error {
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+/* ── Inline editors ─────────────────────────────────────────────────────── */
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--fill-quiet);
+  border: 1px solid var(--separator-strong);
+  border-radius: var(--r-s);
+}
+
+.settings-card > .settings-form {
+  margin: var(--space-2) var(--space-3);
+}
+
+.settings-form-field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.settings-form-field.narrow {
+  flex: 0 0 150px;
+}
+
+.settings-form-field > span {
+  font-size: var(--text-s);
+}
+
+.settings-form-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.settings-form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--label-2);
+  font-size: var(--text-s);
+}
+
+.settings-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}

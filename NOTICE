@@ -1,0 +1,41 @@
+z-engine
+Copyright the z-engine authors. Licensed under the MIT License.
+
+This product includes software and uses model files from third parties,
+listed below with their licenses.
+
+--------------------------------------------------------------------------
+Laya (decision model runtime, ported)
+https://github.com/NandhaKishorM/laya
+Copyright Convai Innovations
+Licensed under the Apache License, Version 2.0
+http://www.apache.org/licenses/LICENSE-2.0
+
+The native decision runtime in crates/z-engine-decisions/src/providers/onnx/
+(sequence.rs, decode.rs, runtime.rs, pyjson.rs) is a Rust port of Laya's
+reference Python, release v0.3.22: the token sequence builder
+(laya/common.py: serialize_state, render_options, build_sequence), the
+answer decoding and temperatures (laya/onnx_agent.py: _encode_state,
+_decode_answers, _infer_batch; laya/common.py: temp_bucket,
+clamp_temperature, answer_confidence, collate_items). Changes: rewritten in
+Rust; yes/no questions are sent as a two-option choice with neutral labels;
+a score is reported from 0 to 1; option reordering, per-language
+temperatures and usage statistics are left out. The test fixtures in
+crates/z-engine-decisions/tests/fixtures/onnx/ were produced by running
+Laya's own functions (generate.py there) and Laya's ONNXAgent on the
+downloaded model (generate_answers.py there).
+
+--------------------------------------------------------------------------
+ONNX Runtime (linked only into builds with the `onnx` feature)
+https://github.com/microsoft/onnxruntime
+Copyright (c) Microsoft Corporation
+Licensed under the MIT License
+
+--------------------------------------------------------------------------
+Laya model files (downloaded at the user's request, not distributed)
+https://huggingface.co/onnx-community/laya-ONNX
+https://huggingface.co/onnx-community/laya-multilingual-ONNX
+https://huggingface.co/onnx-community/laya-typed-decisions-ONNX
+ONNX exports of convaiinnovations/laya, laya-multilingual and
+laya-typed-decisions (Copyright Convai Innovations), converted by the
+onnx-community. Licensed under the Apache License, Version 2.0.

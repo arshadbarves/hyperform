@@ -1,0 +1,173 @@
+/* The turn receipt: a quiet line after each turn (verdict, changed files,
+   time and cost as the report setting allows) and the check evidence it
+   unfolds into. */
+
+.turn-receipt {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px 10px;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+.receipt-files {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.receipt-file {
+  height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--label-2);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+.receipt-file:hover {
+  border-color: var(--separator-strong);
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.receipt-file.is-more {
+  color: var(--label-3);
+}
+.turn-stats {
+  padding-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.turn-outcome {
+  padding-top: 4px;
+  font-weight: var(--weight-semibold);
+}
+.turn-outcome.tone-err {
+  color: var(--red-label);
+}
+.turn-outcome.tone-warn {
+  color: var(--amber);
+}
+
+.verify-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.verify-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.verify-badge:disabled {
+  cursor: default;
+}
+.verify-badge.tone-ok {
+  border-color: var(--green-ring);
+  background: var(--green-soft);
+  color: var(--green);
+}
+.verify-badge.tone-warn {
+  border-color: var(--amber-ring);
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.verify-badge.tone-err {
+  border-color: var(--red-ring);
+  background: var(--red-soft);
+  color: var(--red-label);
+}
+.verify-count {
+  font-weight: var(--weight-medium);
+  opacity: 0.8;
+}
+.verify-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 10px;
+  border-left: 1px solid var(--separator);
+  animation: disclosure-in var(--dur-fast) var(--ease-out) both;
+}
+.verify-reason {
+  margin: 0;
+  color: var(--label-2);
+  font-size: var(--text-s);
+}
+
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.check-empty {
+  margin: 0;
+  color: var(--label-3);
+}
+.check-row summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--label-2);
+  font-size: var(--text-s);
+  list-style: none;
+}
+.check-row summary::-webkit-details-marker {
+  display: none;
+}
+.check-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--label-3);
+}
+.check-row.tone-ok .check-dot {
+  background: var(--green);
+}
+.check-row.tone-err .check-dot {
+  background: var(--red);
+}
+.check-label {
+  color: var(--label);
+  font-weight: var(--weight-semibold);
+}
+.check-kind,
+.check-detail {
+  color: var(--label-3);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+.check-row.tone-err .check-status {
+  color: var(--red-label);
+}
+.check-command,
+.check-output {
+  max-height: 160px;
+  margin: 4px 0 0 14px;
+  padding: 6px 9px;
+  overflow: auto;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-xs);
+  background: var(--code-bg);
+  color: var(--label-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.check-artifact {
+  margin: 4px 0 0 14px;
+  color: var(--label-3);
+}

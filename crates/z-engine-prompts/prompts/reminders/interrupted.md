@@ -1,0 +1,1 @@
+The user interrupted your previous response. It may be incomplete, and tool calls that had not finished were cancelled. Do not resume the interrupted work on your own: respond to the user's next message, and check the current state of any files you were changing before you continue.

@@ -1,0 +1,76 @@
+name: ci
+
+on:
+  push:
+    branches: [v2, release]
+  pull_request:
+
+# Hosted runners OOM / lose heartbeat when cargo builds and runs the full
+# suite at default parallelism (debuginfo + many engine integration tests).
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_BUILD_JOBS: "2"
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --exclude z-engine-gui --all-targets -- -D warnings
+      # Cap build and test threads so the runner stays under memory pressure.
+      - run: cargo test --workspace --exclude z-engine-gui -j 2 -- --test-threads=2
+      - name: Generated protocol TypeScript is committed
+        run: git diff --exit-code -- crates/z-engine-gui/ui/src/lib/protocol
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Documentation links resolve
+        run: python3 scripts/check_docs_links.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci --prefix website
+      - run: npm test --prefix website
+      - name: Documentation website builds (dead links fail it)
+        run: npm run build --prefix website
+
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-pc-windows-msvc
+            name: x64
+          - target: aarch64-pc-windows-msvc
+            name: arm64
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Windows-only code paths compile (${{ matrix.name }})
+        run: >-
+          cargo check --target ${{ matrix.target }} --all-targets
+          -p z-engine-protocol -p z-engine-llm -p z-engine-config -p z-engine-policy
+          -p z-engine-host -p z-engine-integrations -p z-engine-context -p z-engine-verify
+          -p z-engine-store -p z-engine-tools -p z-engine-engine
+
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - run: npm ci --prefix crates/z-engine-gui/ui
+      - run: npm test --prefix crates/z-engine-gui/ui

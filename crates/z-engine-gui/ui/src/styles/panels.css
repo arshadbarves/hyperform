@@ -1,0 +1,57 @@
+/* The full-window page (FullPage.svelte; Settings). The page is the window
+   (L0) with its own title bar and floating cards below it, inset by
+   --shell-gap like the app: the page brings them (Settings: an L2 nav
+   card and an L1 content sheet). It opens and closes as a sheet through
+   the `sheet` transition in motion.ts: transform and opacity only. */
+
+.full-page-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  background: var(--canvas);
+}
+.full-page {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  outline: none;
+}
+.full-page-bar {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 10px;
+  height: var(--titlebar-h);
+  flex-shrink: 0;
+  padding: 0 10px;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+/* Clearance for the system-drawn traffic lights. */
+html.plat-mac .full-page-bar {
+  padding-left: 84px;
+}
+.full-page-bar-side {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.full-page-title {
+  margin: 0 4px 0 2px;
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+  color: var(--label);
+}
+.full-page-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  gap: var(--shell-gap);
+  padding: 0 var(--shell-gap) var(--shell-gap);
+  overflow: hidden;
+}
+

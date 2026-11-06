@@ -1,0 +1,1 @@
+{{tool}} failed the same way again after your edit ({{count}} times now): the change did not fix it. Read the error again closely, check that your edit reached the code that fails, and form a new hypothesis before you edit again. Do not repeat the same fix.

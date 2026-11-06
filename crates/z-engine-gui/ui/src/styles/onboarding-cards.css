@@ -1,0 +1,148 @@
+/* Setup's result cards: the chosen project, the trust question, the
+   companion preview, and the first prompts on the last step. */
+
+.project-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+}
+.project-card-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--label-2);
+}
+.project-card-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+.project-card-name {
+  font-weight: var(--weight-semibold);
+}
+.project-card-path {
+  overflow: hidden;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-card-branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+
+.trust-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--amber-ring);
+  border-radius: var(--r-m);
+  background: var(--amber-soft);
+}
+.trust-card.is-answered {
+  border-color: var(--separator);
+  background: var(--fill-quiet);
+}
+.trust-icon {
+  display: inline-flex;
+  flex: none;
+  margin-top: 1px;
+  color: var(--amber);
+}
+.trust-card.is-answered .trust-icon {
+  color: var(--green);
+}
+.trust-text p {
+  margin: 0;
+}
+.trust-title {
+  font-weight: var(--weight-semibold);
+}
+.trust-desc {
+  margin-top: 3px !important;
+  color: var(--label-2);
+  line-height: 1.45;
+}
+.trust-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.pet-pick {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+}
+.pet-pick-preview {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+}
+.pet-pick-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-full);
+  background: var(--label-3);
+}
+.pet-pick-choices {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ready-starters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.ready-starter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 10px var(--space-3);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+  color: var(--label);
+  font: inherit;
+  text-align: left;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+.ready-starter:hover {
+  border-color: var(--separator-strong);
+  background: var(--fill-hover);
+}
+.ready-starter-title {
+  flex: 1;
+  font-weight: var(--weight-medium);
+}
+.ready-starter-go {
+  color: var(--label-3);
+  transition: translate var(--dur-fast) var(--ease-out);
+}
+.ready-starter:hover .ready-starter-go {
+  translate: 3px 0;
+  color: var(--label);
+}

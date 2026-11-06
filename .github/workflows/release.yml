@@ -1,0 +1,131 @@
+# Build desktop installers for macOS, Windows, and Linux on `release`.
+# Pull requests targeting `release` build artifacts only (no GitHub Release).
+name: release
+
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [release]
+  pull_request:
+    branches: [release]
+
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+permissions:
+  contents: write
+
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: --target aarch64-apple-darwin
+            os_name: macos-aarch64
+            target: aarch64-apple-darwin
+          - platform: macos-latest
+            args: --target x86_64-apple-darwin
+            os_name: macos-x86_64
+            target: x86_64-apple-darwin
+          - platform: ubuntu-22.04
+            args: ""
+            os_name: linux-x64
+            target: ""
+          - platform: windows-latest
+            args: ""
+            os_name: windows-x64
+            target: x86_64-pc-windows-msvc
+          - platform: windows-latest
+            args: --target aarch64-pc-windows-msvc
+            os_name: windows-arm64
+            target: aarch64-pc-windows-msvc
+
+
+    runs-on: ${{ matrix.platform }}
+
+
+    steps:
+      - uses: actions/checkout@v4
+
+
+      - name: Install Linux WebKitGTK
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev \
+            librsvg2-dev patchelf xdg-utils
+
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: crates/z-engine-gui/ui/package-lock.json
+
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target || (matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '') }}
+
+
+      - name: Cache Rust
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: . -> target
+
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: crates/z-engine-gui/ui
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: crates/z-engine-gui/ui
+
+
+      - name: Build GUI
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: crates/z-engine-gui/src-tauri
+          args: ${{ matrix.args }}
+          uploadUpdaterJson: true
+          # Prefer NSIS over WiX for Windows updater downloads when both exist.
+          updaterJsonPreferNsis: true
+          # PRs build installers as workflow artifacts; push/dispatch publishes.
+          tagName: ${{ github.event_name != 'pull_request' && 'v__VERSION__' || '' }}
+          releaseName: HyperForm AI v__VERSION__
+          releaseBody: Desktop installers and updates for macOS, Windows (x64 and ARM64), and Linux.
+          releaseDraft: false
+          prerelease: false
+
+
+      - name: Upload desktop artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyperform-desktop-${{ matrix.os_name }}
+          path: |
+            target/**/release/bundle/**/*.dmg
+            target/**/release/bundle/**/*.app.tar.gz
+            target/**/release/bundle/**/*.deb
+            target/**/release/bundle/**/*.rpm
+            target/**/release/bundle/**/*.AppImage
+            target/**/release/bundle/**/*.AppImage.tar.gz
+            target/**/release/bundle/**/*.exe
+            target/**/release/bundle/**/*.msi
+            target/**/release/bundle/**/*.nsis.zip
+            target/**/release/bundle/**/*.msi.zip
+            target/**/release/bundle/**/*.sig
+          if-no-files-found: error

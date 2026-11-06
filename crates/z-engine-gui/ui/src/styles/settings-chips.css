@@ -1,0 +1,119 @@
+/* Settings: string lists as chips, the add row, suggestion chips, and the
+   row-level remove action (a kit mini icon button that turns red). */
+
+.setting-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.setting-list-empty {
+  color: var(--label-3);
+  font-size: var(--text-s);
+}
+
+.setting-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 24px;
+  padding: 0 3px 0 10px;
+  background: var(--fill-quiet);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  color: var(--label);
+  font-size: var(--text-s);
+}
+
+.setting-chip.inherited {
+  padding-right: 10px;
+  background: transparent;
+  color: var(--label-2);
+}
+
+.setting-chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.setting-chip-source {
+  color: var(--label-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+}
+
+.setting-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-full);
+  background: transparent;
+  color: var(--label-3);
+  cursor: pointer;
+}
+
+.setting-chip-remove:hover:not(:disabled),
+.setting-remove:hover:not(:disabled) {
+  background: var(--tone-danger-soft);
+  color: var(--tone-danger-text);
+}
+
+.setting-add-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.setting-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* A suggestion: an outlined chip that adds itself; added ones go quiet. */
+.preset-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px dashed var(--separator-strong);
+  border-radius: var(--r-full);
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-s);
+  cursor: pointer;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.preset-chip-btn code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.preset-chip-btn:hover:not(:disabled) {
+  background: var(--fill-hover);
+  border-color: var(--separator-hover);
+  color: var(--label);
+}
+
+.preset-chip-btn.is-added {
+  border-style: solid;
+  border-color: var(--separator);
+  color: var(--label-3);
+  cursor: default;
+}
+
+.chip-icon-added {
+  color: var(--green);
+}

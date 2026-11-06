@@ -1,0 +1,1 @@
+{{tool}} keeps failing the same way ({{count}} times now), and the error looks transient (a timeout, a rate limit, a lock held by another process or a flaky network). Retry at most once more, after a short wait or in the background if it is slow. If it fails again, stop retrying and tell the user.

@@ -1,0 +1,72 @@
+/* Materials: one glass recipe at two strengths, the content sheet and the
+   edge blurs. Every value is a token (tokens.css) that turns solid under
+   Reduce Transparency, so nothing here needs its own fallback. Without a
+   native material (html.solid-surfaces) only the window turns solid; this
+   glass blurs content inside the window and works everywhere.
+
+     .glass         L2 · floating controls: sidebar card, panel card, composer, island
+     .glass-strong  L3 · popovers, menus, dialogs (.glass-thick / .glass-thin alias it)
+     .sheet         L1 · content                                                        */
+
+.glass {
+  --glass-fill: var(--l2-bg);
+  --glass-blur: var(--l2-filter);
+  --glass-rim: var(--l2-edge);
+  --glass-lift: var(--l2-highlight);
+  --glass-drop: var(--l2-shadow);
+  --glass-round: var(--l2-radius);
+}
+.glass-strong,
+.glass-thick,
+.glass-thin {
+  --glass-fill: var(--l3-bg);
+  --glass-blur: var(--l3-filter);
+  --glass-rim: var(--l3-edge);
+  --glass-lift: var(--l3-highlight);
+  --glass-drop: var(--l3-shadow);
+  --glass-round: var(--l3-radius);
+}
+
+/* Crisp glass: strong blur, a light fill, a fine bright rim, a highlight
+   along the top edge and a soft shadow beneath. */
+:where(.glass, .glass-strong, .glass-thick, .glass-thin) {
+  background: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-rim);
+  border-radius: var(--glass-round);
+  box-shadow: var(--glass-lift), var(--glass-drop);
+}
+
+.sheet {
+  background: var(--l1-bg);
+  border-radius: var(--l1-radius);
+  box-shadow: var(--l1-shadow);
+}
+
+/* Edge blur: where content scrolls under the title zone (top) or the
+   composer (bottom), it softens and dims behind a backdrop blur whose mask
+   fades toward the content. Put one inside the positioned parent of the
+   scroller, after it; size it with --edge-blur-size. */
+.edge-blur-top,
+.edge-blur-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: var(--edge-blur-size);
+  pointer-events: none;
+  background: var(--edge-blur-tint);
+  -webkit-backdrop-filter: var(--edge-blur-filter);
+  backdrop-filter: var(--edge-blur-filter);
+}
+.edge-blur-top {
+  top: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent);
+}
+.edge-blur-bottom {
+  bottom: 0;
+  -webkit-mask-image: linear-gradient(to top, #000 30%, transparent);
+  mask-image: linear-gradient(to top, #000 30%, transparent);
+}

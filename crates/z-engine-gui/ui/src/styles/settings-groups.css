@@ -1,0 +1,149 @@
+/* Settings: where a page saves ("Saving to"), titled groups (some fold),
+   the cards that hold rows, and the mark on a row a search jumped to. A
+   card is raised + hairline + r-m on the content sheet; a folding group is
+   itself such a card, its header a row and its cards flush inside it. */
+
+.scope-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  font-size: var(--text-s);
+  color: var(--label-3);
+}
+
+.scope-menu-trigger,
+.scope-menu-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  font: inherit;
+  font-size: var(--text-s);
+  font-weight: var(--weight-medium);
+  color: var(--label);
+  background: var(--fill-hover);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+}
+
+.scope-menu-trigger {
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.scope-menu-trigger:hover,
+.scope-menu-trigger[data-state="open"] {
+  background: var(--fill-press);
+}
+
+.scope-menu-list {
+  max-width: 340px;
+}
+
+.scope-menu-list .menu-item-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scope-menu-path {
+  margin: 0;
+  padding: 6px 10px 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+/* ── groups and cards ─────────────────────────────────────────────────── */
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.settings-group-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  text-align: left;
+}
+
+.settings-group-title {
+  margin: 0;
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+  color: var(--label);
+}
+
+.settings-group-sub {
+  font-size: var(--text-s);
+  line-height: 1.45;
+  color: var(--label-3);
+}
+
+.settings-card,
+.settings-group.is-folding {
+  background: var(--raised);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  overflow: hidden;
+}
+
+.settings-group.is-folding {
+  gap: 0;
+}
+
+.settings-group-summary {
+  align-items: flex-start;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.settings-group-summary:hover {
+  background: var(--fill-quiet);
+}
+
+.settings-group-summary:focus-visible {
+  outline-offset: -2px;
+}
+
+.settings-group-summary .disclosure-chevron {
+  margin-top: 3px;
+}
+
+.settings-group-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-group-body > .settings-card {
+  background: none;
+  border: none;
+  border-top: 1px solid var(--separator);
+  border-radius: 0;
+}
+
+.settings-group-body > :not(.settings-card) {
+  margin: 0 var(--space-4) var(--space-3);
+}
+
+/* A search result's row, marked for a moment after the jump; it fades back
+   to the row's own surface. */
+[data-setting].is-found {
+  animation: setting-found 1.8s var(--ease-out);
+}
+
+@keyframes setting-found {
+  0%,
+  40% {
+    background: var(--selection);
+  }
+}

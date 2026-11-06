@@ -1,0 +1,248 @@
+/* Small kit parts: disclosures, badges, pills, keys, rings, the selection
+   capsule and empty states. */
+
+/* Disclosure: the summary is one line; the body fades in without sliding. */
+.disclosure-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.disclosure-summary {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.disclosure-chevron {
+  display: inline-flex;
+  flex: none;
+  color: var(--label-3);
+  transition: rotate var(--dur-spring-snappy) var(--ease-spring-snappy);
+}
+.disclosure-summary[data-state="open"] .disclosure-chevron {
+  rotate: 90deg;
+}
+.disclosure-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+.disclosure-body {
+  animation: disclosure-in var(--dur-fast) var(--ease-out) both;
+}
+
+/* "There is an update": a small green dot beside what leads to it. */
+.update-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: var(--r-full);
+  background: var(--fill-press);
+  color: var(--label-2);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.badge.tone-attention {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.badge.tone-danger {
+  background: var(--red-soft);
+  color: var(--red-label);
+}
+.badge.tone-ok {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.badge.tone-info {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 5px;
+  border: 1px solid var(--separator);
+  border-radius: 5px;
+  background: var(--fill-quiet);
+  color: var(--label-3);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.ring {
+  flex: none;
+  fill: none;
+}
+.ring-track {
+  fill: none;
+  stroke: var(--separator-strong);
+}
+.ring-arc {
+  fill: none;
+  stroke: var(--label-2);
+  stroke-linecap: round;
+  transition:
+    stroke-dashoffset var(--dur-slow) var(--ease-out),
+    stroke var(--dur-fast) var(--ease-out);
+}
+.ring.tone-ok .ring-arc {
+  stroke: var(--green);
+}
+.ring.tone-working .ring-arc {
+  stroke: var(--label);
+}
+.ring.tone-warn .ring-arc {
+  stroke: var(--amber);
+}
+.ring.tone-danger .ring-arc {
+  stroke: var(--red);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 40px 24px;
+  text-align: center;
+}
+.empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 6px;
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+  border: 1px solid var(--separator);
+  color: var(--label-2);
+}
+.empty-state-title {
+  margin: 0;
+  font-size: var(--text-l);
+  font-weight: var(--weight-semibold);
+}
+.empty-state-desc {
+  max-width: 360px;
+  margin: 0;
+  color: var(--label-3);
+  line-height: 1.5;
+}
+.empty-state-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.empty-state-pet {
+  width: 72px;
+  height: 64px;
+  margin-bottom: 4px;
+}
+
+/* Pills (lib/ui/Pill.svelte): one quiet vocabulary for short tags on tools,
+   agents and interactions; `is-plain` is a status word with its dot only. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  padding: 0 7px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  line-height: 16px;
+  white-space: nowrap;
+}
+.pill-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: currentColor;
+}
+.pill.is-live .pill-dot {
+  animation: pulse-dot 1.4s var(--ease-inout) infinite;
+}
+.pill.tone-attention {
+  border-color: var(--amber-ring);
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.pill.tone-ok,
+.pill.tone-working {
+  border-color: var(--green-ring);
+  background: var(--green-soft);
+  color: var(--green);
+}
+.pill.tone-danger {
+  border-color: var(--red-ring);
+  background: var(--red-soft);
+  color: var(--red-label);
+}
+.pill.tone-info,
+.pill.tone-shell {
+  border-color: var(--blue-ring);
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+.pill.is-plain {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 10.5px;
+  line-height: inherit;
+}
+.pill.is-plain.tone-neutral {
+  color: var(--label-3);
+}
+.pill.is-plain.tone-danger {
+  color: var(--tone-danger-text);
+}
+
+/* Selection capsule (lib/ui/SelectionCapsule.svelte): the selected row's
+   fill, one element that slides to whichever row is selected. The slide is
+   a transform animation from its old box, so it scales from the top left. */
+.selection-capsule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: var(--r-s);
+  background: var(--fill-press);
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+.selection-capsule.is-placed {
+  transition: opacity var(--dur-fast) var(--ease-out);
+}

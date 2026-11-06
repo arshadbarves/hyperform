@@ -1,0 +1,24 @@
+[package]
+name = "z-engine-testkit"
+description = "Dev-only test support: scripted model client, fixture repos, event recorder, fake MCP servers"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+z-engine-protocol.workspace = true
+z-engine-llm.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+futures.workspace = true
+tempfile.workspace = true
+axum.workspace = true
+ulid.workspace = true
+
+[lints]
+workspace = true

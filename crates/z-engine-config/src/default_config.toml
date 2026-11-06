@@ -1,0 +1,161 @@
+# HyperForm AI settings (v2). Every key is optional: commented lines show the
+# default or an example. Project settings live in <project>/.hyperform/settings.toml
+# and personal project overrides in <project>/.hyperform/settings.local.toml.
+# A legacy config.toml or .z-engine folder is supported for seamless import.
+# API keys are stored in auth.json next to this file, never here.
+schema = 2
+
+# [model]
+# main = "anthropic/claude-sonnet-4.5"
+# fast = "..."                  # titles, summaries, quick subagents; default: main
+# review = "..."                # review agents; default: main
+# fallbacks = []                # tried in order on retryable failures
+# effort = "medium"             # low | medium | high | max; default: unset
+# max_output_tokens = 16384
+# context_window = 200000       # default: from the model catalog
+
+# [provider]
+# kind = "auto"                 # auto | openai_chat | anthropic
+# base_url = "https://openrouter.ai/api/v1"
+
+# [permissions]
+# mode = "default"              # default | acceptEdits | bypass ("plan" still reads as planning = true)
+# planning = false              # start new chats in plan mode
+# allow = ["Bash(cargo test:*)"]
+# ask = []
+# deny = ["Read(./.env)"]
+# additional_directories = []
+# auto_allow_read_only_bash = true
+
+# [context]
+# compact_at_percent = 92
+# keep_recent_tool_results = 8
+# repo_map = true
+# repo_map_chars = 6000
+
+# [agents]
+# max_concurrent = 6
+# max_depth = 2
+# max_turns = 200
+# session_cost_cap_usd = 0.0    # 0 disables the cap
+
+# [verification]
+# mode = "report"               # off | report | auto | strict
+# max_continuations = 3
+# auto_checks = ["test"]        # check kinds or check ids
+#
+# [[verification.checks]]
+# id = "unit"
+# label = "Unit tests"
+# command = "cargo test"
+# kind = "test"
+# timeout_secs = 600
+
+# [[hooks.PreToolUse]]
+# matcher = "Bash"
+# command = "./scripts/check-command.sh"
+# timeout_secs = 60
+
+# [mcp.servers.filesystem]
+# command = "npx"
+# args = ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+# [lsp]
+# enabled = true
+# [lsp.servers.rust]
+# command = "rust-analyzer"
+# extensions = ["rs"]
+# root_markers = ["Cargo.toml"]
+
+# [web]
+# search_backend = "none"       # none | brave | tavily | exa | searxng
+# fetch_extract = true          # let the fast model answer WebFetch's question about the page
+# allow_private_network = false
+
+# [shell]
+# env_passthrough = []
+
+# Runs Bash commands, background shells and checks in an OS sandbox
+# (macOS: sandbox-exec, Linux: bubblewrap; unavailable on Windows). Commands
+# may write only inside the project, additional_directories, temp
+# directories, existing tool caches (~/.cargo/registry, ~/.cargo/git,
+# ~/.npm, ~/.cache, ~/.gradle, ~/.m2, ~/Library/Caches on macOS) and
+# extra_writable. Deny and ask rules and plan mode still apply.
+# [shell.sandbox]
+# enabled = false
+# allow_network = false         # off: only localhost is reachable
+# extra_writable = []           # e.g. ["~/scratch"]; relative to the project
+# auto_allow = true             # run sandboxed commands without asking
+
+# [ui]
+# task_report_view = "quiet"    # quiet | compact | detailed
+# companion = "lively"          # lively | calm | off  (how much the pet reacts)
+
+# The pet that lives in the title bar. It levels up as tasks finish; its
+# growth is kept in <data dir>/pet.json, not here.
+# [ui.pet]
+# name = "Zen"                  # up to 24 characters
+# look = "pearl"                # pearl | mint | sky | lilac | peach | graphite
+# roam = true                   # at the lively level, walk onto the composer and panels
+
+# [compat]
+# claude = true                 # also read .claude/ folders and CLAUDE.md
+
+# Experimental features, one mode each: off (default) | shadow (runs and
+# records what it would do, never acts) | on. Settings > Experimental lists
+# the features this version has built; other ids stay off.
+# [experimental]
+# decisions_compaction = "shadow"
+
+# Work plans (work_plans = "on"; no shadow mode): tasks with acceptance
+# criteria, decisions and evidence, kept in <data dir>/plans/.
+# [work]
+# packet_tokens = 4000          # estimated tokens for one task packet, 500 to 32000
+# sensitive_paths = ["src/auth/**", "migrations/**"]  # scopes that suggest planning deeply
+# max_attempts = 3              # times an agent may start one task, 1 to 20
+# Parallel tasks (work_parallel = "on", needs work_plans): independent tasks
+# of an approved plan run at once in helpers, each in its own worktree.
+# max_parallel = 3              # helpers at once, 1 to 16; never more than agents.max_concurrent
+# merge = "ask"                 # "ask": apply each change yourself; "auto": apply clean merges
+#                               # ("auto" from an untrusted project's settings is ignored)
+# serial_paths = ["**/Cargo.lock", "**/package.json", "db/schema.sql"]  # tasks naming these run alone
+#                               # default: lockfiles, package manifests, generated output
+
+# The small model the decisions_* features ask (laya-serve or Jev). Any
+# slow, missing or unsure answer keeps today's behavior.
+# [decisions]
+# endpoint = "http://127.0.0.1:8000"  # loopback only unless allow_remote
+# api_key_env = "LAYA_API_KEY"  # variable holding the endpoint's key; default: none
+# checkpoint = "multilingual"
+# max_len = 1024                # tokens read per question, 128 to 8192
+# timeout_ms = 250              # 50 to 10000; slower answers count as none
+# threshold = 0.8               # confidence needed to act, 0 to 1
+# max_batch = 16                # questions per request, 1 to 64
+# allow_remote = false
+# runtime = "sidecar"           # sidecar (laya-serve at endpoint) | native (in-process; needs
+#                               # an app built with the onnx feature and the model downloaded in
+#                               # Settings to <data dir>/models/laya/<revision>/)
+# record_dataset = false        # append inputs and answers to <data dir>/decisions/dataset/
+# [decisions.sidecar]
+# command = "laya-serve"        # started on a free local port with a new key; replaces endpoint
+# [decisions.calibration.connection_probe]
+# temperature = 1.0             # above 1 softens an over-confident question
+# threshold = 0.9               # default: decisions.threshold
+# [decisions.prefetch]          # decisions_prefetch: files attached at a task start
+# max_files = 3                 # 1 to 10
+# max_tokens = 6000             # estimated tokens for all attached files, 500 to 50000
+# [decisions.routing]           # decisions_routing: effort (and model) chosen once per task
+# allow_model_switch = false    # also choose between model.main and model.fast
+# [decisions.loop_guard]        # decisions_loop_guard: reminders when the agent repeats itself
+# max_reminders = 3             # reminders per turn before you are asked, 1 to 10
+# [decisions.task_view]         # decisions_task_view: earlier exchanges set aside for a new task
+# keep_recent_exchanges = 2     # newest exchanges that always stay, 1 to 20
+# [[decisions.rules]]           # decisions_custom_rules: your own questions; user and
+#                               # project rules add up (project rules only when trusted)
+# name = "prod"                 # optional label
+# event = "PreToolUse"          # PreToolUse | UserPromptSubmit
+# matcher = "Bash"              # PreToolUse only: tool name regex, like hooks; default: all
+# question = "Does this command touch production?"
+# options = []                  # empty: yes/no; else 2 to 20 choices
+# when = ["yes"]                # answers that fire the rule; default: yes (or the first option)
+# action = "ask"                # ask (approval before an allowed call) | notice | remind

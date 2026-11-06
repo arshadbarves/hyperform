@@ -1,0 +1,261 @@
+/* Helpers, one line each: the same summary in the transcript and in the
+   agents panel, and the cards for work that waits to be applied or is
+   kept for an interrupted task. */
+
+/* ── ready to apply, kept for a task ──────────────────────────────────── */
+
+.apply-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--raised-2);
+  border: 1px solid var(--separator-strong);
+  border-radius: var(--r-s);
+}
+
+.apply-card.worktree-conflicted {
+  border-color: var(--tone-attention-ring);
+}
+
+.apply-card-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.apply-card-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--label);
+}
+
+.apply-card-main:hover .apply-card-title {
+  text-decoration: underline;
+  text-decoration-color: var(--separator-strong);
+}
+
+.apply-card-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--label-3);
+}
+
+.apply-card-note {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--tone-attention);
+}
+
+/* Kept for an interrupted plan task: the task it waits for, then how it resumes. */
+.apply-card-task {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  font-size: 11.5px;
+  text-align: left;
+  cursor: pointer;
+}
+.apply-card-task > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.apply-card-task:hover > span {
+  text-decoration: underline;
+}
+.apply-card-hint {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--label-3);
+}
+
+.apply-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.apply-card-actions button {
+  height: 26px;
+  padding: 0 11px;
+  font-size: 11.5px;
+}
+
+/* ── helpers: one summary, a card in the transcript (is-line) and a row
+   in the agents panel's tree (is-row) ──────────────────────────────── */
+
+.agent-summary.is-line {
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--fill-quiet);
+}
+.agent-summary.is-line.status-running,
+.agent-summary.is-line.status-waiting {
+  border-color: var(--separator-strong);
+}
+.agent-summary.is-line.status-failed {
+  border-color: var(--red-ring);
+}
+.agent-summary.is-line .disclosure-head {
+  padding-right: 6px;
+}
+.agent-summary.is-row {
+  margin-left: calc(var(--depth, 0) * 14px);
+  padding: 2px 4px 2px 8px;
+  border-radius: var(--r-s);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.agent-summary.is-row:hover {
+  background: var(--fill-hover);
+}
+.agent-summary-head {
+  gap: 8px;
+  min-height: 30px;
+  font-size: 12px;
+}
+.is-line .agent-summary-head {
+  min-height: 36px;
+  padding: 6px 4px 6px 10px;
+}
+.agent-summary-type {
+  flex: none;
+  color: var(--label);
+  font-weight: var(--weight-semibold);
+}
+.is-line .agent-summary-type {
+  font-family: var(--font-mono);
+  font-size: var(--text-s);
+}
+.agent-summary-desc {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--label-2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.agent-summary-time {
+  flex: none;
+  color: var(--label-3);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+}
+.agent-summary-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: none;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+.is-line .agent-summary-open {
+  padding: 0 9px;
+  border: 1px solid var(--separator-strong);
+  border-radius: var(--r-full);
+  color: var(--label-2);
+}
+.agent-summary-open:hover {
+  background: var(--fill-press);
+  color: var(--label);
+}
+.agent-summary-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 0 8px 26px;
+}
+.is-line .agent-summary-detail {
+  padding: 0 12px 10px 38px;
+}
+.agent-summary-meta,
+.job-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--label-3);
+}
+.agent-summary-note,
+.agent-row-note {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--label-2);
+}
+.agent-summary-note.is-error,
+.agent-row-note.is-error {
+  color: var(--tone-danger-text);
+}
+.agent-summary-now {
+  margin: -2px 0 4px 26px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11.5px;
+  color: var(--label-3);
+  animation: live-breathe 2.4s ease-in-out infinite;
+}
+/* The plan task a helper was sent for; it opens the task in the Plan tab. */
+.agent-summary-task {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: calc(100% - 26px);
+  margin: -2px 0 4px 26px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  font-size: 11.5px;
+  text-align: left;
+  cursor: pointer;
+}
+.agent-summary-task > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.agent-summary-task:disabled {
+  cursor: default;
+}
+.agent-summary-task:not(:disabled):hover > span {
+  text-decoration: underline;
+}
+.is-line .agent-summary-task {
+  max-width: calc(100% - 36px);
+  margin: -4px 0 8px 36px;
+}

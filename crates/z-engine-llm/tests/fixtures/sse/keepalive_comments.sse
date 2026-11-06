@@ -1,0 +1,14 @@
+: OPENROUTER PROCESSING
+
+data: {"choices":[{"index":0,"delta":{"role":"assistant"},"finish_reason":null}]}
+
+: OPENROUTER PROCESSING
+
+data: {"choices":[{"index":0,"delta":{"content":"ok"},"finish_reason":null}]}
+
+: OPENROUTER PROCESSING
+
+data: {"choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}
+
+data: [DONE]
+

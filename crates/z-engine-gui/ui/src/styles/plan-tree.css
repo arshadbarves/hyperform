@@ -1,0 +1,331 @@
+/* The Plan tab's tasks (TaskTree, TaskRow), a task's detail (TaskDetail,
+   TaskCriteria, TaskWhy); the notebook is in plan-view.css, a task's
+   Result and the run surfaces in plan-run.css.
+   Status colors come from the tone tokens; the accent marks only the
+   selected row. */
+
+.task-tree {
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+.task-tree-empty,
+.task-note {
+  margin: 0;
+  font-size: var(--text-s);
+  color: var(--label-3);
+}
+.task-tree-empty {
+  padding: 18px 8px;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 8px 0 calc(4px + var(--depth, 0) * 16px);
+  border-radius: var(--r-s);
+  color: var(--label);
+  font-size: var(--text-s);
+  cursor: default;
+  outline: none;
+}
+.task-row:hover {
+  background: var(--fill-hover);
+}
+.task-row:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
+}
+.task-row.is-selected {
+  background: var(--accent-soft);
+}
+.task-row.is-done .task-row-title {
+  color: var(--label-3);
+}
+.task-row-fold {
+  display: inline-flex;
+  flex: 0 0 14px;
+  justify-content: center;
+  color: var(--label-3);
+  transition: rotate var(--dur-fast) var(--ease-out);
+}
+.task-row-fold.is-open {
+  rotate: 90deg;
+}
+.task-row-fold.is-locked {
+  opacity: 0.5;
+}
+.task-row-glyph {
+  display: inline-flex;
+  flex: none;
+  color: var(--label-3);
+}
+.task-row-glyph.is-live svg {
+  animation: spin 1.4s linear infinite;
+}
+.tone-working .task-row-glyph,
+.tone-ok .task-row-glyph {
+  color: var(--tone-working);
+}
+.tone-attention .task-row-glyph {
+  color: var(--tone-attention);
+}
+.tone-danger .task-row-glyph {
+  color: var(--tone-danger-text);
+}
+.task-row-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.task-row-badge,
+.task-row-aside {
+  flex-shrink: 0;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--label-3);
+}
+.task-row.tone-danger .task-row-aside {
+  color: var(--tone-danger-text);
+}
+.task-row.tone-attention .task-row-aside {
+  color: var(--tone-attention);
+}
+.task-tree-replaced,
+.task-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-xs);
+  text-align: left;
+  cursor: pointer;
+}
+.task-tree-replaced {
+  align-self: flex-start;
+  margin: 4px 8px 0;
+  color: var(--label-3);
+}
+.task-link:hover,
+.task-tree-replaced:hover {
+  color: var(--label);
+  text-decoration: underline;
+}
+
+.task-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 16px 18px;
+}
+.task-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+}
+.task-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+  font-size: var(--text-xs);
+  color: var(--label-4);
+}
+.task-detail-title {
+  margin: 0;
+  font-size: var(--text-l);
+  font-weight: var(--weight-semibold);
+  line-height: 1.35;
+  color: var(--label);
+}
+.task-detail-rename {
+  font-size: var(--text-m);
+}
+.task-detail-meta,
+.task-detail-deps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.task-detail-why {
+  margin: 0;
+  font-size: var(--text-s);
+  color: var(--label-2);
+}
+.task-detail-why.tone-danger {
+  color: var(--tone-danger-text);
+}
+.task-detail-why.tone-attention {
+  color: var(--tone-attention);
+}
+.task-detail-proposal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+.task-detail-proposal .task-detail-why {
+  flex: 1 1 100%;
+}
+.task-row-accept {
+  flex-shrink: 0;
+  color: var(--tone-attention);
+}
+.task-detail-text {
+  font-size: var(--text-s);
+}
+.task-detail-packet {
+  align-self: flex-start;
+}
+.task-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.task-plain-list {
+  margin: 0;
+  padding-left: 16px;
+  font-size: var(--text-s);
+  color: var(--label-2);
+}
+.task-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.task-chip {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 2px 7px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-xs);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+button.task-chip {
+  cursor: pointer;
+}
+button.task-chip:hover {
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.task-chip.is-symbol {
+  color: var(--label-3);
+}
+
+.task-criteria,
+.task-evidence,
+.task-why-steps {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.task-criteria {
+  gap: 8px;
+}
+.task-criterion {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 8px;
+  border-left: 2px solid var(--separator-strong);
+}
+.task-criterion.tone-ok {
+  border-left-color: var(--tone-working);
+}
+.task-criterion.tone-danger {
+  border-left-color: var(--tone-danger-ring);
+}
+.task-criterion-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.task-criterion-text {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-s);
+  color: var(--label);
+}
+.task-criterion-meta {
+  display: flex;
+  gap: 10px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.task-evidence {
+  gap: 2px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.task-evidence li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+}
+.task-evidence li.is-failed .task-evidence-text {
+  color: var(--tone-danger-text);
+}
+.task-evidence-time {
+  font-variant-numeric: tabular-nums;
+}
+.task-evidence-stale {
+  color: var(--tone-attention);
+}
+
+.task-why-steps {
+  gap: 8px;
+  margin-top: 8px;
+  padding-left: 10px;
+  border-left: 1px solid var(--separator);
+}
+.task-why-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+  font-size: var(--text-s);
+  color: var(--label);
+}
+.task-why-who {
+  font-weight: var(--weight-medium);
+}
+.task-why-when {
+  font-size: var(--text-xs);
+  color: var(--label-4);
+}
+.task-why-detail {
+  margin: 1px 0 0;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.task-why .task-note,
+.task-notes .notebook-entry-facts {
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-row-glyph.is-live svg {
+    animation: none;
+  }
+}

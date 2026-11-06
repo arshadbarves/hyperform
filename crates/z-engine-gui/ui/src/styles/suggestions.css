@@ -1,0 +1,19 @@
+/* Suggestion cards decision uses offer under the transcript: plan first,
+   save a standing rule, run a review (the card itself is in interaction.css). */
+
+.suggestion-text {
+  margin: 0;
+  color: var(--label-2);
+  line-height: 1.5;
+}
+.suggestion-text code {
+  font-size: var(--text-xs);
+}
+.suggestion-rule {
+  margin: 0;
+  padding: 2px 0 2px 10px;
+  border-left: 2px solid var(--separator-hover);
+  color: var(--label);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}

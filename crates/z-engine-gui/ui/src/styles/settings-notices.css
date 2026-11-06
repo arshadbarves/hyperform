@@ -1,0 +1,119 @@
+/* Settings: notices at the top of a page, the trust note, and quiet notes.
+   Notices are r-s inline banners: danger and attention use their tones,
+   plain information stays neutral. */
+
+.settings-notices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.settings-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+  font-size: var(--text-s);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.settings-notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.settings-notice.error {
+  background: var(--tone-danger-soft);
+  border-color: var(--tone-danger-ring);
+  color: var(--tone-danger-text);
+}
+
+.settings-notice.warn {
+  background: var(--tone-attention-soft);
+  border-color: var(--tone-attention-ring);
+}
+
+.settings-notice.warn svg {
+  color: var(--tone-attention);
+}
+
+.settings-notice code {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.settings-notice-action,
+.settings-notices-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.settings-notice-action:hover,
+.settings-notices-more:hover {
+  color: var(--label);
+}
+
+.settings-notices-more {
+  align-self: flex-start;
+  margin-left: 0;
+  color: var(--label-3);
+}
+
+.trust-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--tone-attention-soft);
+  border: 1px solid var(--tone-attention-ring);
+  border-radius: var(--r-m);
+  color: var(--tone-attention);
+}
+
+.trust-note-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  color: var(--label-2);
+  font-size: var(--text-s);
+}
+
+.trust-note-copy strong {
+  color: var(--label);
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+}
+
+/* A quiet explanatory line under a page's controls. */
+.form-note {
+  margin: 0;
+  font-size: var(--text-s);
+  line-height: 1.5;
+  color: var(--label-3);
+}
+
+.form-note code {
+  padding: 1px 4px;
+  border-radius: var(--r-xs);
+  background: var(--fill-hover);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}

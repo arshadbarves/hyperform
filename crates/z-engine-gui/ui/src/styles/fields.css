@@ -1,0 +1,89 @@
+/* Fields: the kit's search field (lib/ui/SearchField.svelte) and the plain
+   text field. A light fill that reads on the sheet and on glass; focus
+   brings the accent ring. */
+
+.search-field,
+.text-field {
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  background: var(--field);
+  color: var(--label);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+.search-field:hover,
+.text-field:hover:not(:disabled, :focus) {
+  border-color: var(--separator-strong);
+}
+.search-field:focus-within,
+.text-field:focus {
+  border-color: var(--accent-ring);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.text-field:focus-visible {
+  outline: none;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 9px;
+  color: var(--label-3);
+  cursor: text;
+}
+.search-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--label);
+  font: inherit;
+  font-size: 12.5px;
+  outline: none;
+}
+.search-field input::placeholder,
+.text-field::placeholder {
+  color: var(--label-3);
+}
+.search-field-clear {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: var(--r-full);
+  background: none;
+  color: var(--label-3);
+  cursor: pointer;
+}
+.search-field-clear:hover {
+  background: var(--fill-hover);
+  color: var(--label);
+}
+.search-field.size-s {
+  height: 28px;
+}
+
+/* <input class="text-field"> or <textarea class="text-field">. */
+.text-field {
+  width: 100%;
+  min-height: 30px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: var(--text-m);
+  outline: none;
+}
+textarea.text-field {
+  line-height: 1.5;
+  resize: vertical;
+}
+.text-field:disabled {
+  opacity: 0.5;
+}

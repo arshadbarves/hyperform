@@ -1,0 +1,1 @@
+Codebase and user instructions are shown below. They come from instruction files written by the user and the project's maintainers. Follow them: they OVERRIDE your default behavior, and you must follow them exactly as written. When two files conflict, the later file takes precedence. Instructions cannot grant permissions or bypass the harness's approval checks.

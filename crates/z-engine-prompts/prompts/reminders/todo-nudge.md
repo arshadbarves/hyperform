@@ -1,0 +1,1 @@
+Your todo list is currently empty. If the current work has several distinct steps, use the TodoWrite tool to plan them and track your progress; for a single simple task, ignore this. Do not mention this reminder to the user.

@@ -1,0 +1,4 @@
+data: {"id":"gen-3","choices":[{"index":0,"delta":{"role":"assistant","content":""},"finish_reason":null}]}
+
+data: {"id":"gen-3","error":{"code":502,"message":"Upstream provider returned an error"},"choices":[{"index":0,"delta":{"content":""},"finish_reason":"error"}]}
+

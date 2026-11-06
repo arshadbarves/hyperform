@@ -1,0 +1,251 @@
+/* Design tokens. Dark only, no gradients; every token is semantic.
+
+   Four layers, back to front:
+     L0 --l0-*  the window: the native material (html.native-glass) or solid
+     L1 --l1-*  content (chat, diffs, plans, settings panes): near-opaque
+     L2 --l2-*  floating glass: sidebar card, panel card, composer, island
+     L3 --l3-*  popover glass: menus, popovers, tooltips, dialogs
+   materials.css turns them into .sheet (L1), .glass (L2), .glass-strong (L3). */
+
+:root {
+  color-scheme: dark;
+
+  --l0-bg: #0e0e10;
+
+  --l1-bg: rgba(20, 20, 23, 0.97);
+  --l1-edge: rgba(255, 255, 255, 0.06);
+  --l1-shadow: 0 0 0 1px var(--l1-edge), 0 12px 40px rgba(0, 0, 0, 0.34);
+  --l1-radius: 16px;
+
+  --l2-bg: rgba(30, 30, 34, 0.55);
+  --l2-filter: blur(36px) saturate(180%);
+  --l2-edge: rgba(255, 255, 255, 0.09);
+  --l2-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --l2-shadow: 0 12px 32px rgba(0, 0, 0, 0.36), 0 1px 3px rgba(0, 0, 0, 0.28);
+  --l2-radius: 16px;
+
+  --l3-bg: rgba(34, 34, 39, 0.74);
+  --l3-filter: blur(40px) saturate(190%);
+  --l3-edge: rgba(255, 255, 255, 0.11);
+  --l3-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --l3-shadow: 0 24px 64px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
+  --l3-radius: 14px;
+
+  /* Edge blur: content softening where it scrolls under the title zone or
+     the composer (.edge-blur-top / .edge-blur-bottom); set the size per use. */
+  --edge-blur-size: 32px;
+  --edge-blur-filter: blur(10px) saturate(160%);
+  --edge-blur-tint: rgba(20, 20, 23, 0.55);
+
+  /* What every material turns into when nothing may show through. */
+  --solid-l1: #141417;
+  --solid-l2: #1c1c20;
+  --solid-l3: #222227;
+
+  /* neutrals: canvas is L0, sheet is solid L1 (for sticky headers and
+     anything that must hide what scrolls beneath it), raised sits on it */
+  --canvas: var(--l0-bg);
+  --sheet: var(--solid-l1);
+  --raised: #1b1b1f;
+  --raised-2: #222226;
+  --raised-3: #2c2c31;
+  --raised-3-hover: #36363c;
+  --field: rgba(255, 255, 255, 0.045);
+
+  --label: #f5f5f7;
+  --label-2: #a8a8ae;
+  --label-3: #76767d;
+  --label-4: #4e4e54;
+
+  --separator: rgba(255, 255, 255, 0.07);
+  --separator-strong: rgba(255, 255, 255, 0.12);
+  --separator-hover: rgba(255, 255, 255, 0.2);
+  --fill-quiet: rgba(255, 255, 255, 0.035);
+  --fill-hover: rgba(255, 255, 255, 0.065);
+  --fill-press: rgba(255, 255, 255, 0.1);
+  --shimmer: rgba(255, 255, 255, 0.04);
+  --scrollbar: rgba(255, 255, 255, 0.1);
+  --scrollbar-hover: rgba(255, 255, 255, 0.18);
+
+  /* the one accent: selection, focus and the primary action; every other
+     color means status (--tone-*) */
+  --accent: #3b82f6;
+  --accent-hover: #5592f8;
+  --accent-press: #2f6fe0;
+  --accent-soft: rgba(59, 130, 246, 0.16);
+  --accent-ring: rgba(59, 130, 246, 0.45);
+  --on-accent: #ffffff;
+  --focus-ring: rgba(84, 148, 255, 0.72);
+  --selection: rgba(59, 130, 246, 0.3);
+
+  --green: #30d158;
+  --green-soft: rgba(48, 209, 88, 0.14);
+  --green-ring: rgba(48, 209, 88, 0.3);
+  --amber: #ff9f0a;
+  --amber-soft: rgba(255, 159, 10, 0.14);
+  --amber-ring: rgba(255, 159, 10, 0.32);
+  --red: #ff453a;
+  --red-label: #ff8a80;
+  --red-soft: rgba(255, 69, 58, 0.14);
+  --red-soft-strong: rgba(255, 69, 58, 0.22);
+  --red-ring: rgba(255, 69, 58, 0.3);
+  --red-ring-strong: rgba(255, 69, 58, 0.5);
+  --red-hover: #ff5b51;
+  --blue: #0a84ff;
+  --blue-soft: rgba(10, 132, 255, 0.14);
+  --blue-ring: rgba(10, 132, 255, 0.32);
+  --link: #8ab4ff;
+  --link-underline: rgba(138, 180, 255, 0.35);
+  --on-color: #ffffff;
+
+  /* the glass under its everyday names: --glass is L2, --glass-strong L3 */
+  --glass: var(--l2-bg);
+  --glass-strong: var(--l3-bg);
+  --glass-sheen: var(--l2-highlight);
+  /* the title zone over the window material (onboarding's backdrop) */
+  --glass-chrome: rgba(14, 14, 16, 0.4);
+
+  /* the pet: a pearl body in the look you pick; its aura carries the status tone */
+  --pet-light: #ffffff;
+  --pet-shade: #7b8193;
+  --pet-rim: rgba(255, 255, 255, 0.42);
+  --pet-eye: #14151a;
+  --pet-blush: #ff8fa3;
+  --pet-pearl: #eceef4;
+  --pet-mint: #b8f0d8;
+  --pet-sky: #bcd9ff;
+  --pet-lilac: #d9c8ff;
+  --pet-peach: #ffd2b8;
+  --pet-graphite: #8e929e;
+  --pet-leaf: #7ad694;
+  --pet-leaf-light: #9ae3ad;
+  --pet-stem: #5fbf7a;
+  --pet-scarf: #ff6b6b;
+  --pet-scarf-shade: #e85a5a;
+  --pet-gold: #ffd76a;
+
+  /* Windows caption buttons */
+  --caption-glyph: #c8c8cc;
+  --caption-glyph-hover: #f0f0f2;
+  --caption-close: #e81123;
+  --caption-close-press: #bf0f1d;
+
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --elev-2: var(--l2-shadow);
+  --sheet-shadow: var(--l1-shadow);
+
+  --r-xs: 6px;
+  --r-s: 8px;
+  --r-m: 12px;
+  --r-l: 16px;
+  --r-xl: 20px;
+  --r-full: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI Variable", "Segoe UI",
+    system-ui, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "Cascadia Code", Menlo, Monaco, Consolas, monospace;
+  /* the pet's name and its level */
+  --font-rounded: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display",
+    system-ui, sans-serif;
+  --text-xs: 11px;
+  --text-s: 12px;
+  --text-m: 13px;
+  --text-l: 15px;
+  --text-xl: 20px;
+  --text-2xl: 26px;
+  --weight-medium: 510;
+  --weight-semibold: 590;
+  --tracking: -0.012em;
+
+  /* transcript and composer share one reading column */
+  --measure-chat: 720px;
+  --gutter-chat: 24px;
+  --column-chat: calc(var(--measure-chat) + var(--gutter-chat) * 2);
+  --turn-gap: 22px;
+
+  --titlebar-h: 44px;
+  /* floating cards sit this far in from the window edges and each other */
+  --shell-gap: 8px;
+  --sidebar-w: 264px;
+
+  /* the title-bar island and its satellites */
+  --island-h: 30px;
+  --island-min: 132px;
+  --island-max: 560px;
+
+  /* the floating composer (L2) */
+  --composer-radius: 20px;
+
+  /* diffs: added, removed, hunk headers */
+  --diff-add: rgba(48, 209, 88, 0.09);
+  --diff-add-mark: rgba(48, 209, 88, 0.32);
+  --diff-add-text: #7ee2a0;
+  --diff-del: rgba(255, 69, 58, 0.09);
+  --diff-del-mark: rgba(255, 69, 58, 0.32);
+  --diff-del-text: #ff9d95;
+  --diff-hunk: rgba(10, 132, 255, 0.07);
+
+  /* syntax colours: quiet accents on the dark sheet */
+  --code-bg: #111113;
+  --code-text: #d8d8de;
+  --syn-keyword: #c792ea;
+  --syn-type: #ffcb6b;
+  --syn-string: #c3e88d;
+  --syn-number: #f78c6c;
+  --syn-comment: #6a6a72;
+  --syn-function: #82aaff;
+  --syn-variable: #f07178;
+  --syn-meta: #89ddff;
+
+  /* context layers, one hue each (legend, bars and the prompt inspector) */
+  --layer-system: #8b8b96;
+  --layer-tools: #a78bfa;
+  --layer-instructions: #7c85e0;
+  --layer-messages: #f0a090;
+}
+
+/* No native material (Windows 10, Linux): only the window (L0) turns
+   solid. The glass inside the window still blurs the content behind it. */
+html.solid-surfaces {
+  --glass-chrome: var(--l0-bg);
+}
+
+/* Reduce Transparency: every material turns solid. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --l1-bg: var(--solid-l1);
+    --l2-bg: var(--solid-l2);
+    --l2-filter: none;
+    --l3-bg: var(--solid-l3);
+    --l3-filter: none;
+    --edge-blur-filter: none;
+    --edge-blur-tint: rgba(20, 20, 23, 0.9);
+    --glass-chrome: var(--l0-bg);
+  }
+}
+
+/* Status tones: what a color means (live work, needs you, failed, your shell). */
+:root {
+  --tone-working: var(--green);
+  --tone-working-soft: var(--green-soft);
+  --tone-working-ring: var(--green-ring);
+  --tone-attention: var(--amber);
+  --tone-attention-soft: var(--amber-soft);
+  --tone-attention-ring: var(--amber-ring);
+  --tone-danger-soft: var(--red-soft);
+  --tone-danger-soft-hover: var(--red-soft-strong);
+  --tone-danger-ring: var(--red-ring);
+  --tone-danger-ring-hover: var(--red-ring-strong);
+  --tone-danger-text: var(--red-label);
+  --tone-shell: var(--blue);
+  --tone-shell-soft: var(--blue-soft);
+  --tone-shell-ring: var(--blue-ring);
+}

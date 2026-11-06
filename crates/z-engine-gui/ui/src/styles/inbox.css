@@ -1,0 +1,174 @@
+/* The Activity inbox: one reading column, sections by urgency. Notices
+   wrap in full; long ones fold after four lines. Items are the settings
+   cards' treatment (raised, hairline, r-m); it settles in on the smooth
+   spring. */
+
+.inbox-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+.inbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: var(--column-chat);
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter-chat) 48px;
+  animation: sheet-in var(--dur-spring-smooth) var(--ease-spring-smooth) backwards;
+}
+.inbox-title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+.inbox-sub {
+  margin: var(--space-1) 0 0;
+  color: var(--label-3);
+}
+.inbox-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.inbox-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.inbox-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--label-2);
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+}
+.inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.inbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--raised);
+}
+.inbox-item.is-attention {
+  border-color: var(--amber-ring);
+  box-shadow: inset 3px 0 0 var(--amber);
+}
+.inbox-item.is-notice {
+  padding-block: 10px;
+  background: transparent;
+}
+.inbox-item.is-unread {
+  background: var(--fill-quiet);
+}
+.inbox-icon {
+  display: inline-flex;
+  flex: none;
+  margin-top: 1px;
+  color: var(--amber);
+}
+.inbox-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: var(--r-full);
+  background: var(--label-4);
+}
+.inbox-dot.tone-ok {
+  background: var(--green);
+}
+.inbox-dot.tone-danger,
+.inbox-dot.tone-error {
+  background: var(--red);
+}
+.inbox-dot.tone-warn {
+  background: var(--amber);
+}
+.inbox-dot.tone-info,
+.inbox-dot.tone-neutral {
+  background: var(--label-3);
+}
+.inbox-body {
+  flex: 1;
+  min-width: 0;
+}
+.inbox-item-title {
+  margin: 0;
+  font-weight: var(--weight-semibold);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.inbox-item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 3px 0 0;
+  color: var(--label-3);
+  font-size: var(--text-xs);
+}
+.inbox-item-detail {
+  color: var(--label-3);
+}
+.inbox-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: none;
+}
+.inbox-notice-text {
+  margin: 0;
+  color: var(--label);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.inbox-item.tone-info .inbox-notice-text,
+.inbox-item.tone-ok .inbox-notice-text {
+  color: var(--label-2);
+}
+.inbox-notice-text.is-folded {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+.inbox-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+}
+.inbox-link:hover {
+  color: var(--label);
+  text-decoration: underline;
+}
+.inbox-copy {
+  opacity: 0;
+}
+.inbox-item:hover .inbox-copy,
+.inbox-copy:focus-visible {
+  opacity: 1;
+}
+.inbox-none {
+  padding: var(--space-3) var(--space-4);
+  color: var(--label-3);
+  font-size: var(--text-s);
+}

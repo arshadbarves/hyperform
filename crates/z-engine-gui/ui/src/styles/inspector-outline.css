@@ -1,0 +1,96 @@
+/* ── Prompt inspector: the outline of the request's parts ─────────────── */
+
+.inspector-outline {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inspector-outline-count,
+.inspector-outline-empty {
+  margin: 0;
+  padding: 0 4px;
+  font-size: 11.5px;
+  color: var(--label-3);
+}
+
+.inspector-outline-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inspector-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.inspector-group-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 3px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--label-3);
+}
+
+.inspector-group-tokens,
+.inspector-item-tokens {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--label-4);
+}
+
+.inspector-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  padding: 4px 8px 4px 21px;
+  font-size: 12.5px;
+  text-align: left;
+  color: var(--label-2);
+  background: none;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.inspector-item:hover {
+  color: var(--label);
+  background: var(--fill-hover);
+}
+
+.inspector-item[aria-current="true"] {
+  color: var(--label);
+  background: var(--fill-press);
+}
+
+.inspector-item-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.inspector-item-label,
+.inspector-item-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inspector-item-detail {
+  font-size: 11px;
+  color: var(--label-3);
+}

@@ -1,0 +1,112 @@
+/* Context tab: the Decisions section, below Insights. One line per
+   decision; a left rule tells acted, shadow and fallback apart. The Task
+   packet section is at the end. */
+
+.decision-records {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.decision-record {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 8px;
+  border-left: 2px solid var(--tone-working);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.decision-record.tone-shadow {
+  border-left-color: var(--label-4);
+}
+
+.decision-record.tone-fallback {
+  border-left-color: var(--tone-attention);
+}
+
+.decision-record-title {
+  color: var(--label-2);
+  font-weight: 600;
+}
+
+.decision-record-detail,
+.decision-record-why,
+.decision-records-empty {
+  color: var(--label-3);
+}
+
+.decision-records-empty {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+/* The Task packet section, above Decisions (InspectorPacket.svelte): which
+   agent's packet, when it went out, then its parts with why each made it in. */
+.packet-agents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 10px;
+}
+.packet-agent {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 2px 8px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  background: none;
+  color: var(--label-2);
+  font: inherit;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.packet-agent.is-active {
+  border-color: var(--accent-ring);
+  background: var(--accent-soft);
+  color: var(--label);
+}
+.packet-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--label-3);
+}
+.packet-section h4 {
+  margin: 12px 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--label-2);
+}
+.packet-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.packet-section li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 8px;
+}
+.packet-line-text {
+  min-width: 0;
+  color: var(--label);
+}
+.packet-line-why,
+.packet-line-tokens {
+  color: var(--label-3);
+}
+.packet-line-tokens {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}

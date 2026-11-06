@@ -1,0 +1,28 @@
+/* Sidebar footer: Settings and a waiting update. */
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0 0;
+  border-top: 1px solid var(--separator);
+}
+.sidebar-footer > .sidebar-row {
+  flex: 1;
+  min-width: 0;
+}
+.update-pill {
+  flex: none;
+  height: 22px;
+  padding: 0 9px;
+  border: 1px solid var(--blue-ring);
+  border-radius: var(--r-full);
+  background: var(--blue-soft);
+  color: var(--blue);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.update-pill:hover {
+  background: var(--blue-ring);
+}

@@ -1,0 +1,257 @@
+/* The side panel's Plan tab. The plan document (PlanDocument.svelte): what
+   kind of plan it is, the plan itself with its checklist, then the decision
+   while one is pending. With a work plan: the layout (tasks or the
+   document, master-detail when wide), the footer, the change set and the
+   notebook. The header is in plan-head.css; the tree and a task's detail
+   in plan-tree.css. */
+
+.plan-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.plan-view > .empty-state {
+  margin: auto;
+}
+.plan-view.is-embedded {
+  flex: 1 0 auto;
+}
+.plan-view.is-embedded .plan-view-body {
+  overflow: visible;
+}
+
+.plan-work {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.plan-work-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.plan-work-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.plan-work-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 8px 8px 14px;
+}
+.plan-work.is-wide .plan-work-main {
+  flex: 1;
+  flex-direction: row;
+  align-items: stretch;
+}
+.plan-work.is-wide .plan-work-tree {
+  flex: 0 0 min(46%, 380px);
+  border-right: 1px solid var(--separator);
+}
+.plan-work-detail {
+  flex: 1;
+  min-width: 0;
+}
+.plan-work-detail > .task-note {
+  padding: 24px 16px;
+}
+
+.plan-view-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 14px 16px 18px;
+}
+.plan-view-text {
+  min-width: 0;
+}
+.plan-view-editor {
+  flex: 1;
+  min-height: 240px;
+  font-family: var(--font-mono);
+  font-size: var(--text-s);
+}
+.plan-view-todos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--separator);
+}
+.plan-view-heading {
+  margin: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--label-3);
+}
+
+.plan-view-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 12px;
+  border-top: 1px solid var(--separator);
+}
+.plan-view-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.plan-view-feedback {
+  width: 100%;
+  min-height: 64px;
+  padding: 8px 10px;
+  border: 1px solid var(--separator-strong);
+  border-radius: var(--r-s);
+  background: var(--field);
+  color: var(--label);
+  font: inherit;
+  resize: vertical;
+  outline: none;
+}
+.plan-view-feedback:focus {
+  border-color: var(--accent-ring);
+}
+
+.plan-build {
+  display: inline-flex;
+  gap: 1px;
+}
+.plan-build > .btn-accent:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.plan-build > .plan-build-more {
+  padding-inline: 7px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.plan-changeset-line,
+.plan-changeset-reason {
+  margin: 0;
+  font-size: var(--text-s);
+  color: var(--label-2);
+}
+.plan-changeset-line strong {
+  font-weight: var(--weight-semibold);
+  color: var(--tone-attention);
+}
+.plan-changeset-reason {
+  color: var(--label-3);
+}
+.plan-changeset-tasks {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.plan-changeset-task {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  padding: 3px 4px;
+  border: 0;
+  border-radius: var(--r-xs);
+  background: none;
+  color: var(--label);
+  font: inherit;
+  font-size: var(--text-s);
+  text-align: left;
+  cursor: pointer;
+}
+.plan-changeset-task:hover {
+  background: var(--fill-hover);
+}
+.plan-changeset-kind {
+  flex: 0 0 64px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.plan-changeset-kind.is-added,
+.plan-changeset-kind.is-reopened {
+  color: var(--tone-attention);
+}
+.plan-changeset-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-changeset-more {
+  padding: 3px 4px;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+.plan-notebook {
+  padding-top: 8px;
+  border-top: 1px solid var(--separator);
+}
+.plan-notebook-counts {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.plan-notebook-unconfirmed {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  color: var(--tone-attention);
+}
+.plan-notebook .segmented-choice {
+  margin: 8px 0;
+}
+.notebook-entry {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--separator);
+}
+.notebook-entry:last-child {
+  border-bottom: 0;
+}
+.notebook-entry-summary {
+  font-size: var(--text-s);
+}
+.notebook-entry-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.notebook-entry-tag {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+.notebook-entry-facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 10px;
+  margin: 6px 0 0 20px;
+  font-size: var(--text-xs);
+}
+.notebook-entry-facts dt {
+  color: var(--label-3);
+}
+.notebook-entry-facts dd {
+  margin: 0;
+  color: var(--label-2);
+}
+.notebook-entry .task-note {
+  margin: 4px 0 0 20px;
+  font-size: var(--text-xs);
+}

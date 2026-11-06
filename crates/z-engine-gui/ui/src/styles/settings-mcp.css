@@ -1,0 +1,102 @@
+/* ── Settings: MCP servers. Tags are kit pills; Test is a kit button. ── */
+
+.mcp-servers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mcp-server-item {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--separator);
+}
+
+.mcp-server-item:last-child {
+  border-bottom: none;
+}
+
+.mcp-server-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+
+.mcp-server-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.mcp-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.mcp-server-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-xs);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+}
+
+.mcp-server-name {
+  font-size: var(--text-m);
+  font-weight: var(--weight-semibold);
+  color: var(--label);
+}
+
+.mcp-server-cmd {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label-3);
+}
+
+.mcp-server-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.mcp-result-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0 var(--space-4) var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-s);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.mcp-result-banner svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.mcp-result-banner.ok {
+  background: var(--tone-working-soft);
+  border-color: var(--tone-working-ring);
+  color: var(--green);
+}
+
+.mcp-result-banner.err {
+  background: var(--tone-danger-soft);
+  border-color: var(--tone-danger-ring);
+  color: var(--tone-danger-text);
+}

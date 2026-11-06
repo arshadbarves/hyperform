@@ -1,0 +1,1 @@
+The user seems to be correcting you or unhappy with how the work is going. Before any large edit in this turn, restate in one or two sentences what you now understand they want and how you will do it. If anything is still unclear, ask with AskUserQuestion before you edit.

@@ -1,0 +1,27 @@
+[package]
+name = "z-engine-verify"
+description = "Check discovery for any ecosystem, check records, output parsing, freshness, and outcome assessment"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+z-engine-protocol.workspace = true
+z-engine-host.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+thiserror.workspace = true
+regex.workspace = true
+tracing.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+ulid.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

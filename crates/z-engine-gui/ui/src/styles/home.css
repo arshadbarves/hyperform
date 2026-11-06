@@ -1,0 +1,143 @@
+/* The project home: a question, the composer in the middle of the sheet,
+   then starting points and the project's state below. Centred while it
+   fits, scrolling when it does not. It settles in on the smooth spring;
+   its cards are the settings cards' treatment (raised, hairline, r-m). */
+
+.home-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  animation: sheet-in var(--dur-spring-smooth) var(--ease-spring-smooth) backwards;
+}
+/* The pet's hero spot while you are home; the roaming layer fills it. */
+.home-pet {
+  width: 72px;
+  height: 72px;
+}
+.home-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--label-3);
+  font-size: var(--text-s);
+}
+.home-project {
+  color: var(--label-2);
+  font-weight: var(--weight-medium);
+}
+.home-branch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.home-title {
+  margin: 0;
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+}
+.home-empty {
+  margin: auto;
+}
+
+.home-below {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  animation: sheet-in var(--dur-spring-smooth) var(--ease-spring-smooth) 80ms backwards;
+}
+.starter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.starter-chip,
+.starter-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px 0 4px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-full);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+  font: inherit;
+  font-size: var(--text-m);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.starter-chip .starter-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-full);
+}
+.starter-more {
+  padding: 0 12px;
+  border-style: dashed;
+  color: var(--label-3);
+}
+.starter-chip:hover,
+.starter-more:hover {
+  border-color: var(--separator-strong);
+  background: var(--fill-hover);
+  color: var(--label);
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+}
+.home-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--separator);
+  border-radius: var(--r-m);
+  background: var(--raised);
+}
+.home-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.home-card-title {
+  margin: 0;
+  font-size: var(--text-s);
+  font-weight: var(--weight-semibold);
+  color: var(--label-2);
+}
+.home-card-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--label-3);
+  font: inherit;
+  font-size: var(--text-xs);
+}
+.home-card-link:hover {
+  color: var(--label);
+}
+.home-running {
+  color: var(--label-2);
+  font-size: var(--text-xs);
+}
+.home-running::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: var(--r-full);
+  background: var(--label);
+  animation: live-breathe 1.6s var(--ease-inout) infinite;
+}

@@ -1,0 +1,73 @@
+/* ── Settings: where files live (About), and the About links ─────────── */
+
+.path-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--separator);
+}
+
+.path-item-row:last-child {
+  border-bottom: none;
+}
+
+.path-item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--separator);
+  border-radius: var(--r-s);
+  background: var(--fill-quiet);
+  color: var(--label-2);
+}
+
+.path-item-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.path-item-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.path-item-name {
+  font-size: var(--text-m);
+  font-weight: var(--weight-medium);
+  color: var(--label);
+}
+
+.path-item-desc {
+  font-size: var(--text-s);
+  color: var(--label-3);
+}
+
+.path-item-code {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--label-2);
+}
+
+.about-links-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.about-link-ext {
+  color: var(--label-3);
+}
